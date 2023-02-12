@@ -1,4 +1,4 @@
-NAME		:= cub3d
+NAME		:= cub3D
 CFLAGS		:= -Wextra -Wall -Werror
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
