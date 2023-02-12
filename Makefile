@@ -2,13 +2,13 @@ NAME		:= cub3D
 CFLAGS		:= -Wextra -Wall -Werror
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
-LIBMLX		:= ./lib/MLX
+LIBMLX		:= ./lib/MLX42
 LIBFT		:= ./lib/libft
 MLXFLAGS:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -g
 
 HEADERS	:= $(addprefix -I , \
 			  libft \
-			  MLX/include/MLX42)
+			  MLX42/include/MLX42)
 LIBS	:= $(LIBFT)/libft.a $(LIBMLX)/libmlx42.a
 SRCS	:= $(shell find ./srcs -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
@@ -24,10 +24,6 @@ libmlx:
 libft:
 	@echo ======== LIBFT ========
 	@$(MAKE) -C $(LIBFT)
-
-
-%.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(FUNCTIONS_OBJ)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) $(MLXFLAGS) -o $(NAME)
