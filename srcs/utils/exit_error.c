@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 17:26:06 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/12 17:34:44 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/13 18:14:00 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,16 @@ static void	st_write_msg(const char *fn, const char *msg)
  * @param function	(optional) Function where the error was encountered.
  * @param message	(optional) Custom error message to display.
 */
-int	exit_error(const int code, const char *function, const char *message)
+int	logger(const int code, const char *function, const char *message)
 {
 	if (function || message)
 		st_write_msg(function, message);
 	return (code);
+}
+
+int	exit_error(const char *message)
+{
+	if (message)
+		st_write_msg(NULL, message);
+	return (EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 17:04:23 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/12 17:22:08 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/13 18:11:10 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "cub3D.h"
 
-int	parser(int argc, char *argv[]);
+bool	parser(int argc, char *argv[]);
 
 #endif
