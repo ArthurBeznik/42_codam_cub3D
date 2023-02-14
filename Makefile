@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/14 12:45:37 by abeznik       ########   odam.nl          #
+#    Updated: 2023/02/14 12:48:32 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f ./lib/libft/libft.a
+	@rm -f ./libs/libft/libft.a
 
 fsan:
 	$(MAKE) FSAN=1
