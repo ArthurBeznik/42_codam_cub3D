@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/14 11:00:12 by abeznik       ########   odam.nl          #
+#    Updated: 2023/02/14 12:45:37 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a
 
 HEADERS		:= $(addprefix -I , \
 			  ./libs/libft \
-			  ./libs/MLX42MLX42/include/MLX42 \
+			  ./libs/MLX42/include/MLX42 \
 			  ./includes)
 
 SRCS		:= $(shell find ./srcs -iname "*.c")
