@@ -6,11 +6,11 @@
 /*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 17:26:06 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/13 18:14:00 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/14 12:37:31 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
 
 /**
  * Examples:
