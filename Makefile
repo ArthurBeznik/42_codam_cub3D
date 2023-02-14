@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/14 10:43:47 by abeznik       ########   odam.nl          #
+#    Updated: 2023/02/14 11:00:12 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,11 @@ DEF 		:=	\033[0m
 CFLAGS		:= -Wextra -Wall -Wunreachable-code -Ofast -g3 #-Werror
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
+MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -g
 
 LIBMLX		:= ./libs/MLX42
 LIBFT		:= ./libs/libft
-LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a -ldl -lglfw3 -pthread -lm
+LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a
 
 HEADERS		:= $(addprefix -I , \
 			  ./libs/libft \
@@ -46,7 +47,7 @@ libft:
 
 %.o: %.c
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(MLXFLAGS) && printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
