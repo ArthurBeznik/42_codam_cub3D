@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: arthurbeznik <arthurbeznik@student.coda      +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/12 15:05:10 by arthurbezni   #+#    #+#                 */
-/*   Updated: 2023/02/14 14:06:29 by abeznik       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/12 15:05:10 by arthurbezni       #+#    #+#             */
+/*   Updated: 2023/02/15 12:07:15 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "../includes/cub3D.h"
 
 int	main(int argc, char *argv[])
 {
