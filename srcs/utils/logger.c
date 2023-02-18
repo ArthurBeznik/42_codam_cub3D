@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   logger.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/14 13:54:14 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/15 14:55:46 by abeznik       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   logger.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/14 13:54:14 by abeznik           #+#    #+#             */
+/*   Updated: 2023/02/15 17:23:38 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@
 */
 static void	st_write_log(const char *fn, const char *msg)
 {
-	ft_putstr_fd("Error", STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	ft_putchar_fd('\t', STDERR_FILENO);
+	ft_putstr_fd("Error: ", STDERR_FILENO);
 	if (fn)
 	{
+		ft_putstr_fd("in function: ", STDERR_FILENO);
 		ft_putstr_fd(fn, STDERR_FILENO);
 		ft_putstr_fd(": ", STDERR_FILENO);
 	}
