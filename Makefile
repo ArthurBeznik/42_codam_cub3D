@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/14 12:48:32 by abeznik       ########   odam.nl          #
+#    Updated: 2023/02/19 13:15:54 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,9 @@ HEADERS		:= $(addprefix -I , \
 
 SRCS		:= $(shell find ./srcs -iname "*.c")
 OBJS		:= ${SRCS:.c=.o}
+
+DB_MAP		:= scenes/minimalist.cub
+TEST_MAP	:= scenes/minimalist.cub
 
 all: libmlx libft $(NAME)
 
@@ -71,7 +74,10 @@ debug:
 	$(MAKE) DEBUG=1
 
 db: $(NAME)
-	lldb cub3D -- map.cub 
+	lldb cub3D -- $(DB_MAP)
+
+run: $(NAME)
+	./cub3D $(TEST_MAP)
 
 rebug: fclean
 	$(MAKE) debug

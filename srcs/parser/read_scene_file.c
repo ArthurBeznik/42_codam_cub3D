@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:44:48 by edawood           #+#    #+#             */
-/*   Updated: 2023/02/19 14:46:00 by edawood          ###   ########.fr       */
+/*   Updated: 2023/02/19 17:27:53 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,58 @@ char	*read_file(t_file_data *data)
 	return (data->line);
 }
 
-size_t	ft_count_rows(char **scene)
+char	**create_scene_map(t_file_data *data)
 {
-	size_t i;
+	int     i;
+	int     j;
+	char	**map;
 
 	i = 0;
-	while (scene[i])
+	j = 0;
+	map = (char **) malloc(sizeof(char *) * (data->rows_count - 5));
+	if (!map)
+		return (NULL);
+	while (i < data->rows_count)
+	{
+		if (i >= 6)
+		{
+			map[j] = ft_strdup(data->scene[i]);
+			j++;
+		}
 		i++;
-	return (i);
+	}
+	map[j] = NULL;
+	return (map);
 }
 
-void	find_identifier(char *line, t_file_data *data)
-{
-	fprintf(stderr, "find_identifier: %s\n", line);
-}
-
-char	**read_scene_file(char *scene, t_file_data *data)
+bool	read_scene_file(t_file_data *data)
 {
 	int i;
 
+	i = 0;
 	data->scene = ft_split(((const char *)data->line), '\n');
 	data->rows_count = ft_count_rows(data->scene);
 	if (!data->scene)
-		return (NULL);
-	
-	i = 0;
+		return (false);
 	while (i < data->rows_count)
 	{
 		find_identifier(data->scene[i], data);
-		fprintf(stderr, "read_scene_file: %s\n", data->scene[i]);
+		find_colors(data->scene[i], data);
 		i++;
 	}
-	return (data->scene);
+	if (!check_scene_file_order(data))
+	{
+		error_msg("Invalid scene file order");
+		free_2d(data->scene);
+		return (false);
+	}
+	data->map_content = create_scene_map(data);
+	if (!data->map_content)
+	{
+		error_msg("Invalid map");
+		free_2d(data->scene);
+		free_2d(data->map_content);
+		return (false);
+	}
+	return (true);
 }
