@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 16:56:05 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/19 14:34:49 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/19 14:44:50 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,31 @@
 
 void	init_map_file_data(t_file_data *file_data)
 {
-	file_data->map_extention = ".cub";
+	t_identifiers_data	*id_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
+	t_rgb				*rgb_f = (t_rgb *)malloc(sizeof(t_rgb));
+	t_rgb				*rgb_c = (t_rgb *)malloc(sizeof(t_rgb));
+
+	file_data->map_extension = ".cub";
 	file_data->buflen = 1;
 	file_data->fd = 0;
+
+	id_data->north_texture = "./textures/empty.png";
+	id_data->south_texture = "./textures/empty.png";
+	id_data->west_texture = "./textures/empty.png";
+	id_data->east_texture = "./textures/empty.png";
+	
+	rgb_f->red = 220;
+	rgb_f->green = 100;
+	rgb_f->blue = 0;
+
+	rgb_c->red = 225;
+	rgb_c->green = 30;
+	rgb_c->blue = 0;
+
+	id_data->floor = rgb_f;
+	id_data->ceiling = rgb_c;
+
+	file_data->identifiers = id_data;
 }
 
 bool	parser(int argc, char *argv[], t_file_data *file_data)
