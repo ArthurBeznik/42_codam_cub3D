@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 10:54:21 by edawood           #+#    #+#             */
-/*   Updated: 2023/02/19 11:12:58 by edawood          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:26:18 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ bool	check_map(char *file_name, t_file_data *file_data)
     file_data->line = read_file(file_data);
     if (!file_data->line)
         return (logger(EXIT_FAILURE, "check_map", "Error reading scene file"), false);
+    if (!read_scene_file(file_data->line, file_data))
+        return (logger(EXIT_FAILURE, "check_map", "Error spliting scene file"), false);
     return (true);
 }
