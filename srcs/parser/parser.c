@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 16:56:05 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/19 13:30:54 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/19 14:46:27 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ bool	parser(int argc, char *argv[], t_file_data *file_data)
 {
 	init_map_file_data(file_data);
 	if (argc != 2)
-		// return (false);
-		return (!error_msg("Usage: ./cub3D <file_name>.cub"));
+		return (error_msg("Usage: ./cub3D <file_name>.cub"));
 	if (!check_ext(argv[1], file_data->map_extension))
 		return (false);
 	if (!check_map(argv[1], file_data))
