@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: abeznik <abeznik@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/19 13:15:54 by abeznik       ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: edawood <edawood@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/14 10:25:24 by abeznik           #+#    #+#              #
+#    Updated: 2023/02/19 17:33:54 by edawood          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,11 @@ HEADERS		:= $(addprefix -I , \
 			  ./libs/MLX42/include/MLX42 \
 			  ./includes)
 
-SRCS		:= $(shell find ./srcs -iname "*.c")
-OBJS		:= ${SRCS:.c=.o}
+OBJ_DIR		:= objs
+SRC_DIR		:= srcs
+
+SRCS		:= $(shell find srcs -iname "*.c")
+OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 DB_MAP		:= scenes/minimalist.cub
 TEST_MAP	:= scenes/minimalist.cub
@@ -41,28 +44,30 @@ TEST_MAP	:= scenes/minimalist.cub
 all: libmlx libft $(NAME)
 
 libmlx:
-	@echo "\n$(GRN)================ MLX42 ================$(DEF)"
+	@echo "$(GRN)================ MLX42 ================$(DEF)"
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 libft:
 	@echo "\n$(GRN)================ LIBFT ================$(DEF)"
 	@$(MAKE) -C $(LIBFT)
 
-%.o: %.c
-	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(MLXFLAGS) && printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c -o $@ $< $(HEADERS) $(MLXFLAGS)
+	@printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
 
 $(NAME): $(OBJS)
+	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
 	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBMLX)/build clean
 	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f ./libs/libft/libft.a
+	@rm -f ./libss/libft/libft.a
 
 fsan:
 	$(MAKE) FSAN=1
@@ -84,4 +89,4 @@ rebug: fclean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx, libft
+.PHONY: all clean fclean re libmlx libft
