@@ -6,7 +6,7 @@
 #    By: abeznik <abeznik@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/14 12:45:37 by abeznik       ########   odam.nl          #
+#    Updated: 2023/02/19 16:05:19 by abeznik       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,34 +32,42 @@ HEADERS		:= $(addprefix -I , \
 			  ./libs/MLX42/include/MLX42 \
 			  ./includes)
 
-SRCS		:= $(shell find ./srcs -iname "*.c")
-OBJS		:= ${SRCS:.c=.o}
+OBJ_DIR		:= objs
+SRC_DIR		:= srcs
+
+SRCS		:= $(shell find srcs -iname "*.c")
+OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+
+DB_MAP		:= scenes/minimalist.cub
+TEST_MAP	:= scenes/minimalist.cub
 
 all: libmlx libft $(NAME)
 
 libmlx:
-	@echo "\n$(GRN)================ MLX42 ================$(DEF)"
+	@echo "$(GRN)================ MLX42 ================$(DEF)"
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 libft:
 	@echo "\n$(GRN)================ LIBFT ================$(DEF)"
 	@$(MAKE) -C $(LIBFT)
 
-%.o: %.c
-	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(MLXFLAGS) && printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c -o $@ $< $(HEADERS) $(MLXFLAGS)
+	@printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
 
 $(NAME): $(OBJS)
+	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
 	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	@rm -f $(OBJS)
+	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBMLX)/build clean
 	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f ./lib/libft/libft.a
+	@rm -f ./libs/libft/libft.a
 
 fsan:
 	$(MAKE) FSAN=1
@@ -71,11 +79,14 @@ debug:
 	$(MAKE) DEBUG=1
 
 db: $(NAME)
-	lldb cub3D -- map.cub 
+	lldb cub3D -- $(DB_MAP)
+
+run: $(NAME)
+	./cub3D $(TEST_MAP)
 
 rebug: fclean
 	$(MAKE) debug
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx, libft
+.PHONY: all clean fclean re libmlx libft
