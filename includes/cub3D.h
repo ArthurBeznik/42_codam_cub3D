@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 17:05:21 by abeznik           #+#    #+#             */
-/*   Updated: 2023/02/15 17:21:38 by edawood          ###   ########.fr       */
+/*   Updated: 2023/02/19 10:49:52 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 typedef struct file_data
 {
     char    *map_extention;
+    char    *line;
+    int     fd;
+    int     buflen;
 }            t_file_data;
 
 typedef struct s_general_data
