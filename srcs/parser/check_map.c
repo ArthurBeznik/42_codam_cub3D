@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 16:56:05 by abeznik           #+#    #+#             */
-/*   Updated: 2023/02/19 11:28:14 by edawood          ###   ########.fr       */
+/*   Created: 2023/02/19 10:54:21 by edawood           #+#    #+#             */
+/*   Updated: 2023/02/19 11:12:58 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser.h>
 
-void	init_map_file_data(t_file_data *file_data)
+bool	check_map(char *file_name, t_file_data *file_data)
 {
-	file_data->map_extention = ".cub";
-	file_data->buflen = 1;
-	file_data->fd = 0;
-}
-
-bool	parser(int argc, char *argv[], t_file_data *file_data)
-{
-	init_map_file_data(file_data);
-	if (argc != 2)
-		return (false);
-	if (!check_ext(argv[1], file_data))
-		return (false);
-	if (!check_map(argv[1], file_data))
-		return (false);
-	return (true);
+    file_data->fd = open(file_name, O_RDONLY);
+    if (file_data->fd == ERROR)
+        return (logger(EXIT_FAILURE, "check_map", "Error opening file"), false);
+    file_data->line = read_file(file_data);
+    if (!file_data->line)
+        return (logger(EXIT_FAILURE, "check_map", "Error reading scene file"), false);
+    return (true);
 }
