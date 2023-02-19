@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/02/12 17:05:21 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/19 13:42:53 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/19 14:26:25 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_map
 
 typedef struct file_data
 {
-	t_map	*map;
+	t_map	*map_data;
     char    *map_extention;
     char    *line;
     int     fd;
