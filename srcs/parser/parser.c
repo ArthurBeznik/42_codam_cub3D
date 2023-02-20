@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parser.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: edawood <edawood@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/12 16:56:05 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/19 14:46:27 by abeznik       ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/12 16:56:05 by abeznik           #+#    #+#             */
+/*   Updated: 2023/02/19 17:40:27 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,18 @@ void	init_map_file_data(t_file_data *file_data)
 	file_data->map_extension = ".cub";
 	file_data->buflen = 1;
 	file_data->fd = 0;
-
-	id_data->north_texture = "./textures/empty.png";
-	id_data->south_texture = "./textures/empty.png";
-	id_data->west_texture = "./textures/empty.png";
-	id_data->east_texture = "./textures/empty.png";
-	
+	id_data->path_to_north_texture = "./textures/empty.png";
+	id_data->path_to_south_texture = "./textures/empty.png";
+	id_data->path_to_west_texture = "./textures/empty.png";
+	id_data->path_to_east_texture = "./textures/empty.png";
 	rgb_f->red = 220;
 	rgb_f->green = 100;
 	rgb_f->blue = 0;
-
 	rgb_c->red = 225;
 	rgb_c->green = 30;
 	rgb_c->blue = 0;
-
 	id_data->floor = rgb_f;
 	id_data->ceiling = rgb_c;
-
 	file_data->identifiers = id_data;
 }
 

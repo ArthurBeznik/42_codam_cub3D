@@ -6,11 +6,19 @@
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:31:10 by edawood           #+#    #+#             */
-/*   Updated: 2022/10/12 16:48:42 by edawood          ###   ########.fr       */
+/*   Updated: 2023/02/19 15:29:07 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+# include <stdbool.h>
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (true);
+	return (false);
+}
 
 static int	whitespace_checker(char c)
 {
@@ -27,7 +35,7 @@ static int	int_converter(const char *str)
 	int	result;
 
 	if (!ft_isdigit(*str))
-		return (0);
+		return (-1);
 	result = (*str - '0') * -1;
 	str++;
 	while (ft_isdigit(*str))
@@ -36,6 +44,8 @@ static int	int_converter(const char *str)
 		result -= (*str - '0');
 		str++;
 	}
+	if (*str != '\0')
+		return (-1);
 	return (result);
 }
 
