@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 14:35:23 by edawood           #+#    #+#             */
-/*   Updated: 2022/02/03 14:35:31 by edawood          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_split.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: edawood <edawood@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/03 14:35:23 by edawood       #+#    #+#                 */
+/*   Updated: 2023/02/20 10:25:26 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	**ft_split(char const *s, char c)
 	char	**arr;
 	char	*temp;
 
+	// return NULL; // ? testing split failure
 	arr = 0;
 	if (!s)
 		return (NULL);

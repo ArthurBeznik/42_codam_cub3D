@@ -21,6 +21,9 @@ void	free_2d(char **array)
 	return ;
 }
 
+/**
+ * as of now, identifiers has never been init / allocated => this will fail
+*/
 void	find_identifier(char *line, t_file_data *data)
 {
 	if (line[0] == 'N')
@@ -33,6 +36,9 @@ void	find_identifier(char *line, t_file_data *data)
 		data->identifiers->path_to_east_texture = ft_strdup(line);
 }
 
+/**
+ * same for here
+*/
 void	find_colors(char *line, t_file_data *data)
 {
 	if (line[0] == 'F')
@@ -53,14 +59,15 @@ bool	check_scene_file_order(t_file_data *data)
 {
 	int i;
 
+	// return (false); // ? testing failure
 	i = 0;
 	while (i < 6)
 	{
 		if (data->scene[i][0] == '1')
-			return (error_msg("Scene file starts with map content"), false);
+			return (error_msg("Scene file starts with map content"));
 		i++;
 	}
 	if (data->scene[data->rows_count - 1][0] != '1')
-		return (error_msg("Scene file does not end with map content"), false);
+		return (error_msg("Scene file does not end with map content"));
 	return (true);
 }
