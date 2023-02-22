@@ -12,9 +12,7 @@ static bool check_valid_char(char c)
 bool	check_map_content(char **map_content)
 {
 	int x;
-	int x_size;
 	int y;
-	int y_size;
 
 	if (!map_content)
 		return (false);
