@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   run_graphics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/12 15:05:10 by arthurbezni       #+#    #+#             */
-/*   Updated: 2023/02/22 19:14:38 by edawood          ###   ########.fr       */
+/*   Created: 2023/02/22 16:18:49 by edawood           #+#    #+#             */
+/*   Updated: 2023/02/22 16:19:29 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/graphics.h"
+#include <graphics.h>
 
-int	main(int argc, char *argv[])
+bool    run_graphics(t_graphics *graphics)
 {
-	t_graphics	graphics;
-
-	(void)argc;
-	(void)argv;
-	if (!run_graphics(&graphics))
-		return (1);
-	return (0);
+    if (!init_graphics(graphics))
+        return (false);
+    mlx_loop(graphics->mlx);
+    return (true);
 }
