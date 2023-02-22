@@ -30,14 +30,3 @@ bool	check_map_content(char **map_content)
 	}
 	return (true);
 }
-
-/**
- * TODO add these lines in check_map.c after check_identifiers
- */
-// if (!check_map_content(file_data->map_content))
-// 	return (error_msg("Invalid content in map"));
-
-/**
- * TODO add this line in parser.h
- */
-// bool	check_map_content(char **map_content);
