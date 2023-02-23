@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 14:36:11 by edawood           #+#    #+#             */
-/*   Updated: 2022/12/08 15:03:27 by edawood          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strjoin.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: edawood <edawood@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/03 14:36:11 by edawood       #+#    #+#                 */
+/*   Updated: 2023/02/20 10:29:35 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*ft_strjoin(char *str1, char const *str2)
 	str1len = ft_strlen(str1);
 	str2len = ft_strlen(str2);
 	out = ft_calloc((str1len + str2len + 1), sizeof(char));
+	// out = NULL; // ? testing calloc failure => does not segfault
 	if (!out)
 		return (0);
 	ft_strlcpy(out, str1, str1len + 1);

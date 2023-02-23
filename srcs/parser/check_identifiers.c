@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   check_identifiers.c                                :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: abeznik <abeznik@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/02/19 13:23:01 by abeznik       #+#    #+#                 */
-/*   Updated: 2023/02/19 13:30:28 by abeznik       ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <parser.h>
 
@@ -34,19 +23,19 @@ static bool	st_check_colors(t_rgb *colors)
 	return (true);
 }
 
-bool	check_identifiers(t_identifiers_data *id_data,
+bool	check_identifiers(t_identifiers_data *id_data, \
 	char *extension)
 {
 	if (!id_data)
 		return (false);
-	if (!id_data->north_texture || !id_data->south_texture
-		|| !id_data->east_texture || !id_data->west_texture
+	if (!id_data->path_to_north_texture || !id_data->path_to_south_texture \
+		|| !id_data->path_to_east_texture || !id_data->path_to_west_texture \
 		|| !id_data->floor || !id_data->ceiling)
 		return (false);
-	if (!check_ext(id_data->north_texture, extension)
-		|| !check_ext(id_data->south_texture, extension)
-		|| !check_ext(id_data->east_texture, extension)
-		|| !check_ext(id_data->west_texture, extension))
+	if (!check_ext(id_data->path_to_north_texture, extension)
+		|| !check_ext(id_data->path_to_south_texture, extension)
+		|| !check_ext(id_data->path_to_east_texture, extension)
+		|| !check_ext(id_data->path_to_west_texture, extension))
 		return (false);
 	if (!st_check_colors(id_data->floor)
 		|| !st_check_colors(id_data->ceiling))
