@@ -1,48 +1,97 @@
 
 #include <parser.h>
-#include <stdio.h> // ? testing
 
-int		get_size(char **map)
+bool	check_valid_char(char element)
 {
-	int i;
+	if (element != '1' && element != ' ')
+		return (false);
+	return (true);
+}
 
-	i = 0;
-	while (map[i])
+int		get_rows_nb(char **map)
+{
+	int y;
+
+	y = 0;
+	while (map[y])
+		y++;
+	return (y);
+}
+
+bool	check_adjacent_rows(char **map, int columns, int y)
+{
+	int	x;
+
+	x = 1;
+	while (x < columns - 1)
 	{
-		i++;
+		if (!check_valid_char(map[y][x]))
+			return (false);
+		x++;
 	}
-	return (i);
+	return (true);
+}
+
+bool	check_adjacent_columns(char **map, int columns, int y)
+{
+	if (!check_valid_char(map[y][1]) || !check_valid_char(map[y][columns - 2]))
+		return (false);
+	return (true);
+}
+
+bool	check_top_bottom(char **map, int columns, int y)
+{
+	int	x;
+
+	x = 0;
+	while (x < columns)
+	{
+		if (!check_valid_char(map[y][x]))
+			return (false);
+		x++;
+	}
+	return (true);
+}
+
+bool	check_left_right(char **map, int columns, int y)
+{
+	if (!check_valid_char(map[y][0]) || !check_valid_char(map[y][columns - 1]))
+		return (false);
+	return (true);
 }
 
 bool	check_walls(char **map_content)
 {
-	int x;
-	int y;
-	int	line_len;
-	int	y_size;
+	int	rows;
+	int	columns;
+	int	y;
+	int	x;
 
-	y_size = get_size(map_content);
-	// printf("map size: %d\n", y_size); // ? testing
+	if (!map_content)
+		return (false);
+	rows = get_rows_nb(map_content);
 	y = 0;
-	while (map_content[y])
+	while (y < rows - 1)
 	{
-		line_len = ft_strlen(map_content[y]);
-		// printf("line_len: %d\n", line_len); // ? testing
-		x = 0;
-		while (map_content[y][x])
+		columns = ft_strlen(map_content[y]);
+		if (y == 0 || y == rows - 1) 
 		{
-			// printf("char: %c\n", map_content[y][x]);
-			if (y == 0 && (map_content[y][x] != '1' && map_content[y][x] != ' ')) // first line
+			if (!check_top_bottom(map_content, columns, y))
 				return (false);
-			else if (map_content[y][0] != '1' && map_content[y][line_len - 1] != '1') // other lines
+		}
+		else if (y == 1 || y == rows - 2)
+		{
+			if (!check_adjacent_rows(map_content, columns, y))
 				return (false);
-			else if (y == y_size - 1 && (map_content[y][x] != '1' && map_content[y][x] != ' ')) // last line
+		}
+		else
+		{
+			if (!check_left_right(map_content, columns, y))
 				return (false);
-			x++;
+			if (!check_adjacent_columns(map_content, columns, rows))
+				return (false);
 		}
 		y++;
 	}
 	return (true);
 }
-
-

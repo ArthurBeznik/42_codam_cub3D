@@ -73,11 +73,11 @@ bool	read_scene_file(t_file_data *data)
 		find_colors(data->scene[i], data);
 		i++;
 	}
-	if (!check_scene_file_order(data))
-	{
-		free_2d(data->scene);
-		return (error_msg("Invalid scene file order"));
-	}
+	// if (!check_scene_file_order(data))
+	// {
+	// 	free_2d(data->scene);
+	// 	return (error_msg("Invalid scene file order"));
+	// }
 	data->map_content = create_scene_map(data);
 	if (!data->map_content)
 	{
