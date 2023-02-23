@@ -15,5 +15,7 @@ bool	check_map(char *file_name, t_file_data *file_data)
 		return (error_msg("Invalid identifiers"));
 	if (!check_map_content(file_data->map_content))
 		return (error_msg("Invalid content in map"));
+	if (!check_walls(file_data->map_content))
+		return (error_msg("Surrounding walls required"));
 	return (true);
 }

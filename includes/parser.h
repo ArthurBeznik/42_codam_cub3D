@@ -23,5 +23,6 @@ void	free_2d(char **array);
 size_t	ft_count_rows(char **scene);
 bool	check_identifiers(t_identifiers_data *id_data, char *extension);
 bool	check_map_content(char **map_content);
+bool	check_walls(char **map_content);
 
 #endif

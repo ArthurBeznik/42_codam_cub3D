@@ -1,6 +1,6 @@
 
 #include <parser.h>
-#include <stdio.h>
+#include <stdio.h> // ? testing
 
 int		get_size(char **map)
 {
@@ -45,14 +45,4 @@ bool	check_walls(char **map_content)
 	return (true);
 }
 
-/**
- * TODO add these lines after check_map_content in check_map.c
-*/
-// if (!check_walls(file_data->map_content))
-// 	return (error_msg("Surrounding walls required"));
-
-/**
- * TODO add this line in parser.h
-*/
-// bool	check_walls(char **map_content);
 
