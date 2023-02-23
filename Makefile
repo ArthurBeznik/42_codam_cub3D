@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: abeznik <abeznik@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/19 16:05:19 by abeznik       ########   odam.nl          #
-#                                                                              #
-# **************************************************************************** #
 
 NAME		:= cub3D
 
@@ -67,7 +56,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f ./libs/libft/libft.a
+	@rm -f $(LIBFT)/libft.a
 
 fsan:
 	$(MAKE) FSAN=1
