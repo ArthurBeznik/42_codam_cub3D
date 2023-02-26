@@ -16,6 +16,7 @@ char *read_file(t_file_data *data)
 	while (data->buflen > 0)
 	{
 		data->buflen = read(data->fd, buf, BUFFER_SIZE);
+		buf[data->buflen] = '\0';
 		if (data->buflen == -1)
 		{
 			free(data->line);
