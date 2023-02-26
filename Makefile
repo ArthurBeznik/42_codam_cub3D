@@ -28,7 +28,8 @@ SRC_DIR		:= srcs
 SRCS		:= $(shell find srcs -iname "*.c")
 OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-DB_MAP		:= scenes/moore.cub
+# DB_MAP		:= scenes/moore.cub
+DB_MAP		:= scenes/minimalist.cub
 TEST_MAP	:= scenes/minimalist.cub
 
 all: libmlx libft $(NAME)

@@ -1,14 +1,7 @@
 
 #include <parser.h>
 
-bool	check_valid_char(char element)
-{
-	if (element != '1' && element != ' ')
-		return (false);
-	return (true);
-}
-
-int		get_rows_nb(char **map)
+int get_nb_rows(char **map)
 {
 	int y;
 
@@ -18,80 +11,61 @@ int		get_rows_nb(char **map)
 	return (y);
 }
 
-bool	check_adjacent_rows(char **map, int columns, int y)
+bool is_player(char c)
 {
-	int	x;
-
-	x = 1;
-	while (x < columns - 1)
-	{
-		if (!check_valid_char(map[y][x]))
-			return (false);
-		x++;
-	}
-	return (true);
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (true);
+	return (false);
 }
 
-bool	check_adjacent_columns(char **map, int columns, int y)
+int find_player(char **map, int xy)
 {
-	if (!check_valid_char(map[y][1]) || !check_valid_char(map[y][columns - 2]))
-		return (false);
-	return (true);
-}
+	int x;
+	int y;
 
-bool	check_top_bottom(char **map, int columns, int y)
-{
-	int	x;
-
-	x = 0;
-	while (x < columns)
-	{
-		if (!check_valid_char(map[y][x]))
-			return (false);
-		x++;
-	}
-	return (true);
-}
-
-bool	check_left_right(char **map, int columns, int y)
-{
-	if (!check_valid_char(map[y][0]) || !check_valid_char(map[y][columns - 1]))
-		return (false);
-	return (true);
-}
-
-bool	check_walls(char **map_content)
-{
-	int	rows;
-	int	columns;
-	int	y;
-	int	x;
-
-	if (!map_content)
-		return (false);
-	rows = get_rows_nb(map_content);
 	y = 0;
-	while (y < rows - 1)
+	while (map[y])
 	{
-		columns = ft_strlen(map_content[y]);
-		if (y == 0 || y == rows - 1) 
+		x = 0;
+		while (map[y][x])
 		{
-			if (!check_top_bottom(map_content, columns, y))
-				return (false);
-		}
-		else if (y == 1 || y == rows - 2)
-		{
-			if (!check_adjacent_rows(map_content, columns, y))
-				return (false);
-		}
-		else
-		{
-			if (!check_left_right(map_content, columns, y))
-				return (false);
-			if (!check_adjacent_columns(map_content, columns, rows))
-				return (false);
+			if (is_player(map[y][x]))
+			{
+				if (xy == Y)
+					return (xy = y);
+				if (xy == X)
+					return (xy = x);
+			}
+			x++;
 		}
 		y++;
 	}
+	return (-1);
+}
+
+bool check_walls(char **map_content)
+{
+	int rows;
+	int player_x;
+	int player_y;
+	bool is_enclosed;
+
+	if (!map_content)
+		return (false);
+	rows = get_nb_rows(map_content);
+	// rows = 0; // ? testing
+	if (rows <= 0)
+		return (error_msg("Getting nb of rows"));
+	player_x = find_player(map_content, X);
+	player_y = find_player(map_content, Y);
+	// printf("[x, y] = [%d, %d]\n", player_x, player_y); // ? testing
+	// player_x = -1; // ? testing
+	// player_y = -1; // ? testing
+	if (player_x == -1 || player_y == -1)
+		return (error_msg("Finding player position"));
+	is_enclosed = true;
+	flood_fill(player_y, player_x, map_content, &is_enclosed, rows);
+	if (!is_enclosed)
+		return (false);
 	return (true);
 }
