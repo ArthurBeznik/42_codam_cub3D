@@ -1,9 +1,9 @@
 
 #include <parser.h>
 
-int get_nb_rows(char **map)
+static int	get_nb_rows(char **map)
 {
-	int y;
+	int	y;
 
 	y = 0;
 	while (map[y])
@@ -11,17 +11,17 @@ int get_nb_rows(char **map)
 	return (y);
 }
 
-bool is_player(char c)
+static bool	is_player(char c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }
 
-int find_player(char **map, int xy)
+static int	find_player(char **map, int xy)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (map[y])
@@ -43,12 +43,12 @@ int find_player(char **map, int xy)
 	return (-1);
 }
 
-bool check_walls(char **map_content)
+bool	check_walls(char **map_content)
 {
-	int rows;
-	int player_x;
-	int player_y;
-	bool is_enclosed;
+	int		rows;
+	int		player_x;
+	int		player_y;
+	bool	is_enclosed;
 
 	if (!map_content)
 		return (false);
