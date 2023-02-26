@@ -21,9 +21,6 @@ void	free_2d(char **array)
 	return ;
 }
 
-/**
- * as of now, identifiers has never been init / allocated => this will fail
-*/
 void	find_identifier(char *line, t_file_data *data)
 {
 	if (line[0] == 'N')
@@ -36,58 +33,58 @@ void	find_identifier(char *line, t_file_data *data)
 		data->identifiers->path_to_east_texture = ft_strdup(line);
 }
 
-/**
- * same for here
-*/
-void	find_floor_colors(char *line, t_file_data *data)
+void	save_values(t_file_data *data, char **rgb_values, int id)
 {
-	char **spliting_F;
-	char **spliting_comma;
-
-	if (line[0] == 'F' && line[1] == ' ')
+	if (id == 0)
 	{
-		spliting_F = ft_split(line, 'F');
-		if (!spliting_F)
-			return ;
-		spliting_comma = ft_split(spliting_F[0], ',');
-		if (!spliting_comma)
-			return ;
-		data->identifiers->floor->red = ft_atoi(spliting_comma[0]);
-		data->identifiers->floor->green = ft_atoi(spliting_comma[1]);
-		data->identifiers->floor->blue = ft_atoi(spliting_comma[2]);
-		if (data->identifiers->floor->red == ERROR || data->identifiers->floor->green == ERROR \
+		data->identifiers->floor->red = ft_atoi(rgb_values[0]);
+		data->identifiers->floor->green = ft_atoi(rgb_values[1]);
+		data->identifiers->floor->blue = ft_atoi(rgb_values[2]);
+		if (data->identifiers->floor->red == ERROR
+			|| data->identifiers->floor->green == ERROR
 			|| data->identifiers->floor->blue == ERROR)
+			{
+				free_2d(rgb_values);
+				return ;
+			}
+	}
+	else if (id == 1)
+	{
+		data->identifiers->ceiling->red = ft_atoi(rgb_values[0]);
+		data->identifiers->ceiling->green = ft_atoi(rgb_values[1]);
+		data->identifiers->ceiling->blue = ft_atoi(rgb_values[2]);
+		if (data->identifiers->ceiling->red == ERROR
+			|| data->identifiers->ceiling->green == ERROR
+			|| data->identifiers->ceiling->blue == ERROR)
 		{
-			free_2d(spliting_F);
+			free_2d(rgb_values);
 			return ;
 		}
-		free_2d(spliting_F);
 	}
 }
 
-void	find_ceiling_colors(char *line, t_file_data *data)
+void	find_colors(char *line, t_file_data *data)
 {
-	char **spliting_C;
-	char **spliting_commda;
+	char *line_without_id;
+	char **rgb_values;
 
-	if (line[0] == 'C' && line[1] == ' ')
+	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
-		spliting_C = ft_split(line, 'C');
-		if (!spliting_C)
+		line_without_id = ft_substr(line, 2, ft_strlen(line - 2));
+		if (!line_without_id)
 			return ;
-		spliting_commda = ft_split(spliting_C[0], ',');
-		if (!spliting_commda)
-			return ;
-		data->identifiers->ceiling->red = ft_atoi(spliting_commda[0]);
-		data->identifiers->ceiling->green = ft_atoi(spliting_commda[1]);
-		data->identifiers->ceiling->blue = ft_atoi(spliting_commda[2]);
-		if (data->identifiers->ceiling->red == ERROR || data->identifiers->ceiling->green == ERROR \
-			|| data->identifiers->ceiling->blue == ERROR)
+		rgb_values = ft_split(line_without_id, ',');
+		if (!rgb_values)
 		{
-			free_2d(spliting_C);
+			free(line_without_id);
 			return ;
 		}
-		free_2d(spliting_C);
+		if (line[0] == 'F')
+			save_values(data, rgb_values, 0);
+		else if (line[0] == 'C')
+			save_values(data, rgb_values, 1);
+		free(line_without_id);
+		free_2d(rgb_values);
 	}
 }
 

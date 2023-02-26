@@ -71,8 +71,7 @@ bool	read_scene_file(t_file_data *data)
 	while (i < data->rows_count)
 	{
 		find_identifier(data->scene[i], data);
-		find_floor_colors(data->scene[i], data);
-		find_ceiling_colors(data->scene[i], data);
+		find_colors(data->scene[i], data);
 		i++;
 	}
 	if (!check_scene_file_order(data))
