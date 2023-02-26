@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: abeznik <abeznik@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/02/14 10:25:24 by abeznik       #+#    #+#                  #
-#    Updated: 2023/02/14 12:45:37 by abeznik       ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: edawood <edawood@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/14 10:25:24 by abeznik           #+#    #+#              #
+#    Updated: 2023/02/22 19:31:58 by edawood          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ DEF 		:=	\033[0m
 CFLAGS		:= -Wextra -Wall -Wunreachable-code -Ofast -g3 #-Werror
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
-MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -g
+MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 
 LIBMLX		:= ./libs/MLX42
 LIBFT		:= ./libs/libft
@@ -47,10 +47,10 @@ libft:
 
 %.o: %.c
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) $(MLXFLAGS) && printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -f $(OBJS)
