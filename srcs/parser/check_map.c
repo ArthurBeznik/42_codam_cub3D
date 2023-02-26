@@ -1,5 +1,26 @@
 
 #include <parser.h>
+#include <stdio.h>
+
+void	print_map(char **map)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			printf("%c ", map[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+	printf("\n");
+}
 
 bool	check_map(char *file_name, t_file_data *file_data)
 {
@@ -15,5 +36,9 @@ bool	check_map(char *file_name, t_file_data *file_data)
 		return (error_msg("Invalid identifiers"));
 	if (!check_map_content(file_data->map_content))
 		return (error_msg("Invalid content in map"));
+	// print_map(file_data->map_content); // ? testing
+	if (!check_walls(file_data->map_content))
+		return (error_msg("Surrounding walls required"));
+	// print_map(file_data->map_content); // ? testing
 	return (true);
 }
