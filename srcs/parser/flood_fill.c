@@ -6,7 +6,7 @@ bool is_valid(int y, int x, char **map, int rows)
 	int cols;
 	
 	cols = ft_strlen(map[y]);
-	if (y >= 0 && y < rows && x >= 0 && x < cols && map[y][x] == '0')
+	if (y >= 0 && y < rows && x >= 0 && x < cols && (map[y][x] == '0' || map[y][x] == ' '))
 		return (true);
 	return (false);
 }
@@ -16,7 +16,7 @@ void flood_fill(int y, int x, char **map, bool *is_enclosed, int rows)
 	int cols;
 	
 	cols = ft_strlen(map[y]);
-	if (y == 0 || y == rows - 1 || x == 0 || x == cols - 1 || map[y][x] == '1')
+	if (y == 0 || y == rows - 1 || x == 0 || x == cols - 1)
 	{
 		*is_enclosed = false;
 		return ;
