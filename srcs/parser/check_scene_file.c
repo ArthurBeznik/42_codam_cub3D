@@ -39,19 +39,55 @@ void	find_identifier(char *line, t_file_data *data)
 /**
  * same for here
 */
-void	find_colors(char *line, t_file_data *data)
+void	find_floor_colors(char *line, t_file_data *data)
 {
-	if (line[0] == 'F')
+	char **spliting_F;
+	char **spliting_comma;
+
+	if (line[0] == 'F' && line[1] == ' ')
 	{
-		data->identifiers->floor->red = ft_atoi(line + 1);
-		data->identifiers->floor->green = ft_atoi(line + 3);
-		data->identifiers->floor->blue = ft_atoi(line + 5);
+		spliting_F = ft_split(line, 'F');
+		if (!spliting_F)
+			return ;
+		spliting_comma = ft_split(spliting_F[0], ',');
+		if (!spliting_comma)
+			return ;
+		data->identifiers->floor->red = ft_atoi(spliting_comma[0]);
+		data->identifiers->floor->green = ft_atoi(spliting_comma[1]);
+		data->identifiers->floor->blue = ft_atoi(spliting_comma[2]);
+		if (data->identifiers->floor->red == ERROR || data->identifiers->floor->green == ERROR \
+			|| data->identifiers->floor->blue == ERROR)
+		{
+			free_2d(spliting_F);
+			return ;
+		}
+		free_2d(spliting_F);
 	}
-	else if (line[0] == 'C')
+}
+
+void	find_ceiling_colors(char *line, t_file_data *data)
+{
+	char **spliting_C;
+	char **spliting_commda;
+
+	if (line[0] == 'C' && line[1] == ' ')
 	{
-		data->identifiers->ceiling->red = ft_atoi(line + 1);
-		data->identifiers->ceiling->green = ft_atoi(line + 3);
-		data->identifiers->ceiling->blue = ft_atoi(line + 5);
+		spliting_C = ft_split(line, 'C');
+		if (!spliting_C)
+			return ;
+		spliting_commda = ft_split(spliting_C[0], ',');
+		if (!spliting_commda)
+			return ;
+		data->identifiers->ceiling->red = ft_atoi(spliting_commda[0]);
+		data->identifiers->ceiling->green = ft_atoi(spliting_commda[1]);
+		data->identifiers->ceiling->blue = ft_atoi(spliting_commda[2]);
+		if (data->identifiers->ceiling->red == ERROR || data->identifiers->ceiling->green == ERROR \
+			|| data->identifiers->ceiling->blue == ERROR)
+		{
+			free_2d(spliting_C);
+			return ;
+		}
+		free_2d(spliting_C);
 	}
 }
 
