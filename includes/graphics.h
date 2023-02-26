@@ -15,10 +15,10 @@ typedef enum mlx_images
 {
     IMG_FLOOR,
     IMG_CEILING,
-    IMG_WALL,
+    WALL,
     IMG_SPRITE,
     BG,
-    IMG_PLAYER,
+    PLAYER,
     IMG_COUNT
 }               t_mlx_images;
 
