@@ -6,7 +6,8 @@ bool is_valid(int y, int x, char **map, int rows)
 	int cols;
 	
 	cols = ft_strlen(map[y]);
-	if (y >= 0 && y < rows && x >= 0 && x < cols && (map[y][x] == '0' || map[y][x] == ' '))
+	if (y >= 0 && y < rows && x >= 0 && x < cols
+		&& (map[y][x] == '0' || map[y][x] == ' '))
 		return (true);
 	return (false);
 }

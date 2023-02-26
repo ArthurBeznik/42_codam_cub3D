@@ -16,14 +16,7 @@ char *read_file(t_file_data *data)
 	while (data->buflen > 0)
 	{
 		data->buflen = read(data->fd, buf, BUFFER_SIZE);
-		/**
-		 * this missinng line was causing the infamous bug 
-		 * that added extra lines...
-		*/
 		buf[data->buflen] = '\0';
-		/**
-		 * NULL-term your shit bruv
-		*/
 		if (data->buflen == -1)
 		{
 			free(data->line);
