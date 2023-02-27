@@ -1,4 +1,3 @@
-
 #include <graphics.h>
 
 void	terminate(t_graphics *graphics)
