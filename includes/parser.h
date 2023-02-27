@@ -48,6 +48,7 @@ typedef struct s_file_data
 {
 	char				*map_extension;
 	char				**scene;
+	t_map_data			*map_data;
 	char				**map_content;
 	size_t				rows_count;
 	char				*line;
