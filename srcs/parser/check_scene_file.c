@@ -23,19 +23,28 @@ void	free_2d(char **array)
 
 void	find_identifier(char *line, t_file_data *data)
 {
-	if (line[0] == 'N')
-		data->identifiers->path_to_north_texture = ft_strdup(line);
-	else if (line[0] == 'S')
-		data->identifiers->path_to_south_texture = ft_strdup(line);
-	else if (line[0] == 'W')
-		data->identifiers->path_to_west_texture = ft_strdup(line);
-	else if (line[0] == 'E')
-		data->identifiers->path_to_east_texture = ft_strdup(line);
+	char **tmp;
+
+	tmp = ft_split(line, ' ');
+	if (ft_strlen(tmp[0]) > 2)
+	{
+		free_2d(tmp);
+		return ;
+	}
+	if (tmp[0][0] == 'N' || !ft_strncmp("NO", tmp[0], 2))
+		data->identifiers->path_to_north_texture = ft_strdup(tmp[1]);
+	else if (tmp[0][0] == 'S' || !ft_strncmp("SO", tmp[0], 2))
+		data->identifiers->path_to_south_texture = ft_strdup(tmp[1]);
+	else if (tmp[0][0] == 'W' || !ft_strncmp("WE", tmp[0], 2))
+		data->identifiers->path_to_west_texture = ft_strdup(tmp[1]);
+	else if (tmp[0][0] == 'E' || !ft_strncmp("EA", tmp[0], 2))
+		data->identifiers->path_to_east_texture = ft_strdup(tmp[1]);
+	free_2d(tmp);
 }
 
-void	save_values(t_file_data *data, char **rgb_values, int id)
+void	save_values(t_file_data *data, char **rgb_values, char c)
 {
-	if (id == 0)
+	if (c == 'F')
 	{
 		data->identifiers->floor->red = ft_atoi(rgb_values[0]);
 		data->identifiers->floor->green = ft_atoi(rgb_values[1]);
@@ -48,7 +57,7 @@ void	save_values(t_file_data *data, char **rgb_values, int id)
 				return ;
 			}
 	}
-	else if (id == 1)
+	else if (c == 'C')
 	{
 		data->identifiers->ceiling->red = ft_atoi(rgb_values[0]);
 		data->identifiers->ceiling->green = ft_atoi(rgb_values[1]);
@@ -79,10 +88,7 @@ void	find_colors(char *line, t_file_data *data)
 			free(line_without_id);
 			return ;
 		}
-		if (line[0] == 'F')
-			save_values(data, rgb_values, 0);
-		else if (line[0] == 'C')
-			save_values(data, rgb_values, 1);
+		save_values(data, rgb_values, line[0]);
 		free(line_without_id);
 		free_2d(rgb_values);
 	}
