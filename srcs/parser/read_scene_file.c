@@ -34,9 +34,15 @@ char *read_scene_file(t_file_data *data)
 			return (NULL);
 		}
 		data->line = ft_strdup(tmp);
+		// data->line = NULL; // ? testing
+		if (!data->line)
+		{
+			free(buf);
+			free(tmp);
+			return (NULL);
+		}
 		free(tmp);
 	}
-	// free(tmp);
 	free(buf);
 	close(data->fd);
 	return (data->line);

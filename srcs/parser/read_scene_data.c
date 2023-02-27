@@ -10,7 +10,7 @@ char	**create_map(t_file_data *data)
 	i = 0;
 	j = 0;
 	map = (char **)malloc(sizeof(char *) * (data->rows_count - 5));
-	// map = NULL; // ? testing malloc failure =>  => does not segfault
+	// map = NULL; // ? testing
 	if (!map)
 		return (NULL);
 	while (i < data->rows_count)
@@ -18,6 +18,7 @@ char	**create_map(t_file_data *data)
 		if (i >= 6)
 		{
 			map[j] = ft_strdup(data->scene[i]);
+			// map[j] = NULL; // ? testing
 			if (!map[j])
 			{
 				free_2d(map);
@@ -37,12 +38,11 @@ bool	read_scene_data(t_file_data *data)
 
 	i = 0;
 	data->scene = ft_split(((const char *)data->line), '\n');
-	// free(data->line);
-	// data->scene = NULL; // ? testing split failure  => does not segfault
+	// data->scene = NULL; // ? testing
 	if (!data->scene)
 		return (error_msg("Split to scene"));
 	data->rows_count = ft_count_rows(data->scene);
-	// data->rows_count = NULL; // ? testing count_rows failure  => does not segfault
+	// data->rows_count = NULL; // ? testing
 	if (!data->rows_count)
 	{
 		free_2d(data->scene);
@@ -60,6 +60,7 @@ bool	read_scene_data(t_file_data *data)
 		return (error_msg("Invalid scene file order"));
 	}
 	data->map_content = create_map(data);
+	// data->map_content = NULL; // ? testing
 	if (!data->map_content)
 	{
 		free_2d(data->scene);
@@ -67,6 +68,5 @@ bool	read_scene_data(t_file_data *data)
 	}
 	free_2d(data->scene);
 	// system("leaks cub3D"); // ? testing
-	// free(data->line);
 	return (true);
 }

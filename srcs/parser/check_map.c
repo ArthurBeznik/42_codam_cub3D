@@ -13,7 +13,6 @@ bool	check_map(char *file_name, t_file_data *file_data)
 	// file_data->line = NULL; // ? testing
 	if (!file_data->line)
 		return (error_msg("Reading scene file"));
-	// free(file_data->line); // ? testing
 	if (!read_scene_data(file_data))
 		return (error_msg("Parsing scene file data"));
 	if (!check_identifiers(file_data->identifiers, ".png"))

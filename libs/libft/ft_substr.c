@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 14:37:13 by edawood           #+#    #+#             */
-/*   Updated: 2022/02/03 14:37:14 by edawood          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_substr.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: edawood <edawood@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/03 14:37:13 by edawood       #+#    #+#                 */
+/*   Updated: 2023/02/27 15:49:10 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (len > s_len_from_start)
 		len = s_len_from_start;
 	sub = ft_calloc(((int)len + 1), sizeof(char));
+	// sub = NULL; // ? testing
 	if (!(sub) || sub == 0)
 		return (0);
 	ft_strlcpy(sub, s, len + 1);

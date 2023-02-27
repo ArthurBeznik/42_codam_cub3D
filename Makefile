@@ -72,7 +72,7 @@ debug:
 db: $(NAME)
 	lldb cub3D -- $(DB_MAP)
 
-run: $(NAME)
+run: re
 	./cub3D $(TEST_MAP)
 
 rebug: fclean

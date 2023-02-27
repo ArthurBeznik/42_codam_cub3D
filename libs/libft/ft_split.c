@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 14:35:23 by edawood       #+#    #+#                 */
-/*   Updated: 2023/02/20 10:25:26 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/27 15:44:00 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	**ft_split(char const *s, char c)
 	char	**arr;
 	char	*temp;
 
-	// return NULL; // ? testing split failure
 	arr = 0;
 	if (!s)
 		return (NULL);
@@ -98,6 +97,7 @@ char	**ft_split(char const *s, char c)
 		if (*s == 0)
 			break ;
 		temp = ft_calloc((len(0, s, c) + 1), sizeof(char));
+		// temp = NULL; // ? testing
 		if (!temp)
 			return (NULL);
 		ft_memcpy(temp, (void *)s, len(0, s, c));
