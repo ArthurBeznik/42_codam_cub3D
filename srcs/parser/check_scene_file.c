@@ -79,7 +79,7 @@ void	find_colors(char *line, t_file_data *data)
 
 	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
-		line_without_id = ft_substr(line, 2, ft_strlen(line - 2));
+		line_without_id = ft_substr(line, 1, ft_strlen(line));
 		if (!line_without_id)
 			return ;
 		rgb_values = ft_split(line_without_id, ',');
