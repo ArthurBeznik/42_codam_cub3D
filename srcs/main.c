@@ -1,5 +1,5 @@
-
 #include "../includes/graphics.h"
+
 
 int	main(int argc, char *argv[])
 {
