@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:31:10 by edawood           #+#    #+#             */
-/*   Updated: 2023/02/19 15:29:07 by edawood          ###   ########.fr       */
+/*   Updated: 2023/02/26 16:49:10 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	int_converter(const char *str)
 int	ft_atoi(const char *str)
 {
 	int	min;
+	int	result;
 
 	min = -1;
 	while (whitespace_checker(*str))
@@ -62,5 +63,9 @@ int	ft_atoi(const char *str)
 			min = 1;
 		str++;
 	}
-	return (int_converter(str) * min);
+	result = int_converter(str);
+	if (result == -1)
+		return(-1);
+	else
+		return (int_converter(str) * min);
 }
