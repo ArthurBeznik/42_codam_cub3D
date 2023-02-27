@@ -11,7 +11,7 @@ DEF 		:=	\033[0m
 CFLAGS		:= -g3 
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
-MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit -g
+MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 
 LIBMLX		:= ./libs/MLX42
 LIBFT		:= ./libs/libft
@@ -44,12 +44,12 @@ libft:
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c -o $@ $< $(HEADERS) $(MLXFLAGS)
+	@$(CC) $(CFLAGS) -c -o $@ $< $(HEADERS)
 	@printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
 
 $(NAME): $(OBJS)
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
