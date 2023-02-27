@@ -1,4 +1,3 @@
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -9,48 +8,16 @@
 # include <fcntl.h>
 # include <libft.h>
 # include <MLX42.h>
-
-typedef struct s_rgb
-{
-	int	red;
-	int	green;
-	int	blue;
-}	t_rgb;
-
-typedef struct s_identifiers_data
-{
-	char	*path_to_north_texture;
-	char	*path_to_south_texture;
-	char	*path_to_west_texture;
-	char	*path_to_east_texture;
-	t_rgb	*floor;
-	t_rgb	*ceiling;
-
-}	t_identifiers_data;
-
-typedef struct s_file_data
-{
-    char    *map_extension;
-	char    **scene;
-	char	**map_content;
-	size_t	rows_count;
-    char    *line;
-    int     fd;
-    int     buflen;
-	t_identifiers_data	*identifiers;
-}            t_file_data;
+# include <utils.h>
+# include "parser.h"
+# include "graphics.h"
 
 typedef struct s_general_data
 {
-	t_file_data	*file_data;
+	struct s_file_data		*file_data;
+	struct s_graphics		*graphics;
 }	t_general_data;
 
-/**
- * ? this causes a norminette error => includes should be at the beginning
-*/
-# include <utils.h>
-# include <parser.h>
-
-int	main(int argc, char *argv[]);
+int		main(int argc, char *argv[]);
 
 #endif
