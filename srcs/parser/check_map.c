@@ -17,10 +17,10 @@ bool	check_map(char *file_name, t_file_data *file_data)
 		return (error_msg("Parsing scene file data"));
 	if (!check_identifiers(file_data->identifiers, ".png"))
 		return (error_msg("Invalid identifiers"));
-	if (!check_map_content(file_data->map_content))
+	if (!check_map_content(file_data->map_data->map))
 		return (error_msg("Invalid content in map"));
 	// print_map(file_data->map_content); // ? testing
-	if (!check_walls(file_data->map_content))
+	if (!check_walls(file_data->map_data))
 		return (error_msg("Surrounding walls required"));
 	// print_map(file_data->map_content); // ? testing
 	// system("leaks cub3D"); // ? testing

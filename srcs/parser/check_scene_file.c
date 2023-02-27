@@ -1,31 +1,6 @@
 
 #include <parser.h>
 
-size_t	ft_count_rows(char **scene)
-{
-	size_t i;
-
-	i = 0;
-	while (scene[i])
-		i++;
-	return (i);
-}
-
-void	free_2d(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		if (array[i] != NULL)
-			free(array[i]);
-		i++;
-	}
-	free(array);
-	return ;
-}
-
 void	find_identifier(char *line, t_file_data *data)
 {
 	char **tmp;
@@ -109,7 +84,7 @@ bool	check_scene_file_order(t_file_data *data)
 			return (error_msg("Scene file starts with map content"));
 		i++;
 	}
-	if (data->scene[data->rows_count - 1][0] != '1')
+	if (data->scene[data->map_data->rows_count - 1][0] != '1')
 		return (error_msg("Scene file does not end with map content"));
 	return (true);
 }
