@@ -6,8 +6,8 @@
 # include <libft.h>
 
 # define PIXELS 64
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1920 // will be removed once we have a row length
+# define HEIGHT 1080 // will be removed once we have rows count
 # define PI 3.14159265358979323846
 # define ERROR -1
 
@@ -41,5 +41,6 @@ void	terminate(t_graphics *graphics);
 bool    loading_images(mlx_texture_t **textures);
 bool    texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
                                                     mlx_image_t **image);
+void	hook(void *param);
 
 #endif
