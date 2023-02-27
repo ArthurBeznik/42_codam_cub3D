@@ -15,7 +15,7 @@ bool	init_mlx(t_graphics *graphics)
 	return (true);
 }
 
-bool	init_graphics(t_graphics *graphics)
+bool	init_graphics(t_general_data *data, t_graphics *graphics)
 {
 	graphics->width = WIDTH * PIXELS;
 	graphics->height = (HEIGHT * PIXELS) + PIXELS;
