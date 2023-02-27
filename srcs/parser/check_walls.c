@@ -1,17 +1,4 @@
-
 #include <parser.h>
-
-static int	get_nb_rows(char **map)
-{
-	int	y;
-
-	if (!map)
-		return (ERROR);
-	y = 0;
-	while (map[y])
-		y++;
-	return (y);
-}
 
 static bool	is_player(char c)
 {
@@ -50,6 +37,7 @@ static char	**copy_map(t_map_data *map_data)
 	char	**copy;
 
 	copy = (char **)malloc(sizeof(char *) * (map_data->rows_count + 1));
+	// copy = NULL; // ? testing
 	if (!copy)
 		return (NULL);
 	i = 0;
@@ -69,7 +57,7 @@ static char	**copy_map(t_map_data *map_data)
 }
 
 /**
- * TODO fix too many lines
+ * ? <25 lines without testing comments
 */
 bool	check_walls(t_map_data *map_data)
 {
@@ -80,7 +68,7 @@ bool	check_walls(t_map_data *map_data)
 	// map_content = NULL; // ? testing
 	if (!map_data)
 		return (error_msg("Fetching map content"));
-	map_data->rows_count = get_nb_rows(map_data->map);
+	map_data->rows_count = ft_count_rows((const char **)map_data->map);
 	// rows = 0; // ? testing
 	if (map_data->rows_count <= 0)
 		return (error_msg("Getting nb of rows"));

@@ -1,10 +1,11 @@
-
 #include <utils.h>
 
-size_t	ft_count_rows(char **scene)
+int	ft_count_rows(const char **scene)
 {
-	size_t i;
+	int	i;
 
+	if (!scene)
+		return (ERROR);
 	i = 0;
 	while (scene[i])
 		i++;

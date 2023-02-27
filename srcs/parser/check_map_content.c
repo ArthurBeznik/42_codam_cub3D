@@ -1,4 +1,3 @@
-
 #include <parser.h>
 
 static bool	is_player(char c)
@@ -18,7 +17,7 @@ static bool	check_valid_char(char c)
 }
 
 /**
- * TODO fix too many lines
+ * ? <25 lines without testing comments
 */
 bool	check_map_content(char **map)
 {

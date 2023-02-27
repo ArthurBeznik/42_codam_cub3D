@@ -11,6 +11,6 @@ void	print_map(char **map);
 
 void	free_2d(char **array);
 
-size_t	ft_count_rows(char **scene);
+int		ft_count_rows(const char **scene);
 
 #endif

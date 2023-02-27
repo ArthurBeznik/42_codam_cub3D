@@ -72,7 +72,7 @@ void	find_colors(char *line, t_file_data *data)
 	}
 }
 
-bool	check_scene_file_order(t_file_data *data)
+bool	check_scene_file_order(t_file_data *data, int nb_rows)
 {
 	int i;
 
@@ -84,7 +84,7 @@ bool	check_scene_file_order(t_file_data *data)
 			return (error_msg("Scene file starts with map content"));
 		i++;
 	}
-	if (data->scene[data->map_data->rows_count - 1][0] != '1')
+	if (data->scene[nb_rows - 1][0] != '1')
 		return (error_msg("Scene file does not end with map content"));
 	return (true);
 }

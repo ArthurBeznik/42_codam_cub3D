@@ -1,8 +1,7 @@
-
 #include <parser.h>
 
 /**
- * TODO fix too many lines
+ * TODO fix !
 */
 void	init_map_file_data(t_file_data *file_data)
 {
