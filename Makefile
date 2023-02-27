@@ -58,7 +58,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f ./libss/libft/libft.a
+	@rm -f $(LIBFT)/libft.a
 
 fsan:
 	$(MAKE) FSAN=1
