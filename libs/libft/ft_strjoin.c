@@ -6,7 +6,7 @@
 /*   By: edawood <edawood@student.42.fr>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 14:36:11 by edawood       #+#    #+#                 */
-/*   Updated: 2023/02/27 12:35:36 by abeznik       ########   odam.nl         */
+/*   Updated: 2023/02/27 15:30:15 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strjoin(char *str1, char const *str2)
 	str1len = ft_strlen(str1);
 	str2len = ft_strlen(str2);
 	out = ft_calloc((str1len + str2len + 1), sizeof(char));
-	// out = NULL; // ? testing calloc failure => does not segfault
+	// out = NULL; // ? testing
 	if (!out)
 		return (0);
 	ft_strlcpy(out, str1, str1len + 1);

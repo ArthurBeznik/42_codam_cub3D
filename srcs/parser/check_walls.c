@@ -5,6 +5,8 @@ static int	get_nb_rows(char **map)
 {
 	int	y;
 
+	if (!map)
+		return (ERROR);
 	y = 0;
 	while (map[y])
 		y++;
@@ -40,7 +42,7 @@ static int	find_player(char **map, int xy)
 		}
 		y++;
 	}
-	return (-1);
+	return (ERROR);
 }
 
 char	**copy_map(char **map, int rows)
@@ -55,8 +57,12 @@ char	**copy_map(char **map, int rows)
 	while (map[i])
 	{
 		copy[i] = ft_strdup(map[i]);
+		// copy[i] = NULL; // ? testing
 		if (!copy[i])
+		{
+			free_2d(copy);
 			return (NULL);
+		}
 		i++;
 	}
 	copy[i] = NULL;
@@ -71,8 +77,9 @@ bool	check_walls(char **map_content)
 	bool	is_enclosed;
 	char	**copy;
 
+	// map_content = NULL; // ? testing
 	if (!map_content)
-		return (false);
+		return (error_msg("Fetching map content"));
 	rows = get_nb_rows(map_content);
 	// rows = 0; // ? testing
 	if (rows <= 0)
@@ -82,10 +89,11 @@ bool	check_walls(char **map_content)
 	// printf("[x, y] = [%d, %d]\n", player_x, player_y); // ? testing
 	// player_x = -1; // ? testing
 	// player_y = -1; // ? testing
-	if (player_x == -1 || player_y == -1)
+	if (player_x == ERROR || player_y == ERROR)
 		return (error_msg("Finding player position"));
 	is_enclosed = true;
 	copy = copy_map(map_content, rows);
+	// copy = NULL; // ? testing
 	if (!copy)
 		return (error_msg("Copying map"));
 	flood_fill(player_y, player_x, copy, &is_enclosed, rows);
