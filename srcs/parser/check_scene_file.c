@@ -13,11 +13,16 @@ size_t	ft_count_rows(char **scene)
 
 void	free_2d(char **array)
 {
-	while (*array)
+	int	i;
+
+	i = 0;
+	while (array[i])
 	{
-		free(*array);
-		array++;
+		if (array[i] != NULL)
+			free(array[i]);
+		i++;
 	}
+	free(array);
 	return ;
 }
 

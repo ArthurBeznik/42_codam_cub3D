@@ -1,6 +1,6 @@
 NAME = libft.a
 CC = gcc
-CFLAGS	:= -Wextra -Wall -Werror
+CFLAGS	:= -Wextra -Wall -Werror -g
 CFLAGS	+= $(if $(FSAN), -fsanitize=address -g)
 CFLAGS	+= $(if $(DEBUG) , -g)
 HEADER = libft.h

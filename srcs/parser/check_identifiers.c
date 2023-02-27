@@ -26,19 +26,22 @@ static bool	st_check_colors(t_rgb *colors)
 bool	check_identifiers(t_identifiers_data *id_data, \
 	char *extension)
 {
+	// system("leaks cub3D"); // ? testing
+	// id_data = NULL; // ? testing
 	if (!id_data)
-		return (false);
+		return (error_msg("Fetching identifier data"));
+	// id_data->path_to_north_texture = NULL; // ? testing
 	if (!id_data->path_to_north_texture || !id_data->path_to_south_texture \
 		|| !id_data->path_to_east_texture || !id_data->path_to_west_texture \
 		|| !id_data->floor || !id_data->ceiling)
-		return (false);
+		return (error_msg("Fetching path of textures"));
 	if (!check_ext(id_data->path_to_north_texture, extension)
 		|| !check_ext(id_data->path_to_south_texture, extension)
 		|| !check_ext(id_data->path_to_east_texture, extension)
 		|| !check_ext(id_data->path_to_west_texture, extension))
-		return (false);
+		return (error_msg("Wrong extension (.png required)"));
 	if (!st_check_colors(id_data->floor)
 		|| !st_check_colors(id_data->ceiling))
-		return (false);
+		return (error_msg("Colors not in range [0,255]"));
 	return (true);
 }
