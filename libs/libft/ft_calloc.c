@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 14:31:32 by edawood           #+#    #+#             */
-/*   Updated: 2022/10/12 16:48:54 by edawood          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_calloc.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: edawood <edawood@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/03 14:31:32 by edawood       #+#    #+#                 */
+/*   Updated: 2023/02/27 11:21:28 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	total = count * size;
 	ptr = malloc(count * size);
+	// ptr = NULL; // ? testing
 	if (!ptr)
 		return (NULL);
 	ft_bzero(ptr, total);

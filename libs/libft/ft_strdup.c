@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 14:35:54 by edawood           #+#    #+#             */
-/*   Updated: 2022/02/03 14:35:55 by edawood          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ft_strdup.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: edawood <edawood@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/02/03 14:35:54 by edawood       #+#    #+#                 */
+/*   Updated: 2023/02/27 12:15:14 by abeznik       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_strdup(const char *s1)
 
 	i = 0;
 	dup = malloc(ft_strlen(s1) + 1 * sizeof(char));
+	// dup = NULL; // ? testing malloc failure => does not segfault
 	if (!dup)
 		return (NULL);
 	while (s1[i])
