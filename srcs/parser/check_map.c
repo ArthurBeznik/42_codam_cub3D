@@ -1,36 +1,20 @@
 
 #include <parser.h>
-#include <stdio.h>
-
-void	print_map(char **map)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			printf("%c ", map[y][x]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-	printf("\n");
-}
 
 bool	check_map(char *file_name, t_file_data *file_data)
 {
+	char	**copy;
+
 	file_data->fd = open(file_name, O_RDONLY);
+	// file_data->fd = -1; // ? testing
 	if (file_data->fd == ERROR)
 		return (error_msg("Opening scene file"));
-	file_data->line = read_file(file_data);
+	file_data->line = read_scene_file(file_data);
+	// file_data->line = NULL; // ? testing
 	if (!file_data->line)
 		return (error_msg("Reading scene file"));
-	if (!read_scene_file(file_data))
+	// free(file_data->line); // ? testing
+	if (!read_scene_data(file_data))
 		return (error_msg("Parsing scene file data"));
 	if (!check_identifiers(file_data->identifiers, ".png"))
 		return (error_msg("Invalid identifiers"));
@@ -40,5 +24,6 @@ bool	check_map(char *file_name, t_file_data *file_data)
 	if (!check_walls(file_data->map_content))
 		return (error_msg("Surrounding walls required"));
 	// print_map(file_data->map_content); // ? testing
+	// system("leaks cub3D"); // ? testing
 	return (true);
 }

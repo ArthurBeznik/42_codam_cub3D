@@ -36,6 +36,9 @@ bool	parser(int argc, char *argv[], t_file_data *file_data)
 	if (!check_ext(argv[1], file_data->map_extension))
 		return (false);
 	if (!check_map(argv[1], file_data))
+	{
+		// system("leaks cub3D"); // ? testing
 		return (false);
+	}
 	return (true);
 }

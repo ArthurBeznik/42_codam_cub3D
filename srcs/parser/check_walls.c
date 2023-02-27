@@ -43,12 +43,33 @@ static int	find_player(char **map, int xy)
 	return (-1);
 }
 
+char	**copy_map(char **map, int rows)
+{
+	int		i;
+	char	**copy;
+
+	copy = (char **)malloc(sizeof(char *) * (rows + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		copy[i] = ft_strdup(map[i]);
+		if (!copy[i])
+			return (NULL);
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
+}
+
 bool	check_walls(char **map_content)
 {
 	int		rows;
 	int		player_x;
 	int		player_y;
 	bool	is_enclosed;
+	char	**copy;
 
 	if (!map_content)
 		return (false);
@@ -64,8 +85,13 @@ bool	check_walls(char **map_content)
 	if (player_x == -1 || player_y == -1)
 		return (error_msg("Finding player position"));
 	is_enclosed = true;
-	flood_fill(player_y, player_x, map_content, &is_enclosed, rows);
+	copy = copy_map(map_content, rows);
+	if (!copy)
+		return (error_msg("Copying map"));
+	flood_fill(player_y, player_x, copy, &is_enclosed, rows);
+	free_2d(copy);
 	if (!is_enclosed)
 		return (false);
 	return (true);
+	// system("leaks cub3D"); // ? testing
 }
