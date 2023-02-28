@@ -1,4 +1,3 @@
-
 #include <parser.h>
 
 bool	check_ext(char *file_name, char	*extension)

@@ -31,9 +31,9 @@ bool	join_save_line(t_file_data *data, char *buf)
 	return (true);
 }
 
-char *read_scene_file(t_file_data *data)
+char	*read_scene_file(t_file_data *data)
 {
-	char *buf;
+	char	*buf;
 
 	buf = init_line_buf(data);
 	if (!buf)

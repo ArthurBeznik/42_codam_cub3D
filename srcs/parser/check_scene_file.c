@@ -1,9 +1,8 @@
-
 #include <parser.h>
 
 void	find_identifier(char *line, t_file_data *data)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(line, ' ');
 	// tmp = NULL; // ? testing
@@ -50,8 +49,8 @@ void	save_values(t_file_data *data, char **rgb_values, char c)
 
 void	find_colors(char *line, t_file_data *data)
 {
-	char *line_without_id;
-	char **rgb_values;
+	char	*line_without_id;
+	char	**rgb_values;
 
 	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
@@ -74,7 +73,7 @@ void	find_colors(char *line, t_file_data *data)
 
 bool	check_scene_file_order(t_file_data *data, int nb_rows)
 {
-	int i;
+	int	i;
 
 	// return (false); // ? testing
 	i = 0;

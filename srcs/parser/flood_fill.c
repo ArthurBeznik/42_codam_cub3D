@@ -1,10 +1,9 @@
-
 #include <parser.h>
 
-bool is_valid(int y, int x, char **map, int rows)
+bool	is_valid(int y, int x, char **map, int rows)
 {
-	int cols;
-	
+	int	cols;
+
 	cols = ft_strlen(map[y]);
 	if (y >= 0 && y < rows && x >= 0 && x < cols
 		&& (map[y][x] == '0' || map[y][x] == ' '))
@@ -12,10 +11,10 @@ bool is_valid(int y, int x, char **map, int rows)
 	return (false);
 }
 
-void flood_fill(int y, int x, t_map_data *map_data, bool *is_enclosed)
+void	flood_fill(int y, int x, t_map_data *map_data, bool *is_enclosed)
 {
 	int	rows;
-	int cols;
+	int	cols;
 
 	rows = map_data->rows_count;
 	cols = ft_strlen(map_data->copy[y]);
