@@ -8,8 +8,8 @@ bool	draw_background(t_graphics *graphics)
 
 	y = 0;
 	color = 0x000000;
-	if (!init_mlx(graphics))
-		return (false);
+	// if (!init_mlx(graphics))
+		// return (false);
 	while (y < HEIGHT)
 	{
 		x = 0;

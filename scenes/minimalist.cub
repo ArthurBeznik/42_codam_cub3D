@@ -6,10 +6,10 @@ S ./textures/grass.png
 
 
 
-W ./textures/stone.png
+W ./textures/grass.png
 
 
-E ./textures/wood.png
+E ./textures/grass.png
 
 F     254,100,    5
 C     225,    3,4

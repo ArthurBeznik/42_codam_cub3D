@@ -12,6 +12,8 @@
 
 # include <cub3D.h>
 
+typedef struct s_general_data	t_general_data;
+
 typedef struct s_player
 {
 	int64_t		x;
@@ -57,7 +59,7 @@ typedef struct s_file_data
 	t_identifiers_data	*identifiers;
 }	t_file_data;
 
-bool	parser(int argc, char *argv[], t_file_data *file_data);
+bool	parser(int argc, char *argv[], t_general_data *data);
 void	init_map_file_data(t_file_data *file_data);
 bool	check_ext(char *file_name, char	*map_extension);
 bool	check_map(char *file_name, t_file_data *file_data);

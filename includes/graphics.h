@@ -42,7 +42,7 @@ typedef struct s_graphics
 bool	run_graphics(t_general_data	*data, t_graphics *graphics);
 bool	init_graphics(t_general_data *data, t_graphics *graphics);
 bool	draw_background(t_graphics *graphics);
-bool	init_mlx(t_graphics *graphics);
+bool	init_mlx(t_general_data	*data, t_graphics *graphics);
 void	free_close_window(t_graphics *graphics, void *var, char *str);
 void	terminate(t_graphics *graphics);
 bool	loading_images(mlx_texture_t **textures);
