@@ -27,5 +27,5 @@ void	hook(void *param)
 	y = (data2->graphics->images[PLAYER]->instances[0].y / PIXELS);
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
-	movement(data2, y, x);
+	// movement(data2, y, x);
 }

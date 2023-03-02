@@ -39,7 +39,7 @@ typedef struct s_graphics
 	mlx_texture_t	*textures[IMG_COUNT];
 }	t_graphics;
 
-bool	run_graphics(t_general_data	*data, t_graphics *graphics);
+bool	run_graphics(t_general_data	*data);
 bool	init_graphics(t_general_data *data, t_graphics *graphics);
 bool	draw_background(t_graphics *graphics);
 bool	init_mlx(t_general_data	*data, t_graphics *graphics);

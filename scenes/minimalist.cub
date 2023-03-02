@@ -2,14 +2,14 @@ N ./textures/diamond.png
 
 
 
-S ./textures/grass.png
+S ./textures/diamond.png
 
 
 
-W ./textures/grass.png
+W ./textures/diamond.png
 
 
-E ./textures/grass.png
+E ./textures/diamond.png
 
 F     254,100,    5
 C     225,    3,4
