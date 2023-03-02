@@ -1,34 +1,8 @@
-
 #include <parser.h>
-
-size_t	ft_count_rows(char **scene)
-{
-	size_t i;
-
-	i = 0;
-	while (scene[i])
-		i++;
-	return (i);
-}
-
-void	free_2d(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-	{
-		if (array[i] != NULL)
-			free(array[i]);
-		i++;
-	}
-	free(array);
-	return ;
-}
 
 void	find_identifier(char *line, t_file_data *data)
 {
-	char **tmp;
+	char	**tmp;
 
 	tmp = ft_split(line, ' ');
 	// tmp = NULL; // ? testing
@@ -75,8 +49,8 @@ void	save_values(t_file_data *data, char **rgb_values, char c)
 
 void	find_colors(char *line, t_file_data *data)
 {
-	char *line_without_id;
-	char **rgb_values;
+	char	*line_without_id;
+	char	**rgb_values;
 
 	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
@@ -97,9 +71,9 @@ void	find_colors(char *line, t_file_data *data)
 	}
 }
 
-bool	check_scene_file_order(t_file_data *data)
+bool	check_scene_file_order(t_file_data *data, int nb_rows)
 {
-	int i;
+	int	i;
 
 	// return (false); // ? testing
 	i = 0;
@@ -109,7 +83,7 @@ bool	check_scene_file_order(t_file_data *data)
 			return (error_msg("Scene file starts with map content"));
 		i++;
 	}
-	if (data->scene[data->rows_count - 1][0] != '1')
+	if (data->scene[nb_rows - 1][0] != '1')
 		return (error_msg("Scene file does not end with map content"));
 	return (true);
 }

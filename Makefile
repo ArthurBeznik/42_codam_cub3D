@@ -45,7 +45,7 @@ libft:
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -o $@ $< $(HEADERS)
-	@printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n\t"
+	@printf "$(YEL)Compiling: $(notdir $<)$(DEF)\n"
 
 $(NAME): $(OBJS)
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"

@@ -1,4 +1,3 @@
-
 #include <parser.h>
 
 static bool	is_player(char c)
@@ -17,25 +16,28 @@ static bool	check_valid_char(char c)
 	return (true);
 }
 
-bool	check_map_content(char **map_content)
+/**
+ * ? <25 lines without testing comments
+*/
+bool	check_map_content(char **map)
 {
 	int	x;
 	int	y;
 	int	player_count;
 
-	// map_content = NULL; // ? testing
-	if (!map_content)
+	// map = NULL; // ? testing
+	if (!map)
 		return (error_msg("Fetching map content"));
 	y = 0;
 	player_count = 0;
-	while (map_content[y])
+	while (map[y])
 	{
 		x = 0;
-		while (map_content[y][x])
+		while (map[y][x])
 		{
-			if (!check_valid_char(map_content[y][x]))
+			if (!check_valid_char(map[y][x]))
 				return (error_msg("Invalid character found in map"));
-			if (is_player(map_content[y][x]))
+			if (is_player(map[y][x]))
 				player_count++;
 			x++;
 		}

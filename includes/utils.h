@@ -9,4 +9,8 @@ int		logger(const int code, const char *function, const char *message);
 
 void	print_map(char **map);
 
+void	free_2d(char **array);
+
+int		ft_count_rows(const char **scene);
+
 #endif

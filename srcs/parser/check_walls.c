@@ -1,17 +1,4 @@
-
 #include <parser.h>
-
-static int	get_nb_rows(char **map)
-{
-	int	y;
-
-	if (!map)
-		return (ERROR);
-	y = 0;
-	while (map[y])
-		y++;
-	return (y);
-}
 
 static bool	is_player(char c)
 {
@@ -20,43 +7,43 @@ static bool	is_player(char c)
 	return (false);
 }
 
-static int	find_player(char **map, int xy)
+static void	find_player(t_map_data *map_data)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (map[y])
+	while (map_data->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (map_data->map[y][x])
 		{
-			if (is_player(map[y][x]))
+			if (is_player(map_data->map[y][x]))
 			{
-				if (xy == Y)
-					return (xy = y);
-				if (xy == X)
-					return (xy = x);
+				map_data->player->x = x;
+				map_data->player->y = y;
+				map_data->player->facing = map_data->map[y][x];
+				return ;
 			}
 			x++;
 		}
 		y++;
 	}
-	return (ERROR);
 }
 
-char	**copy_map(char **map, int rows)
+static char	**copy_map(t_map_data *map_data)
 {
 	int		i;
 	char	**copy;
 
-	copy = (char **)malloc(sizeof(char *) * (rows + 1));
+	copy = (char **)malloc(sizeof(char *) * (map_data->rows_count + 1));
+	// copy = NULL; // ? testing
 	if (!copy)
 		return (NULL);
 	i = 0;
-	while (map[i])
+	while (map_data->map[i])
 	{
-		copy[i] = ft_strdup(map[i]);
+		copy[i] = ft_strdup(map_data->map[i]);
 		// copy[i] = NULL; // ? testing
 		if (!copy[i])
 		{
@@ -69,35 +56,37 @@ char	**copy_map(char **map, int rows)
 	return (copy);
 }
 
-bool	check_walls(char **map_content)
+/**
+ * ? <25 lines without testing comments
+*/
+bool	check_walls(t_map_data *map_data)
 {
-	int		rows;
+	bool	is_enclosed;
 	int		player_x;
 	int		player_y;
-	bool	is_enclosed;
-	char	**copy;
 
 	// map_content = NULL; // ? testing
-	if (!map_content)
+	if (!map_data)
 		return (error_msg("Fetching map content"));
-	rows = get_nb_rows(map_content);
+	map_data->rows_count = ft_count_rows((const char **)map_data->map);
 	// rows = 0; // ? testing
-	if (rows <= 0)
+	if (map_data->rows_count <= 0)
 		return (error_msg("Getting nb of rows"));
-	player_x = find_player(map_content, X);
-	player_y = find_player(map_content, Y);
+	find_player(map_data);
 	// printf("[x, y] = [%d, %d]\n", player_x, player_y); // ? testing
 	// player_x = -1; // ? testing
 	// player_y = -1; // ? testing
+	player_x = map_data->player->x;
+	player_y = map_data->player->y;
 	if (player_x == ERROR || player_y == ERROR)
 		return (error_msg("Finding player position"));
 	is_enclosed = true;
-	copy = copy_map(map_content, rows);
+	map_data->copy = copy_map(map_data);
 	// copy = NULL; // ? testing
-	if (!copy)
+	if (!map_data->copy)
 		return (error_msg("Copying map"));
-	flood_fill(player_y, player_x, copy, &is_enclosed, rows);
-	free_2d(copy);
+	flood_fill(player_y, player_x, map_data, &is_enclosed);
+	free_2d(map_data->copy);
 	if (!is_enclosed)
 		return (false);
 	return (true);

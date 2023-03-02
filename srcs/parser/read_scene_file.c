@@ -1,47 +1,54 @@
-
 #include <parser.h>
 
-char *read_scene_file(t_file_data *data)
+char	*init_line_buf(t_file_data *data)
 {
-	char *buf;
-	char	*tmp;
+	char	*buf;
 
 	data->line = ft_calloc(1, 1);
-	// data->line = NULL; // ? testing calloc failure => does not segfault
+	// data->line = NULL; // ? testing
 	if (!data->line)
 		return (NULL);
 	buf = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	// buf = NULL; // ? testing calloc failure => does not segfault
 	if (!buf)
 		return (free(data->line), NULL);
+	return (buf);
+}
+
+bool	join_save_line(t_file_data *data, char *buf)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(data->line, buf);
+	if (!tmp)
+		return (false);
+	data->line = ft_strdup(tmp);
+	if (!data->line)
+	{
+		free(tmp);
+		return (false);
+	}
+	free(tmp);
+	return (true);
+}
+
+char	*read_scene_file(t_file_data *data)
+{
+	char	*buf;
+
+	buf = init_line_buf(data);
+	if (!buf)
+		return (NULL);
 	while (data->buflen > 0)
 	{
 		data->buflen = read(data->fd, buf, BUFFER_SIZE);
 		buf[data->buflen] = '\0';
-		// data->buflen = -1; // ? testing
 		if (data->buflen == -1)
 		{
 			free(buf);
-			free(data->line);
 			return (NULL);
 		}
-		tmp = ft_strjoin(data->line, buf);
-		// tmp = NULL; // ? testing
-		if (!tmp)
-		{
-			free(buf);
-			free(data->line);
+		if (!join_save_line(data, buf))
 			return (NULL);
-		}
-		data->line = ft_strdup(tmp);
-		// data->line = NULL; // ? testing
-		if (!data->line)
-		{
-			free(buf);
-			free(tmp);
-			return (NULL);
-		}
-		free(tmp);
 	}
 	free(buf);
 	close(data->fd);
