@@ -1,15 +1,15 @@
-N ./path_to_the_north_texture.png
+N ./textures/diamond.png
 
 
 
-S ./path_to_the_south_texture.png
+S ./textures/grass.png
 
 
 
-W ./path_to_the_west_texture.png
+W ./textures/stone.png
 
 
-E ./path_to_the_east_texture.png
+E ./textures/wood.png
 
 F     254,100,    5
 C     225,    3,4
