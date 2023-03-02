@@ -1,4 +1,3 @@
-
 #include <parser.h>
 
 static bool	st_check_color_range(int color)

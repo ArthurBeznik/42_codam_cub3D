@@ -1,19 +1,21 @@
-
 #include <parser.h>
 
-char	**create_map(t_file_data *data)
+/**
+ * ? <25 lines without testing comments
+*/
+char	**create_map(t_file_data *data, int nb_rows)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	char	**map;
 
 	i = 0;
 	j = 0;
-	map = (char **)malloc(sizeof(char *) * (data->rows_count - 5));
+	map = (char **)malloc(sizeof(char *) * (nb_rows - 5));
 	// map = NULL; // ? testing
 	if (!map)
 		return (NULL);
-	while (i < data->rows_count)
+	while (i < nb_rows)
 	{
 		if (i >= 6)
 		{
@@ -32,36 +34,45 @@ char	**create_map(t_file_data *data)
 	return (map);
 }
 
-bool	read_scene_data(t_file_data *data)
+bool	norm_function(t_file_data *data, int nb_rows)
 {
-	size_t i;
+	int	i;
 
 	i = 0;
-	data->scene = ft_split(((const char *)data->line), '\n');
-	// data->scene = NULL; // ? testing
-	if (!data->scene)
-		return (error_msg("Split to scene"));
-	data->rows_count = ft_count_rows(data->scene);
-	// data->rows_count = NULL; // ? testing
-	if (!data->rows_count)
-	{
-		free_2d(data->scene);
-		return (error_msg("Count rows"));
-	}
-	while (i < data->rows_count)
+	while (i < nb_rows)
 	{
 		find_identifier(data->scene[i], data);
 		find_colors(data->scene[i], data);
 		i++;
 	}
-	if (!check_scene_file_order(data))
+	if (!check_scene_file_order(data, nb_rows))
 	{
 		free_2d(data->scene);
 		return (error_msg("Invalid scene file order"));
 	}
-	data->map_content = create_map(data);
+	return (true);
+}
+
+bool	read_scene_data(t_file_data *data)
+{
+	int	nb_rows;
+
+	data->scene = ft_split(((const char *)data->line), '\n');
+	if (!data->scene)
+		return (error_msg("Split to scene"));
+	nb_rows = ft_count_rows((const char **)data->scene);
+	// nb_rows == -1; // ? testing
+	if (nb_rows == ERROR)
+	{
+		free_2d(data->scene);
+		return (error_msg("Counting rows of scene file"));
+	}
+	if (!norm_function(data, nb_rows))
+		return (false);
+	// data->map_content = create_map(data);
+	data->map_data->map = create_map(data, nb_rows);
 	// data->map_content = NULL; // ? testing
-	if (!data->map_content)
+	if (!data->map_data->map)
 	{
 		free_2d(data->scene);
 		return (error_msg("Invalid map"));
