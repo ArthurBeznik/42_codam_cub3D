@@ -6,7 +6,8 @@ bool	parser(int argc, char *argv[], t_general_data *data)
 	// t_file_data file_data;
 
 	// data->file_data = &file_data;
-	init_file_data(data);
+	if (!init_file_data(data))
+		return (false);
 	if (argc != 2)
 		return (error_msg("Usage: ./cub3D <file_name>.cub"));
 	if (!check_ext(argv[1], data->file_data->file_extension))

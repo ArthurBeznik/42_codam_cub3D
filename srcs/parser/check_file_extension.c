@@ -2,8 +2,8 @@
 
 bool	check_ext(char *file_name, char	*extension)
 {
-	size_t	ext_len;
-	size_t	name_len;
+	int	ext_len;
+	int	name_len;
 
 	if (!extension)
 		return (error_msg("No extension given"));

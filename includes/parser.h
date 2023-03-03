@@ -60,7 +60,7 @@ typedef struct s_file_data
 }	t_file_data;
 
 bool	parser(int argc, char *argv[], t_general_data *data);
-void	init_file_data(t_general_data *data);
+bool	init_file_data(t_general_data *data);
 bool	check_ext(char *file_name, char	*file_extension);
 bool	check_map(char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
