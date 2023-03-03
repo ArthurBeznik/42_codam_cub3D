@@ -75,6 +75,9 @@ db: $(NAME)
 run: re
 	./cub3D $(TEST_MAP)
 
+r:	all
+	./$(NAME) $(TEST_MAP)
+
 rebug: fclean
 	$(MAKE) debug
 
