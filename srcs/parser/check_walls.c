@@ -7,22 +7,22 @@ static bool	is_player(char c)
 	return (false);
 }
 
-static void	find_player(t_map_data *map_data)
+static void	find_player(t_file_data *file_data)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (map_data->map[y])
+	while (file_data->map_data->map[y])
 	{
 		x = 0;
-		while (map_data->map[y][x])
+		while (file_data->map_data->map[y][x])
 		{
-			if (is_player(map_data->map[y][x]))
+			if (is_player(file_data->map_data->map[y][x]))
 			{
-				map_data->player->x = x;
-				map_data->player->y = y;
-				map_data->player->facing = map_data->map[y][x];
+				file_data->player->x = x;
+				file_data->player->y = y;
+				file_data->player->facing = file_data->map_data->map[y][x];
 				return ;
 			}
 			x++;
@@ -59,34 +59,34 @@ static char	**copy_map(t_map_data *map_data)
 /**
  * ? <25 lines without testing comments
 */
-bool	check_walls(t_map_data *map_data)
+bool	check_walls(t_file_data *file_data)
 {
 	bool	is_enclosed;
 	int		player_x;
 	int		player_y;
 
 	// map_content = NULL; // ? testing
-	if (!map_data)
+	if (!file_data->map_data)
 		return (error_msg("Fetching map content"));
-	map_data->rows_count = ft_count_rows((const char **)map_data->map);
+	file_data->map_data->rows_count = ft_count_rows((const char **)file_data->map_data->map);
 	// rows = 0; // ? testing
-	if (map_data->rows_count <= 0)
+	if (file_data->map_data->rows_count <= 0)
 		return (error_msg("Getting nb of rows"));
-	find_player(map_data);
+	find_player(file_data);
 	// printf("[x, y] = [%d, %d]\n", player_x, player_y); // ? testing
 	// player_x = -1; // ? testing
 	// player_y = -1; // ? testing
-	player_x = map_data->player->x;
-	player_y = map_data->player->y;
+	player_x = file_data->player->x;
+	player_y = file_data->player->y;
 	if (player_x == ERROR || player_y == ERROR)
 		return (error_msg("Finding player position"));
 	is_enclosed = true;
-	map_data->copy = copy_map(map_data);
+	file_data->map_data->copy = copy_map(file_data->map_data);
 	// copy = NULL; // ? testing
-	if (!map_data->copy)
+	if (!file_data->map_data->copy)
 		return (error_msg("Copying map"));
-	flood_fill(player_y, player_x, map_data, &is_enclosed);
-	free_2d(map_data->copy);
+	flood_fill(player_y, player_x, file_data->map_data, &is_enclosed);
+	// free_2d(file_data->map_data->copy);
 	if (!is_enclosed)
 		return (false);
 	return (true);

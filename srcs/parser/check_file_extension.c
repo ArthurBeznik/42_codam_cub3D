@@ -2,8 +2,8 @@
 
 bool	check_ext(char *file_name, char	*extension)
 {
-	size_t	ext_len;
-	size_t	name_len;
+	int	ext_len;
+	int	name_len;
 
 	if (!extension)
 		return (error_msg("No extension given"));
@@ -11,6 +11,8 @@ bool	check_ext(char *file_name, char	*extension)
 		return (error_msg("No file name given"));
 	ext_len = ft_strlen(extension);
 	name_len = ft_strlen(file_name);
+	if (ext_len == ERROR || name_len == ERROR)
+		return (error_msg("strlen"));
 	while (ext_len > 0)
 	{
 		if (file_name[name_len--] != extension[ext_len--])

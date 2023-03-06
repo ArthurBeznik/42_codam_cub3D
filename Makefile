@@ -7,8 +7,8 @@ BLUE		:=	\033[1;36m
 YEL 		:=	\033[0;33m
 DEF 		:=	\033[0m
 
-# CFLAGS		:= -Wextra -Wall -Wunreachable-code -Ofast -g3 #-Werror
-CFLAGS		:= -g3 
+CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
+# CFLAGS		:= -g3 
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
 MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
@@ -74,6 +74,9 @@ db: $(NAME)
 
 run: re
 	./cub3D $(TEST_MAP)
+
+r:	all
+	./$(NAME) $(TEST_MAP)
 
 rebug: fclean
 	$(MAKE) debug

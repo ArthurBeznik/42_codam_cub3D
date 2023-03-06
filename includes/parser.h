@@ -12,6 +12,8 @@
 
 # include <cub3D.h>
 
+typedef struct s_general_data	t_general_data;
+
 typedef struct s_player
 {
 	int64_t		x;
@@ -40,24 +42,25 @@ typedef struct s_identifiers_data
 typedef struct map_data
 {
 	int64_t		rows_count;
+	int64_t		max_line_len;
 	char		**map;
 	char		**copy;
-	t_player	*player;
 }	t_map_data;
 
 typedef struct s_file_data
 {
 	char				*file_extension;
 	char				**scene;
-	t_map_data			*map_data;
 	char				*line;
 	int					fd;
 	int					buflen;
+	t_map_data			*map_data;
 	t_identifiers_data	*identifiers;
+	t_player			*player;
 }	t_file_data;
 
-bool	parser(int argc, char **argv, t_file_data *file_data);
-void	init_map_file_data(t_file_data *file_data);
+bool	parser(int argc, char *argv[], t_general_data *data);
+bool	init_file_data(t_general_data *data);
 bool	check_ext(char *file_name, char	*file_extension);
 bool	check_map(char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
@@ -67,7 +70,7 @@ void	find_colors(char *line, t_file_data *data);
 void	find_identifier(char *line, t_file_data *data);
 bool	check_identifiers(t_identifiers_data *id_data, char *extension);
 bool	check_map_content(char **map);
-bool	check_walls(t_map_data *map_data);
+bool	check_walls(t_file_data *data);
 void	flood_fill(int y, int x, t_map_data *map_data, bool *is_enclosed);
 
 #endif
