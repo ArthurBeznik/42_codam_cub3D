@@ -60,14 +60,16 @@ typedef struct s_file_data
 }	t_file_data;
 
 bool	parser(int argc, char *argv[], t_general_data *data);
-bool	init_file_data(t_general_data *data);
+// bool	init_file_data(t_general_data *data);
+bool	init_file_data(t_file_data *file_data);
 bool	check_ext(char *file_name, char	*file_extension);
 bool	check_map(char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
 bool	read_scene_data(t_file_data *data);
 bool	check_scene_file_order(t_file_data *data, int nb_rows);
 void	find_colors(char *line, t_file_data *data);
-void	find_identifier(char *line, t_file_data *data);
+// void	find_identifier(char *line, t_file_data *data);
+void	find_textures(char *line, t_file_data *data);
 bool	check_identifiers(t_identifiers_data *id_data, char *extension);
 bool	check_map_content(char **map);
 bool	check_walls(t_file_data *data);

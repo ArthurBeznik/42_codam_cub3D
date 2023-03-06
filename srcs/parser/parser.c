@@ -3,10 +3,10 @@
 
 bool	parser(int argc, char *argv[], t_general_data *data)
 {
-	// t_file_data file_data;
+	t_file_data file_data;
 
-	// data->file_data = &file_data;
-	if (!init_file_data(data))
+	data->file_data = &file_data;
+	if (!init_file_data(data->file_data))
 		return (false);
 	if (argc != 2)
 		return (error_msg("Usage: ./cub3D <file_name>.cub"));
