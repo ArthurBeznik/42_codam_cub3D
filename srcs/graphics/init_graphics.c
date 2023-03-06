@@ -2,7 +2,6 @@
 
 bool	init_mlx(t_general_data	*data, t_graphics *graphics)
 {
-	fprintf(stderr, "%s\n", data->file_data->identifiers->path_to_east_texture);
 	graphics->mlx = mlx_init(graphics->width, graphics->height, "Cub3D", true);
 	if (!graphics->mlx)
 		return (false);

@@ -10,7 +10,7 @@ int	main(int argc, char *argv[])
 	if (!parser(argc, argv, &data))
 		return (1);
   	if (!run_graphics(&data))
-		return (1);
+		terminate(data.graphics);
 	// free(file_data.line);
 	system("leaks cub3D");
 	return (0);
