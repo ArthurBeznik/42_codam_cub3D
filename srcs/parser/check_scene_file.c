@@ -1,6 +1,6 @@
 #include <parser.h>
 
-void	find_textures(char *line, t_file_data *data)
+void	find_identifier(char *line, t_file_data *data)
 {
 	char	**tmp;
 
@@ -27,7 +27,7 @@ void	find_textures(char *line, t_file_data *data)
 	free_2d(tmp);
 }
 
-t_identifiers_data	*save_values(t_file_data *data, char **rgb_values, char c)
+void	save_values(t_file_data *data, char **rgb_values, char c)
 {
 	if (c == 'F')
 	{
@@ -45,7 +45,6 @@ t_identifiers_data	*save_values(t_file_data *data, char **rgb_values, char c)
 		data->identifiers->ceiling->green = ft_atoi(rgb_values[1]);
 		data->identifiers->ceiling->blue = ft_atoi(rgb_values[2]);
 	}
-	return (data->identifiers);
 }
 
 void	find_colors(char *line, t_file_data *data)
@@ -66,7 +65,7 @@ void	find_colors(char *line, t_file_data *data)
 			free(line_without_id);
 			return ;
 		}
-		data->identifiers = save_values(data, rgb_values, line[0]);
+		save_values(data, rgb_values, line[0]);
 		free(line_without_id);
 		free_2d(rgb_values);
 	}

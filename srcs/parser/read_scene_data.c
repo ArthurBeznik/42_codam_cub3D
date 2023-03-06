@@ -34,14 +34,14 @@ char	**create_map(t_file_data *data, int nb_rows)
 	return (map);
 }
 
-bool	find_identifiers_data(t_file_data *data, int nb_rows)
+bool	norm_function(t_file_data *data, int nb_rows)
 {
 	int	i;
 
 	i = 0;
 	while (i < nb_rows)
 	{
-		find_textures(data->scene[i], data);
+		find_identifier(data->scene[i], data);
 		find_colors(data->scene[i], data);
 		i++;
 	}
@@ -67,7 +67,7 @@ bool	read_scene_data(t_file_data *data)
 		free_2d(data->scene);
 		return (error_msg("Counting rows of scene file"));
 	}
-	if (!find_identifiers_data(data, nb_rows))
+	if (!norm_function(data, nb_rows))
 		return (false);
 	// data->map_content = create_map(data);
 	data->map_data->map = create_map(data, nb_rows);
