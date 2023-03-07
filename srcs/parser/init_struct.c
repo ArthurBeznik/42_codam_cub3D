@@ -1,6 +1,6 @@
 #include <parser.h>
 
-bool	init_player_data(t_file_data *file_data)
+static bool	st_init_player_data(t_file_data *file_data)
 {
 	t_player	*player;
 
@@ -14,7 +14,7 @@ bool	init_player_data(t_file_data *file_data)
 	return (true);
 }
 
-t_rgb	*init_colors_data(void)
+static t_rgb	*st_init_colors_data(void)
 {
 	t_rgb	*rgb_data;
 
@@ -27,15 +27,15 @@ t_rgb	*init_colors_data(void)
 	return (rgb_data);
 }
 
-bool	init_identifiers_data(t_file_data *file_data)
+static bool	st_init_identifiers_data(t_file_data *file_data)
 {
 	t_identifiers_data	*identifiers_data;
 
 	identifiers_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
 	if (!identifiers_data)
 		return (false);
-	identifiers_data->ceiling = init_colors_data();
-	identifiers_data->floor = init_colors_data();
+	identifiers_data->ceiling = st_init_colors_data();
+	identifiers_data->floor = st_init_colors_data();
 	if (!identifiers_data->ceiling || !identifiers_data->floor)
 		return (false);
 	identifiers_data->path_to_north_texture = NULL;
@@ -46,7 +46,7 @@ bool	init_identifiers_data(t_file_data *file_data)
 	return (true);
 }
 
-bool	init_map_data(t_file_data *file_data)
+static bool	st_init_map_data(t_file_data *file_data)
 {
 	t_map_data	*map_data;
 
@@ -73,11 +73,11 @@ bool	init_file_data(t_general_data *data)
 	file_data->file_extension = ".cub";
 	file_data->line = NULL;
 	file_data->scene = NULL;
-	if (!init_map_data(file_data))
+	if (!st_init_map_data(file_data))
 		return (error_msg("Initializing map data struct"));
-	if (!init_identifiers_data(file_data))
+	if (!st_init_identifiers_data(file_data))
 		return (error_msg("Initializing identifiers data struct"));
-	if (!init_player_data(file_data))
+	if (!st_init_player_data(file_data))
 		return (error_msg("Initializing player data struct"));
 	data->file_data = file_data;
 	return (true);
