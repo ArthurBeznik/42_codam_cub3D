@@ -1,6 +1,6 @@
 #include <parser.h>
 
-bool	is_valid(int y, int x, char **map, int rows)
+static bool	st_is_valid(int y, int x, char **map, int rows)
 {
 	int	cols;
 
@@ -24,12 +24,12 @@ void	flood_fill(int y, int x, t_map_data *map_data, bool *is_enclosed)
 		return ;
 	}
 	map_data->copy[y][x] = 'V';
-	if (is_valid(y - 1, x, map_data->copy, rows))
+	if (st_is_valid(y - 1, x, map_data->copy, rows))
 		flood_fill(y - 1, x, map_data, is_enclosed);
-	if (is_valid(y + 1, x, map_data->copy, rows))
+	if (st_is_valid(y + 1, x, map_data->copy, rows))
 		flood_fill(y + 1, x, map_data, is_enclosed);
-	if (is_valid(y, x - 1, map_data->copy, rows))
+	if (st_is_valid(y, x - 1, map_data->copy, rows))
 		flood_fill(y, x - 1, map_data, is_enclosed);
-	if (is_valid(y, x + 1, map_data->copy, rows))
+	if (st_is_valid(y, x + 1, map_data->copy, rows))
 		flood_fill(y, x + 1, map_data, is_enclosed);
 }

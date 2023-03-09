@@ -1,13 +1,6 @@
 #include <parser.h>
 
-static bool	is_player(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (true);
-	return (false);
-}
-
-static void	find_player(t_file_data *file_data)
+static void	st_find_player(t_file_data *file_data)
 {
 	int	x;
 	int	y;
@@ -31,7 +24,7 @@ static void	find_player(t_file_data *file_data)
 	}
 }
 
-static char	**copy_map(t_map_data *map_data)
+static char	**st_copy_map(t_map_data *map_data)
 {
 	int		i;
 	char	**copy;
@@ -72,7 +65,7 @@ bool	check_walls(t_file_data *file_data)
 	// rows = 0; // ? testing
 	if (file_data->map_data->rows_count <= 0)
 		return (error_msg("Getting nb of rows"));
-	find_player(file_data);
+	st_find_player(file_data);
 	// printf("[x, y] = [%d, %d]\n", player_x, player_y); // ? testing
 	// player_x = -1; // ? testing
 	// player_y = -1; // ? testing
@@ -81,7 +74,7 @@ bool	check_walls(t_file_data *file_data)
 	if (player_x == ERROR || player_y == ERROR)
 		return (error_msg("Finding player position"));
 	is_enclosed = true;
-	file_data->map_data->copy = copy_map(file_data->map_data);
+	file_data->map_data->copy = st_copy_map(file_data->map_data);
 	// copy = NULL; // ? testing
 	if (!file_data->map_data->copy)
 		return (error_msg("Copying map"));
