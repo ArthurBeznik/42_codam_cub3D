@@ -17,11 +17,16 @@ bool	init_mlx(t_general_data	*data, t_graphics *graphics)
 
 bool	init_graphics(t_general_data *data, t_graphics *graphics)
 {
-	graphics->width = WIDTH * PIXELS;
-	graphics->height = (HEIGHT * PIXELS) + PIXELS;
+	fprintf(stderr, "%lld\n", data->file_data->map_data->max_line_len);
+	graphics->width = data->file_data->map_data->max_line_len * PIXELS / 2;
+	graphics->height = (data->file_data->map_data->rows_count * PIXELS) + PIXELS / 2;
 	if (!init_mlx(data, graphics))
 		return (false);
 	if (!draw_background(graphics))
+		return (false);
+	if (!(loading_images(graphics->textures)) || \
+	!(texture_to_image(graphics, graphics->textures, graphics->images)) \
+	|| !(images_to_window(data, graphics, 0)))
 		return (false);
 	if (mlx_image_to_window(graphics->mlx, graphics->images[BG], \
 											200, 200) == ERROR)
