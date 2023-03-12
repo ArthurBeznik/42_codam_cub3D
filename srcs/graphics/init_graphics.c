@@ -19,14 +19,18 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 {
 	graphics->width = WIDTH * PIXELS;
 	graphics->height = (HEIGHT * PIXELS) + PIXELS;
-	if (!init_mlx(data, graphics))
+	// if (!init_mlx(data, graphics))
+	// 	return (false);
+	// if (!draw_background(graphics))
+	// 	return (false);
+	// if (mlx_image_to_window(graphics->mlx, graphics->images[BG], \
+	// 										200, 200) == ERROR)
+	// 	return (free_close_window(graphics, graphics->images[BG], \
+	// 							"image_to_window failed"), false);
+	// mlx_set_instance_depth(graphics->images[BG]->instances, -999);
+
+	if (!draw_map(data))
 		return (false);
-	if (!draw_background(graphics))
-		return (false);
-	if (mlx_image_to_window(graphics->mlx, graphics->images[BG], \
-											200, 200) == ERROR)
-		return (free_close_window(graphics, graphics->images[BG], \
-								"image_to_window failed"), false);
-	mlx_set_instance_depth(graphics->images[BG]->instances, -999);
+
 	return (true);
 }

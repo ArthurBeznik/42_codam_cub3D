@@ -30,7 +30,7 @@ OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # DB_MAP		:= scenes/moore.cub
 DB_MAP		:= scenes/minimalist.cub
-TEST_MAP	:= scenes/minimalist.cub
+TEST_MAP	:= scenes/simple_valid.cub
 
 all: libmlx libft $(NAME)
 

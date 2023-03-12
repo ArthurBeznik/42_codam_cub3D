@@ -50,4 +50,6 @@ bool	texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
 													mlx_image_t **image);
 void	hook(void *param);
 
+bool	draw_map(t_general_data	*data);
+
 #endif
