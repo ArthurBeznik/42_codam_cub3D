@@ -25,10 +25,8 @@ void	hook(void *param)
 	data2 = (t_general_data *)param;
 	x = data2->file_data->player->x;
 	y = data2->file_data->player->y;
-	// x = (data2->graphics->images[PLAYER]->instances[0].x / PIXELS);
-	fprintf(stderr, "x: %zu\n", x);
-	// y = (data2->graphics->images[PLAYER]->instances[0].y / PIXELS);
-	fprintf(stderr, "y: %zu\n", y);
+	x = (data2->graphics->images[PLAYER]->instances[0].x / PIXELS);
+	y = (data2->graphics->images[PLAYER]->instances[0].y / PIXELS);
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
 	movement(data2, y, x);
