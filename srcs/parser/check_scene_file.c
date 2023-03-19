@@ -1,6 +1,6 @@
 #include <parser.h>
 
-void	find_identifier(char *line, t_file_data *data)
+void	find_textures(const char *line, t_file_data *data)
 {
 	char	**tmp;
 
@@ -27,7 +27,7 @@ void	find_identifier(char *line, t_file_data *data)
 	free_2d(tmp);
 }
 
-void	save_values(t_file_data *data, char **rgb_values, char c)
+void	save_values(t_file_data *data, const char **rgb_values, const char c)
 {
 	if (c == 'F')
 	{
@@ -47,7 +47,7 @@ void	save_values(t_file_data *data, char **rgb_values, char c)
 	}
 }
 
-void	find_colors(char *line, t_file_data *data)
+void	find_colors(const char *line, t_file_data *data)
 {
 	char	*line_without_id;
 	char	**rgb_values;
@@ -65,13 +65,13 @@ void	find_colors(char *line, t_file_data *data)
 			free(line_without_id);
 			return ;
 		}
-		save_values(data, rgb_values, line[0]);
+		save_values(data, (const char **)rgb_values, line[0]);
 		free(line_without_id);
 		free_2d(rgb_values);
 	}
 }
 
-bool	check_scene_file_order(t_file_data *data, int nb_rows)
+bool	check_scene_file_order(t_file_data *data, const int nb_rows)
 {
 	int	i;
 

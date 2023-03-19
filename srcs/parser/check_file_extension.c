@@ -1,6 +1,6 @@
 #include <parser.h>
 
-bool	check_ext(char *file_name, char	*extension)
+bool	check_ext(const char *file_name, const char *extension)
 {
 	int	ext_len;
 	int	name_len;
