@@ -5,7 +5,8 @@ bool	init_mlx(t_general_data	*data, t_graphics *graphics)
 	graphics->mlx = mlx_init(graphics->width, graphics->height, "Cub3D", true);
 	if (!graphics->mlx)
 		return (false);
-	graphics->textures[BG] = mlx_load_png(data->file_data->identifiers->path_to_east_texture);
+	graphics->textures[BG] = \
+		mlx_load_png(data->file_data->identifiers->path_to_east_texture);
 	if (!graphics->textures[BG])
 		return (false);
 	graphics->images[BG] = mlx_texture_to_image(graphics->mlx, \
