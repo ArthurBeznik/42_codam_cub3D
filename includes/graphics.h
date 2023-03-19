@@ -48,7 +48,7 @@ void	terminate(t_graphics *graphics);
 bool	loading_images(mlx_texture_t **textures);
 bool	texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
 													mlx_image_t **image);
-bool	images_to_window(t_general_data *data, t_graphics *graphics, size_t i);
+bool	images_to_window(t_general_data *data, t_graphics *graphics);
 void	hook(void *param);
 
 #endif

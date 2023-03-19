@@ -56,7 +56,7 @@ bool	init_map_data(t_file_data *file_data)
 	map_data->copy = NULL;
 	map_data->map = NULL;
 	map_data->rows_count = 999;
-	map_data->max_line_len = 50;
+	map_data->max_line_len = 999;
 	file_data->map_data = map_data;
 	return (true);
 }
