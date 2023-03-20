@@ -7,8 +7,8 @@ BLUE		:=	\033[1;36m
 YEL 		:=	\033[0;33m
 DEF 		:=	\033[0m
 
-CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
-# CFLAGS		:= -g3 
+# CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
+CFLAGS		:= -g3 
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
 MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
@@ -29,7 +29,7 @@ SRCS		:= $(shell find srcs -iname "*.c")
 OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # DB_MAP		:= scenes/moore.cub
-DB_MAP		:= scenes/minimalist.cub
+DB_MAP		:= scenes/simple_valid.cub
 TEST_MAP	:= scenes/simple_valid.cub
 
 all: libmlx libft $(NAME)

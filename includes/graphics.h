@@ -26,6 +26,7 @@ typedef enum mlx_images
 	IMG_SPRITE,
 	BG,
 	PLAYER,
+	LINE,
 	IMG_COUNT
 }	t_mlx_images;
 
@@ -49,7 +50,7 @@ bool	loading_images(mlx_texture_t **textures);
 bool	texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
 													mlx_image_t **image);
 void	hook(void *param);
-
-bool	draw_map(t_general_data	*data);
+void	ft_hook(void* param);
+bool	draw_map(t_general_data	*data, int64_t width, int64_t height);
 
 #endif
