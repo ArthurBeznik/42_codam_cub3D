@@ -10,5 +10,6 @@ void	free_2d(char **array);
 int		ft_count_rows(const char **scene);
 int		get_max_line_len(const char **map);
 bool	is_player(const char c);
+char	**copy_map(char **map, int rows);
 
 #endif

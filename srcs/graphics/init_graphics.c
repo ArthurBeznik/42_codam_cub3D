@@ -15,10 +15,29 @@ bool	init_mlx(t_general_data	*data, t_graphics *graphics)
 	return (true);
 }
 
+bool	init_ray_mlx(t_general_data	*data, t_graphics *graphics)
+{
+	graphics->mlx = mlx_init(graphics->width, \
+		graphics->height, "2D Map Viewer", true);
+	if (!graphics->mlx)
+		return (false);
+	graphics->images[IMG_FLOOR] = mlx_new_image(graphics->mlx, \
+		graphics->width, graphics->height);
+	if (!graphics->images[IMG_FLOOR])
+		return (false);
+	graphics->images[PLAYER] = mlx_new_image(graphics->mlx, \
+		data->graphics->width, graphics->height);
+	if (!graphics->images[PLAYER])
+		return (false);
+	return (true);
+}
+
 bool	init_graphics(t_general_data *data, t_graphics *graphics)
 {
-	graphics->width = WIDTH * PIXELS;
-	graphics->height = (HEIGHT * PIXELS) + PIXELS;
+	graphics->width = data->file_data->map_data->max_line_len * PIXELS;
+	graphics->height = (data->file_data->map_data->rows_count * PIXELS) + PIXELS;
+	// fprintf(stderr, "map width: %lld", data->file_data->map_data->max_line_len);
+	// fprintf(stderr, " | map height: %lld\n", data->file_data->map_data->rows_count);
 	// if (!init_mlx(data, graphics))
 	// 	return (false);
 	// if (!draw_background(graphics))
@@ -28,9 +47,9 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 	// 	return (free_close_window(graphics, graphics->images[BG], \
 	// 							"image_to_window failed"), false);
 	// mlx_set_instance_depth(graphics->images[BG]->instances, -999);
-
-	if (!draw_map(data))
+	if (!init_ray_mlx(data, graphics))
 		return (false);
-
+	if (!map_viewer(data))
+		return (false);
 	return (true);
 }
