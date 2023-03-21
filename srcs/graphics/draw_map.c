@@ -105,7 +105,5 @@ bool	map_viewer(t_general_data *data)
 		return (error_msg("floor to window"));
 	if (!draw_player(data, data->graphics->images[PLAYER]))
 		return (error_msg("player to window"));
-	mlx_loop_hook(data->graphics->mlx, &captain, data);
-	mlx_loop(data->graphics->mlx);
 	return (true);
 }

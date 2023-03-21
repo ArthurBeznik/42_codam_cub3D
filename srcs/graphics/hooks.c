@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-void	st_movement(t_general_data *data, size_t y, size_t x)
+void	movement(t_general_data *data, size_t y, size_t x)
 {
 	// fprintf(stderr, "BEFORE || ix: %d | iy: %d\n", data->graphics->images[PLAYER]->instances[0].x, data->graphics->images[PLAYER]->instances[0].y);
 	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_S) \
@@ -30,6 +30,6 @@ void	captain(void *param)
 	fprintf(stderr, "x: %zu | y: %zu\n", x, y);
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
-	st_movement(data2, y, x);
+	movement(data2, y, x);
 	fprintf(stderr, "OUT ix: %d | iy: %d\n", data2->graphics->images[PLAYER]->instances[0].x, data2->graphics->images[PLAYER]->instances[0].y);
 }
