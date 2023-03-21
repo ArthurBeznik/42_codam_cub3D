@@ -29,6 +29,7 @@ typedef enum mlx_images
 	IMG_SPRITE,
 	BG,
 	PLAYER,
+	LINE,
 	IMG_COUNT
 }	t_mlx_images;
 
