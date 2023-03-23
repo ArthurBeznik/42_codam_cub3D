@@ -20,15 +20,15 @@ void	log_positions(t_general_data *data, char player_or_image, char *message)
 	if (player_or_image == 'I')
 	{
 		if (message)
-			fprintf(stderr, "[%s] ix: %d | iy: %d\n", message, data->graphics->images[PLAYER]->instances[0].x, data->graphics->images[PLAYER]->instances[0].y);
+			fprintf(stderr, "[%s] ix: %d | iy: %d\n", message, data->graphics->img->instances[0].x, data->graphics->img->instances[0].y);
 		else
-			fprintf(stderr, "ix: %d | iy: %d\n", data->graphics->images[PLAYER]->instances[0].x, data->graphics->images[PLAYER]->instances[0].y);
+			fprintf(stderr, "ix: %d | iy: %d\n", data->graphics->img->instances[0].x, data->graphics->img->instances[0].y);
 	}
 	else if (player_or_image == 'P')
 	{
 		if (message)
-			fprintf(stderr, "[%s] px: %lld | py: %lld\n", message, data->file_data->player->x, data->file_data->player->y);
+			fprintf(stderr, "[%s] px: %f | py: %f\n", message, data->file_data->player->x, data->file_data->player->y);
 		else
-			fprintf(stderr, "px: %lld | py: %lld\n", data->file_data->player->x, data->file_data->player->y);
+			fprintf(stderr, "px: %f | py: %f\n", data->file_data->player->x, data->file_data->player->y);
 	}
 }

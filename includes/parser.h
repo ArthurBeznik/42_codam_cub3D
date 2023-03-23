@@ -16,8 +16,11 @@ typedef struct s_general_data	t_general_data;
 
 typedef struct s_player
 {
-	int64_t		x;
-	int64_t		y;
+	double		x;
+	double		y;
+	double		dx;
+	double		dy;
+	double		angle;
 	char		facing;
 }	t_player;
 

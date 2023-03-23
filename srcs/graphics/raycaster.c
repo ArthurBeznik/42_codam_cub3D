@@ -34,12 +34,12 @@ static void	init_ray_orientation(t_general_data *data, t_graphics *graphics)
 		*/
 		while (i < 32)
 		{
-			mlx_put_pixel(graphics->images[PLAYER], 8, 8, 0xFF0000FF);
+			mlx_put_pixel(graphics->img, 8, 8, 0xFF0000FF);
 			i++;
 		}
 	}
 	else if (data->file_data->player->facing == 'S')
-		draw_ray(graphics->images[PLAYER], 0, 32);
+		draw_ray(graphics->img, 0, 32);
 	else if (data->file_data->player->facing == 'W')
 	{
 		/**
@@ -47,12 +47,12 @@ static void	init_ray_orientation(t_general_data *data, t_graphics *graphics)
 		*/
 		while (i < 32)
 		{
-			mlx_put_pixel(graphics->images[PLAYER], 8, 8, 0xFF0000FF);
+			mlx_put_pixel(graphics->img, 8, 8, 0xFF0000FF);
 			i++;
 		}
 	}
 	else if (data->file_data->player->facing == 'E')
-		draw_ray(graphics->images[PLAYER], 32, 0);
+		draw_ray(graphics->img, 32, 0);
 }
 
 bool	ray_caster(t_general_data *data)

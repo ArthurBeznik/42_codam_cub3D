@@ -15,10 +15,10 @@ bool	draw_background(t_graphics *graphics)
 		x = 0;
 		while (x < WIDTH)
 		{
-			mlx_image_to_window(graphics->mlx, graphics->images[BG], \
+			mlx_image_to_window(graphics->mlx, graphics->img, \
 				x * PIXELS, y * PIXELS);
 			if (!mlx_image_to_window(graphics->mlx, \
-				graphics->images[BG], x * PIXELS, y * PIXELS))
+				graphics->img, x * PIXELS, y * PIXELS))
 				return (false);
 			x++;
 		}

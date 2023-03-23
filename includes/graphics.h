@@ -9,6 +9,7 @@
 # include <libft.h>
 # include <MLX42.h>
 # include <utils.h>
+# include <math.h>
 
 # define PIXELS 64
 # define WIDTH 1920 // will be removed once we have a row length
@@ -39,8 +40,9 @@ typedef struct s_graphics
 	void			*win;
 	int64_t			width;
 	int64_t			height;
-	mlx_image_t		*images[IMG_COUNT];
+	mlx_image_t		*img;
 	mlx_texture_t	*textures[IMG_COUNT];
+	bool			init_dir;
 }	t_graphics;
 
 bool	run_graphics(t_general_data	*data);
@@ -60,5 +62,9 @@ void	draw_line(mlx_image_t* img, int x, int y, int orientation);
 bool	ray_caster(t_general_data *data);
 
 void	log_positions(t_general_data *data, char player_or_image, char *message);
+
+void	draw_2d_map(t_general_data *data, mlx_image_t *img);
+
+void	draw_player(t_general_data *data, mlx_image_t *img);
 
 #endif

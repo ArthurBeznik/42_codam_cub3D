@@ -1,20 +1,55 @@
 #include <graphics.h>
 
-void	movement(t_general_data *data, size_t y, size_t x)
+/**
+ * TODO fix this shit
+*/
+void	movement(t_general_data *data, mlx_t *mlx, size_t y, size_t x)
 {
-	// fprintf(stderr, "BEFORE || ix: %d | iy: %d\n", data->graphics->images[PLAYER]->instances[0].x, data->graphics->images[PLAYER]->instances[0].y);
-	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_S) \
-						&& data->file_data->map_data->map[y + 1][x] != '1')
-			data->graphics->images[PLAYER]->instances[0].y += 1;
-	else if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_A) \
-						&& data->file_data->map_data->map[y][x - 1] != '1')
-			data->graphics->images[PLAYER]->instances[0].x -= 1;
-	else if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_D) \
-						&& data->file_data->map_data->map[y][x + 1] != '1')
-		data->graphics->images[PLAYER]->instances[0].x += 1;
-	else if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_W) \
-						&& data->file_data->map_data->map[y - 1][x] != '1')
-		data->graphics->images[PLAYER]->instances[0].y -= 1;
+	// double	angle;
+
+	// angle = data->file_data->player->angle;
+	ft_memset(data->graphics->img->pixels, 0, data->graphics->img->width * data->graphics->img->height * sizeof(int));
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	{
+		data->file_data->player->angle -= 0.05 * PI;
+		if (data->file_data->player->angle < 0)
+			data->file_data->player->angle += 2 * PI;
+		data->file_data->player->dx = cos(data->file_data->player->angle) * 5;
+		data->file_data->player->dy = sin(data->file_data->player->angle) * 5;
+		
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	{
+		data->file_data->player->angle += 0.05 *  PI;
+		if (data->file_data->player->angle > 2 * PI)
+			data->file_data->player->angle -= 2 * PI;
+		data->file_data->player->dx = cos(data->file_data->player->angle) * 5;
+		data->file_data->player->dy = sin(data->file_data->player->angle) * 5;
+		
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+	{
+		data->file_data->player->y += data->file_data->player->dx;
+		data->file_data->player->x += data->file_data->player->dy;
+		
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+	{
+		data->file_data->player->y -= data->file_data->player->dx;
+		data->file_data->player->x -= data->file_data->player->dy;
+		
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+	{
+		data->file_data->player->y += data->file_data->player->dx;
+		data->file_data->player->x += data->file_data->player->dy;
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+	{
+		data->file_data->player->y -= data->file_data->player->dx;
+		data->file_data->player->x -= data->file_data->player->dy;
+	}
+	draw_2d_map(data, data->graphics->img);
 }
 
 void	captain(void *param)
@@ -26,12 +61,10 @@ void	captain(void *param)
 	data2 = (t_general_data *)param;
 	// log_positions(data2, 'I', "IN"); // ? testing
 	// log_positions(data2, 'P', "IN"); // ? testing
-	x = data2->graphics->images[PLAYER]->instances[0].x / PIXELS;
-	y = data2->graphics->images[PLAYER]->instances[0].y / PIXELS;
 	// fprintf(stderr, "x: %zu | y: %zu\n", x, y);
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
-	movement(data2, y, x);
+	movement(data2, data2->graphics->mlx, y, x);
 	// log_positions(data2, 'P', "OUT"); // ? testing
 	// log_positions(data2, 'I', "OUT"); // ? testing
 }
