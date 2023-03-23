@@ -24,12 +24,14 @@ void	captain(void *param)
 	t_general_data		*data2;
 
 	data2 = (t_general_data *)param;
-	fprintf(stderr, "IN ix: %d | iy: %d\n", data2->graphics->images[PLAYER]->instances[0].x, data2->graphics->images[PLAYER]->instances[0].y);
+	// log_positions(data2, 'I', "IN"); // ? testing
+	// log_positions(data2, 'P', "IN"); // ? testing
 	x = data2->graphics->images[PLAYER]->instances[0].x / PIXELS;
 	y = data2->graphics->images[PLAYER]->instances[0].y / PIXELS;
-	fprintf(stderr, "x: %zu | y: %zu\n", x, y);
+	// fprintf(stderr, "x: %zu | y: %zu\n", x, y);
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
 	movement(data2, y, x);
-	fprintf(stderr, "OUT ix: %d | iy: %d\n", data2->graphics->images[PLAYER]->instances[0].x, data2->graphics->images[PLAYER]->instances[0].y);
+	// log_positions(data2, 'P', "OUT"); // ? testing
+	// log_positions(data2, 'I', "OUT"); // ? testing
 }

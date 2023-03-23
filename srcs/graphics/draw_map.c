@@ -105,5 +105,7 @@ bool	map_viewer(t_general_data *data)
 		return (error_msg("floor to window"));
 	if (!draw_player(data, data->graphics->images[PLAYER]))
 		return (error_msg("player to window"));
+	// if (!draw_ray(data, data->graphics->images[PLAYER]))
+	// 	return (error_msg("rays to window"));
 	return (true);
 }

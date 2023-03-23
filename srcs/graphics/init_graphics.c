@@ -51,5 +51,7 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 		return (false);
 	if (!map_viewer(data))
 		return (false);
+	if (!ray_caster(data))
+		return (false);
 	return (true);
 }

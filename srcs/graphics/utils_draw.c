@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-void	draw_line(mlx_image_t* img, int x, int y, int orientation)
+void	draw_line(mlx_image_t *img, int x, int y, int orientation)
 {
     int	i;
 
@@ -15,7 +15,7 @@ void	draw_line(mlx_image_t* img, int x, int y, int orientation)
 	}
 }
 
-void	draw_square(mlx_image_t* img, int x, int y, uint32_t color, bool player)
+void	draw_square(mlx_image_t *img, int x, int y, uint32_t color, bool player)
 {
     int	i;
 	int	j;

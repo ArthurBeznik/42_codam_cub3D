@@ -53,9 +53,12 @@ bool	loading_images(mlx_texture_t **textures);
 bool	texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
 													mlx_image_t **image);
 void	captain(void *param);
-
 bool	map_viewer(t_general_data *data);
 void	draw_square(mlx_image_t* img, int x, int y, uint32_t color, bool player);
 void	draw_line(mlx_image_t* img, int x, int y, int orientation);
+
+bool	ray_caster(t_general_data *data);
+
+void	log_positions(t_general_data *data, char player_or_image, char *message);
 
 #endif
