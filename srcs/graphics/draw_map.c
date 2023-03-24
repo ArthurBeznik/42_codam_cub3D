@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-static void	init_direction(t_general_data *data, mlx_image_t *img, int x, int y)
+static void	init_direction(t_general_data *data, int x, int y)
 {
 	if (data->file_data->map_data->map[y][x] == 'N')
 		data->file_data->player->angle = 1.5 * PI;
@@ -11,12 +11,13 @@ static void	init_direction(t_general_data *data, mlx_image_t *img, int x, int y)
 	else if (data->file_data->map_data->map[y][x] == 'E')
 		data->file_data->player->angle = 2.0 * PI;
 	// fprintf(stderr, "x: %d | y: %d\n", x, y); // ? testing
-	// fprintf(stderr, "angle: %f\n", data->file_data->player->angle); // ? testing
+	// log_positions(data, "init_dir", 'A'); // ? testing
 	data->file_data->player->x = (x * PIXELS) + PIXELS / 2;
 	data->file_data->player->y = (y * PIXELS) + PIXELS / 2;
-	// fprintf(stderr, "x: %f | y: %f\n", data->file_data->player->x, data->file_data->player->y); // ? testing
-	data->file_data->player->dx = lround((cos(data->file_data->player->angle)) * 5);
-	data->file_data->player->dy = lround((sin(data->file_data->player->angle)) * 5);
+	// log_positions(data, "init_dir", 'P'); // ? testing
+	data->file_data->player->dx = lround((cos(data->file_data->player->angle)) * 2.5); // ? * 5 because these are very small values
+	data->file_data->player->dy = lround((sin(data->file_data->player->angle)) * 2.5); // ? also affects the speed of the player
+	// log_positions(data, "init_dir", 'D'); // ? testing
 	data->graphics->init_dir = true;
 }
 
@@ -65,7 +66,7 @@ static void	draw_cells(char	**map, t_general_data *data, mlx_image_t *img, int m
 			{
 				draw_square(img, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
 				if (data->graphics->init_dir == false)
-					init_direction(data, img, x, y);
+					init_direction(data, x, y);
 			}
 			x++;
 		}
@@ -73,37 +74,11 @@ static void	draw_cells(char	**map, t_general_data *data, mlx_image_t *img, int m
 	}
 }
 
-/**
- * Draws the map in 2D with gridlines.
- * 	1. Copies the map and replaces the spaces with 'X'.
- * 	2. Draws cells.
- * 	3. Draws gridlines.
-*/
-void	draw_2d_map(t_general_data *data, mlx_image_t *img)
+bool	draw_2d_map(t_general_data *data, mlx_image_t *img)
 {
-	int		y;
-	int		x;
-	int		map_height;
-	int		curr_line_len;
-	char	**copy;
-
-	map_height = data->file_data->map_data->rows_count;
-	copy = copy_map(data->file_data->map_data->map, data->file_data->map_data->rows_count);
-	y = 0;
-	while (y < map_height)
-	{
-		curr_line_len = ft_strlen(copy[y]);
-		x = 0;
-		while (x < curr_line_len)
-		{
-			if (copy[y][x] == ' ')
-				copy[y][x] = 'X';
-			x++;
-		}
-		y++;
-	}
-	draw_cells(copy, data, img, map_height);
-	draw_gridlines(copy, img, map_height);
-	free_2d(copy);
-	draw_player(data, data->graphics->img);
+	draw_cells(data->file_data->map_data->copy, data, img, data->file_data->map_data->row);
+	draw_gridlines(data->file_data->map_data->copy, img, data->file_data->map_data->row);
+	if (!draw_player(data, data->graphics->img))
+		return (error_msg("Drawing player"));
+	return (true);
 }

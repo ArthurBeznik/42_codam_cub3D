@@ -55,8 +55,8 @@ static bool	st_init_map_data(t_file_data *file_data)
 		return (false);
 	map_data->copy = NULL;
 	map_data->map = NULL;
-	map_data->rows_count = 999;
-	map_data->max_line_len = 999;
+	map_data->row = 999;
+	map_data->col = 999;
 	file_data->map_data = map_data;
 	return (true);
 }

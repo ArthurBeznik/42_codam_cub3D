@@ -44,8 +44,8 @@ typedef struct s_identifiers_data
 
 typedef struct map_data
 {
-	int64_t		rows_count;
-	int64_t		max_line_len;
+	int64_t		row;
+	int64_t		col;
 	char		**map;
 	char		**copy;
 }	t_map_data;

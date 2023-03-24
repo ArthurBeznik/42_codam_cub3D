@@ -16,9 +16,9 @@ void	flood_fill(int y, int x, t_map_data *map_data, bool *is_enclosed)
 	int	rows;
 	int	cols;
 
-	rows = map_data->rows_count;
+	rows = map_data->row;
 	cols = ft_strlen(map_data->copy[y]);
-	if (y == 0 || y == map_data->rows_count - 1 || x == 0 || x == cols - 1)
+	if (y == 0 || y == map_data->row - 1 || x == 0 || x == cols - 1)
 	{
 		*is_enclosed = false;
 		return ;

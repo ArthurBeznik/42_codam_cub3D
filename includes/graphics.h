@@ -61,10 +61,14 @@ void	draw_line(mlx_image_t* img, int x, int y, int orientation);
 
 bool	ray_caster(t_general_data *data);
 
-void	log_positions(t_general_data *data, char player_or_image, char *message);
+void	log_positions(t_general_data *data, char *function, char values);
 
-void	draw_2d_map(t_general_data *data, mlx_image_t *img);
+bool	draw_2d_map(t_general_data *data, mlx_image_t *img);
 
-void	draw_player(t_general_data *data, mlx_image_t *img);
+bool	draw_player(t_general_data *data, mlx_image_t *img);
+
+bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
+
+bool	fill_map(t_general_data	*data);
 
 #endif
