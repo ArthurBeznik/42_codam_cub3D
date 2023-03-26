@@ -14,6 +14,11 @@
 
 typedef struct s_general_data	t_general_data;
 
+/**
+ * x, y : 
+ * 	in parser: grid values
+ * 	in graphics: pixel values
+*/
 typedef struct s_player
 {
 	double		x;

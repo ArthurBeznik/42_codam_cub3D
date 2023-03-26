@@ -4,68 +4,75 @@
  * 	. i * cos(angle)	=> pixel * angle based on x
  * 	. + player dx 		=> (given the direction) value to be added to x
 */
-void draw_direction(t_general_data *data, mlx_image_t *img, double angle)
+bool draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 {
 	int		i;
-	int		size;
+	int		d_size;
 	double	x1;
     double	y1;
 
-	size = 16;
+	d_size = 16;
 	i = 0;
-	while (i < size)
+	while (i < d_size)
 	{
 		// log_positions(data, "draw_dir", 'A');
-		// fprintf(stderr, "[angle] %f\n", angle); // ? testing
-		x1 = (i * cos((angle))) + data->file_data->player->x + 1;
-        y1 = (i * sin((angle))) + data->file_data->player->y + 1;
-		// fprintf(stderr, "x1 | y1: %f | %f\n", x1, y1);
-		// log_positions(data, "draw_dir", 'D');
-		// log_positions(data, "draw_dir", 'P');
-		// fprintf(stderr, "px | py: %f | %f\n", data->file_data->player->x, data->file_data->player->y);
-		// fprintf(stderr, "h | w: %lld | %lld\n", data->graphics->height, data->graphics->width);
-		if (x1 < data->graphics->width && x1 > 0 && y1 < data->graphics->height && y1 > 0)
-			mlx_put_pixel(img, x1, y1, 0xFF000090);
+		x1 = (i * cos((angle))) + data->file_data->player->x;
+        y1 = (i * sin((angle))) + data->file_data->player->y;
+		// fprintf(stderr, "x1 | y1: %f | %f\n", x1, y1); // ? testing
+		// log_positions(data, "draw_dir", 'D'); // ? testing
+		// log_positions(data, "draw_dir", 'P'); // ? testing
+		if (!check_put_pixel(data, x1, y1))
+			return (false);	
+		mlx_put_pixel(img, x1, y1, 0xFF000090);
 		i++;
 	}
+	return (true);
 }
 
 /**
  * TODO verifiy this is actually correct because once setting the size to 64
  * TODO the player goes over gridlines
+ * x - p_size 
+ * 		. x: center position of the square in pixels
+ * 		. p_size: player size in pixels
+ * 		. => gives us the starting x of the square to draw, same thing for y
+ * we want to draw 
+ * 	8 pixels left, 
+ * 	8 pixels right, 
+ * 	8 pixels up and 
+ * 	8 pixels down 
+ * 			of player x and y
 */
 bool	draw_player(t_general_data *data, mlx_image_t *img)
 {
 	int	x;
 	int	y;
-	int	size;
-	int	ratio;
+	int	p_size;
+	int	centered;
 
-	size = 32;
-	// size = 16;
-	ratio = PIXELS / size;
-	// fprintf(stderr, "%d\n", ratio);
-	// exit(0);
+	p_size = 16;
+	centered = p_size / 2;
 	x = (int)data->file_data->player->x;
-	while (data->file_data->player->x > x - size)
+	while (x - p_size < data->file_data->player->x)
 	{
 		y = (int)data->file_data->player->y;
-		while (y - size < data->file_data->player->y)
+		while (y - p_size < data->file_data->player->y)
 		{
-			// if (!check_put_pixel(data, x - size / 2, y - size / 2))
-			if (!check_put_pixel(data, x - size / ratio, y - size / ratio))
+			if (!check_put_pixel(data, x - centered, y - centered))
 			// if (!check_put_pixel(data, -100, y - size / 2)) // ? testing
             	return (false);
-			log_positions(data, "draw_player", 'P'); // ? testing
+			// log_positions(data, "draw_player", 'P'); // ? testing
+			// log_positions(data, "draw_player", 'G'); // ? testing
 			// log_positions(data, "draw_player", 'D'); // ? testing
 			// log_positions(data, "draw_player", 'A'); // ? testing
-			// fprintf(stderr, "%d | %d\n", (x - size / 2) / PIXELS, (y - size / 2) / PIXELS); // ? testing
-			mlx_put_pixel(img, x - size / ratio, y - size / ratio, 0xFFFF00FF);
-			// mlx_put_pixel(img, x - size / 2, y - size / 2, 0xFFFF00FF);
+			// fprintf(stderr, "%d | %d\n", x - centered, y - centered); // ? testing
+			// fprintf(stderr, "%d | %d\n", x - p_size, y - p_size); // ? testing
+			mlx_put_pixel(img, x - centered, y - centered, 0xFFFF00FF);
 			y++;
 		}
 		x++;
 	}
-	draw_direction(data, data->graphics->img, data->file_data->player->angle);
+	if (!draw_direction(data, data->graphics->img, data->file_data->player->angle))
+		return (false);
 	return (true);
 }

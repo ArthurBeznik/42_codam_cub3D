@@ -11,14 +11,13 @@
 # include <utils.h>
 # include <math.h>
 
-# define PIXELS 64
-# define WIDTH 1920 // will be removed once we have a row length
-# define HEIGHT 1080 // will be removed once we have rows count
-# define PI 3.14159265358979323846
 # define ERROR -1
+# define PIXELS 64
+# define PI 3.14159265358979323846
 
 # define H 10
 # define V 11
+
 # define ROTATION_SPEED 0.02
 # define MOVE_SPEED 2.5
 # define RESET_ANGLE 2 * PI
@@ -50,28 +49,21 @@ typedef struct s_graphics
 
 bool	run_graphics(t_general_data	*data);
 bool	init_graphics(t_general_data *data, t_graphics *graphics);
-bool	draw_background(t_graphics *graphics);
-bool	init_mlx(t_general_data	*data, t_graphics *graphics);
-void	free_close_window(t_graphics *graphics, void *var, char *str);
-void	terminate(t_graphics *graphics);
+
 bool	loading_images(mlx_texture_t **textures);
 bool	texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
 													mlx_image_t **image);
-void	captain(void *param);
-bool	map_viewer(t_general_data *data);
+bool	draw_2d_map(t_general_data *data, mlx_image_t *img);
 void	draw_square(mlx_image_t* img, int x, int y, uint32_t color, bool player);
 void	draw_line(mlx_image_t* img, int x, int y, int orientation);
-
-bool	ray_caster(t_general_data *data);
-
-void	log_positions(t_general_data *data, char *function, char values);
-
-bool	draw_2d_map(t_general_data *data, mlx_image_t *img);
-
 bool	draw_player(t_general_data *data, mlx_image_t *img);
 
-bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
+void	captain(void *param);
 
+void	log_positions(t_general_data *data, char *function, char values);
+bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
 bool	fill_map(t_general_data	*data);
+void	free_close_window(t_graphics *graphics, void *var, char *str);
+void	terminate(t_graphics *graphics);
 
 #endif
