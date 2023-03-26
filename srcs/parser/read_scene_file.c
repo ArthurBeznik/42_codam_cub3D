@@ -1,6 +1,6 @@
 #include <parser.h>
 
-char	*init_line_buf(t_file_data *data)
+static char	*st_init_line_buf(t_file_data *data)
 {
 	char	*buf;
 
@@ -14,7 +14,7 @@ char	*init_line_buf(t_file_data *data)
 	return (buf);
 }
 
-bool	join_save_line(t_file_data *data, char *buf)
+static bool	st_join_save_line(t_file_data *data, const char *buf)
 {
 	char	*tmp;
 
@@ -35,7 +35,7 @@ char	*read_scene_file(t_file_data *data)
 {
 	char	*buf;
 
-	buf = init_line_buf(data);
+	buf = st_init_line_buf(data);
 	if (!buf)
 		return (NULL);
 	while (data->buflen > 0)
@@ -47,7 +47,7 @@ char	*read_scene_file(t_file_data *data)
 			free(buf);
 			return (NULL);
 		}
-		if (!join_save_line(data, buf))
+		if (!st_join_save_line(data, buf))
 			return (NULL);
 	}
 	free(buf);

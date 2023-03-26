@@ -1,6 +1,6 @@
 #include <parser.h>
 
-static bool	st_check_color_range(int color)
+static bool	st_check_color_range(const int color)
 {
 	// color = 270; // ? testing
 	// color = -67; // ? testing
@@ -23,7 +23,7 @@ static bool	st_check_colors(t_rgb *colors)
 }
 
 bool	check_identifiers(t_identifiers_data *id_data, \
-	char *extension)
+	const char *extension)
 {
 	// system("leaks cub3D"); // ? testing
 	// id_data = NULL; // ? testing

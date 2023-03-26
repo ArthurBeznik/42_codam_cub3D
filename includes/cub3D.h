@@ -9,8 +9,8 @@
 # include <libft.h>
 # include <MLX42.h>
 # include <utils.h>
-# include "parser.h"
-# include "graphics.h"
+# include <parser.h>
+# include <graphics.h>
 
 typedef struct s_general_data
 {

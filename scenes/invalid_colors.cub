@@ -11,7 +11,7 @@ W ./textures/diamond.png
 
 E ./textures/diamond.png
 
-F 220,100,0
+F 300,,,,,,,100,0
 C 225,30,0
 
 111111

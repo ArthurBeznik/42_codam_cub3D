@@ -16,8 +16,11 @@ typedef struct s_general_data	t_general_data;
 
 typedef struct s_player
 {
-	int64_t		x;
-	int64_t		y;
+	double		x;
+	double		y;
+	double		dx;
+	double		dy;
+	double		angle;
 	char		facing;
 }	t_player;
 
@@ -41,8 +44,8 @@ typedef struct s_identifiers_data
 
 typedef struct map_data
 {
-	int64_t		rows_count;
-	int64_t		max_line_len;
+	int64_t		row;
+	int64_t		col;
 	char		**map;
 	char		**copy;
 }	t_map_data;
@@ -61,16 +64,16 @@ typedef struct s_file_data
 
 bool	parser(int argc, char *argv[], t_general_data *data);
 bool	init_file_data(t_general_data *data);
-bool	check_ext(char *file_name, char	*file_extension);
-bool	check_map(char *file_name, t_file_data *file_data);
+bool	check_ext(const char *file_name, const char *file_extension);
+bool	check_map(const char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
 bool	read_scene_data(t_file_data *data);
-bool	check_scene_file_order(t_file_data *data, int nb_rows);
-void	find_colors(char *line, t_file_data *data);
-void	find_identifier(char *line, t_file_data *data);
-bool	check_identifiers(t_identifiers_data *id_data, char *extension);
-bool	check_map_content(char **map);
+void	find_textures(const char *line, t_file_data *data);
+void	find_colors(const char *line, t_file_data *data);
+bool	check_identifiers(t_identifiers_data *id_data, const char *extension);
+bool	check_scene_file_order(t_file_data *data, const int nb_rows);
+bool	check_map_content(const char **map);
 bool	check_walls(t_file_data *data);
-void	flood_fill(int y, int x, t_map_data *map_data, bool *is_enclosed);
+void	flood_fill(const int y, const int x, t_map_data *map_data, bool *is_enclosed);
 
 #endif

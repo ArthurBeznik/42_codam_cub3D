@@ -1,7 +1,7 @@
 
 #include <utils.h>
 
-void	print_map(char **map)
+void	print_map(const char **map)
 {
 	int	x;
 	int	y;

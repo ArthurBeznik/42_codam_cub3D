@@ -10,8 +10,12 @@ int	main(int argc, char *argv[])
 	if (!parser(argc, argv, &data))
 		return (1);
   	if (!run_graphics(&data))
-		terminate(data.graphics);
+	{
+		return (1);
+		// return (terminate(data.graphics), false);
+		// mlx_terminate(data.graphics->mlx);
+	}
 	// free(file_data.line);
-	system("leaks cub3D");
+	// system("leaks cub3D");
 	return (0);
 }
