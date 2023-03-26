@@ -11,7 +11,7 @@ void draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 	double	x1;
     double	y1;
 
-	size = 32;
+	size = 16;
 	i = 0;
 	while (i < size)
 	{
@@ -39,22 +39,29 @@ bool	draw_player(t_general_data *data, mlx_image_t *img)
 	int	x;
 	int	y;
 	int	size;
+	int	ratio;
 
 	size = 32;
+	// size = 16;
+	ratio = PIXELS / size;
+	// fprintf(stderr, "%d\n", ratio);
+	// exit(0);
 	x = (int)data->file_data->player->x;
 	while (data->file_data->player->x > x - size)
 	{
 		y = (int)data->file_data->player->y;
 		while (y - size < data->file_data->player->y)
 		{
-			if (!check_put_pixel(data, x - size / 2, y - size / 2))
+			// if (!check_put_pixel(data, x - size / 2, y - size / 2))
+			if (!check_put_pixel(data, x - size / ratio, y - size / ratio))
 			// if (!check_put_pixel(data, -100, y - size / 2)) // ? testing
             	return (false);
-			// log_positions(data, "draw_player", 'P');
-			// log_positions(data, "draw_player", 'D');
-			// log_positions(data, "draw_player", 'A');
-			// fprintf(stderr, "%d | %d\n", (x - size / 2) / PIXELS, (y - size / 2) / PIXELS);
-			mlx_put_pixel(img, x - size / 2, y - size / 2, 0xFFFF00FF);
+			log_positions(data, "draw_player", 'P'); // ? testing
+			// log_positions(data, "draw_player", 'D'); // ? testing
+			// log_positions(data, "draw_player", 'A'); // ? testing
+			// fprintf(stderr, "%d | %d\n", (x - size / 2) / PIXELS, (y - size / 2) / PIXELS); // ? testing
+			mlx_put_pixel(img, x - size / ratio, y - size / ratio, 0xFFFF00FF);
+			// mlx_put_pixel(img, x - size / 2, y - size / 2, 0xFFFF00FF);
 			y++;
 		}
 		x++;
