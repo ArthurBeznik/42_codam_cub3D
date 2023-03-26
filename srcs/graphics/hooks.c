@@ -18,20 +18,13 @@ void	movement(t_general_data *data, mlx_t *mlx)
 			data->file_data->player->angle -= RESET_ANGLE;
 		data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED;
 		data->file_data->player->dy = sin(data->file_data->player->angle) * MOVE_SPEED;
-
 	}
-	if ((mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W)) \
-		&& data->file_data->map_data->copy
-			[(int)data->file_data->player->y / PIXELS + (int)data->file_data->player->dy]
-			[(int)data->file_data->player->x / PIXELS + (int)data->file_data->player->dx] != '1')
+	if (mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W))
 	{
 		data->file_data->player->x += data->file_data->player->dx;
 		data->file_data->player->y += data->file_data->player->dy;
 	}
-	if ((mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S)) \
-		&& data->file_data->map_data->copy
-			[(int)data->file_data->player->y / PIXELS - (int)data->file_data->player->dy]
-			[(int)data->file_data->player->x / PIXELS - (int)data->file_data->player->dx] != '1')
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S))
 	{
 		data->file_data->player->x -= data->file_data->player->dx;
 		data->file_data->player->y -= data->file_data->player->dy;
@@ -48,5 +41,6 @@ void	captain(void *param)
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
 	movement(data2, data2->graphics->mlx);
+	rayCasting(data2);
 	// log_positions(data2, "captain", 'P'); // ? testing
 }
