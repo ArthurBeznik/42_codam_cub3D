@@ -10,6 +10,7 @@ static bool	st_init_player_data(t_file_data *file_data)
 	player->facing = 'X';
 	player->x = 999;
 	player->y = 999;
+	player->angle = 999;
 	file_data->player = player;
 	return (true);
 }
