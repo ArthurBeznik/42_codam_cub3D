@@ -23,7 +23,9 @@ bool draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 		// log_positions(data, "draw_dir", 'P'); // ? testing
 		if (!check_put_pixel(data, x1, y1))
 			return (false);	
-		mlx_put_pixel(img, x1, y1, 0xFF000090);
+		mlx_put_pixel(img, x1, y1, 0x00FF00FF);
+		mlx_put_pixel(img, x1 - 1, y1 - 1, 0x00FF00FF);
+		mlx_put_pixel(img, x1 + 1, y1 + 1, 0x00FF00FF);
 		i++;
 	}
 	return (true);

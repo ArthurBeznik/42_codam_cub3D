@@ -25,11 +25,13 @@ static void	init_direction(t_general_data *data, int x, int y)
 	data->graphics->init_dir = true;
 }
 
-static void	draw_gridlines(char	**map, mlx_image_t *img, int map_height)
+static bool	draw_gridlines(char	**map, t_general_data *data, int map_height)
 {
 	int	y;
 	int	x;
 	int	curr_line_len;
+	int	ret_v;
+	int	ret_h;
 
 	y = 0;
 	while (y < map_height)
@@ -38,19 +40,23 @@ static void	draw_gridlines(char	**map, mlx_image_t *img, int map_height)
 		x = 0;
 		while (x < curr_line_len)
 		{
-			draw_line(img, x * PIXELS, y * PIXELS, V);
-			draw_line(img, x * PIXELS, y * PIXELS, H);
+			ret_v = draw_line(data, x * PIXELS, y * PIXELS, V);
+			ret_h = draw_line(data, x * PIXELS, y * PIXELS, H);
+			if (!ret_v || !ret_h)
+				return (false);
 			x++;
 		}
 		y++;
 	}
+	return (true);
 }
 
-static void	draw_cells(char	**map, t_general_data *data, mlx_image_t *img, int map_height)
+static bool	draw_cells(char	**map, t_general_data *data, int map_height)
 {
 	int	y;
 	int	x;
 	int	curr_line_len;
+	int	ret;
 
 	y = 0;
 	curr_line_len = 0;
@@ -61,27 +67,32 @@ static void	draw_cells(char	**map, t_general_data *data, mlx_image_t *img, int m
 		while (x < curr_line_len)
 		{
 			if (map[y][x] == '1')
-				draw_square(img, x * PIXELS, y * PIXELS, 0x000000FF, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, 0x000000FF, false);
 			else if (map[y][x] == '0')
-				draw_square(img, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
 			else if (map[y][x] == 'X')
-				draw_square(img, x * PIXELS, y * PIXELS, 0x00000000, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, 0x00000000, false);
 			else if (is_player((const char)map[y][x]))
 			{
-				draw_square(img, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
 				if (data->graphics->init_dir == false)
 					init_direction(data, x, y);
 			}
+			if (ret == false)
+				return (false);
 			x++;
 		}
 		y++;
 	}
+	return (true);
 }
 
-bool	draw_2d_map(t_general_data *data, mlx_image_t *img)
+bool	draw_2d_map(t_general_data *data)
 {
-	draw_cells(data->file_data->map_data->copy, data, img, data->file_data->map_data->row);
-	draw_gridlines(data->file_data->map_data->copy, img, data->file_data->map_data->row);
+	if (!draw_cells(data->file_data->map_data->copy, data, data->file_data->map_data->row))
+		return (error_msg("Drawing cells"));
+	if (!draw_gridlines(data->file_data->map_data->copy, data, data->file_data->map_data->row))
+		return (error_msg("Drawing gridlines"));
 	if (!draw_player(data, data->graphics->img))
 		return (error_msg("Drawing player"));
 	return (true);

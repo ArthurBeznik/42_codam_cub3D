@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-void	draw_line(mlx_image_t *img, int x, int y, int orientation)
+bool	draw_line(t_general_data *data, int x, int y, int orientation)
 {
     int	i;
 
@@ -8,14 +8,23 @@ void	draw_line(mlx_image_t *img, int x, int y, int orientation)
 	while (i < PIXELS)
 	{
 		if (orientation == H)
-			mlx_put_pixel(img, x + i, y, 0x00000000);
+		{
+			if (!check_put_pixel(data, x + i, y))
+				return (false);
+			mlx_put_pixel(data->graphics->img, x + i, y, 0x00000000);
+		}
 		if (orientation == V)
-			mlx_put_pixel(img, x, y + i, 0x00000000);
+		{
+			if (!check_put_pixel(data, x + i, y))
+				return (false);
+			mlx_put_pixel(data->graphics->img, x, y + i, 0x00000000);
+		}
 		i++;
 	}
+	return (true);
 }
 
-void	draw_square(mlx_image_t *img, int x, int y, uint32_t color, bool player)
+bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player)
 {
     int	i;
 	int	j;
@@ -30,9 +39,12 @@ void	draw_square(mlx_image_t *img, int x, int y, uint32_t color, bool player)
 		j = 0;
 		while (j < size)
 		{
-            mlx_put_pixel(img, x + i, y + j, color);
+			if (!check_put_pixel(data, x + i, y + j))
+				return (false);
+            mlx_put_pixel(data->graphics->img, x + i, y + j, color);
 			j++;
 		}
 		i++;
 	}
+	return (true);
 }

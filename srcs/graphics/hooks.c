@@ -5,9 +5,9 @@ void	movement(t_general_data *data, mlx_t *mlx)
 	ft_memset(data->graphics->img->pixels, 0, data->graphics->img->width * data->graphics->img->height * sizeof(int));
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT) || mlx_is_key_down(mlx, MLX_KEY_A))
 	{
-		data->file_data->player->angle -= ROTATION_SPEED * PI; // ? * 0.01 affects the rotation speed of the direction
+		data->file_data->player->angle -= ROTATION_SPEED * PI;
 		if (data->file_data->player->angle < 0)
-			data->file_data->player->angle += RESET_ANGLE; // ? reset PI back if we
+			data->file_data->player->angle += RESET_ANGLE;
 		data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED;
 		data->file_data->player->dy = sin(data->file_data->player->angle) * MOVE_SPEED;
 	}
@@ -29,7 +29,6 @@ void	movement(t_general_data *data, mlx_t *mlx)
 		data->file_data->player->x -= data->file_data->player->dx;
 		data->file_data->player->y -= data->file_data->player->dy;
 	}
-	draw_2d_map(data, data->graphics->img);
 }
 
 void	captain(void *param)
@@ -41,6 +40,7 @@ void	captain(void *param)
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
 	movement(data2, data2->graphics->mlx);
-	rayCasting(data2);
+	draw_2d_map(data2);
+	ray_casting(data2);
 	// log_positions(data2, "captain", 'P'); // ? testing
 }
