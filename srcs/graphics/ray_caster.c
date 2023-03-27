@@ -20,9 +20,10 @@ bool draw_ray(t_general_data *data, double angle, int ray_x, int ray_y, int off_
 		y1 = (i * sin((angle))) + (data->file_data->player->y);
 		// log_positions(data, "draw_dir", 'D'); // ? testing
 		// log_positions(data, "draw_dir", 'P'); // ? testing
-		// if (!check_put_pixel(data, x1, y1))
-		// 	return (false);
-		mlx_put_pixel(data->graphics->img, x1, y1, 0xFF0000FF);
+		if (!check_put_pixel(data, x1, y1))
+			return (false);
+		// mlx_put_pixel(data->graphics->img, x1, y1, 0xFF0000FF);
+		mlx_put_pixel(data->graphics->img, ray_x, ray_y, 0xFF0000FF);
 		i++;
 	}
 	// fprintf(stderr, "x1 | y1: %f | %f\n", x1, y1); // ? testing
@@ -38,12 +39,15 @@ void ray_casting(t_general_data *data)
 	int ray_y;
 	int off_y;
 	int off_x;
+	int	hit_x;
+	int	hit_y;
 
 	i = 0;
-	ra = data->file_data->player->angle - DR * 30;
+	ra = data->file_data->player->angle;
+	// ra = data->file_data->player->angle - DR * 30;
 	// log_val(data, "ray_casting", 'A');
 	// fprintf(stderr, "ra: %f\n", ra);
-	while (i < 30)
+	while (i < 1)
 	{
 		// fprintf(stderr, "TESTING1\n");
 		dof = 0;
@@ -72,79 +76,36 @@ void ray_casting(t_general_data *data)
 			ray_y = data->file_data->player->y;
 			dof = 8;
 		}
+		fprintf(stderr, "col | row : %d | %d\n", data->file_data->map_data->col, data->file_data->map_data->row);
 		while (dof < 8)
 		{
 			// fprintf(stderr, "TESTING5\n");
-			int mapX = (int)(ray_x) >> 6;
+			hit_x = (int)(ray_x) >> 6; // ? x where the ray hits a wall or line
 			// fprintf(stderr, "mapX: %d\n", mapX);
-			int mapY = (int)(ray_y) >> 6;
+			hit_y = (int)(ray_y) >> 6; // ? y where the ray hits a wall or line
+			// fprintf(stderr, "dof: %d\n", dof);
 			// fprintf(stderr, "mapY: %d\n", mapY);
-			int mapPosition = mapY * data->file_data->map_data->col + mapX;
 			// fprintf(stderr, "mapPosition: %d\n", mapPosition);
-			// fprintf(stderr, "mapData: %s\n", data->file_data->map_data->copy[mapPosition]);
-			if (mapPosition < mapX * mapY && data->file_data->map_data->copy[mapY][mapX] == '1')
+			fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", hit_x, hit_y, data->file_data->map_data->copy[hit_y][hit_x]);
+			// if ((hit_x > data->file_data->map_data->row || hit_y > data->file_data->map_data->col) && data->file_data->map_data->copy[hit_y][hit_x] == '1')
+			if ((hit_x >= 0 && hit_y >= 0) \
+				&& ((hit_x < data->file_data->map_data->row && hit_y < data->file_data->map_data->col)) \
+				&& data->file_data->map_data->copy[hit_y][hit_x] == '1')
 			{
-				// fprintf(stderr, "TESTING6\n");
+				fprintf(stderr, "\thit wall\n");
 				dof = 8;
 			}
 			else
 			{
-				// fprintf(stderr, "TESTING7\n");
+				fprintf(stderr, "\tdid not hit\n");
 				ray_x += off_x;
 				ray_y += off_y;
 				dof += 1;
+				fprintf(stderr, "rx | ry : %d | %d\n", ray_x, ray_y);
 			}
 		}
 		i++;
-		ra+=DR;
+		// ra+=DR;
 		draw_ray(data, ra, ray_x, ray_y, off_x, off_y);
 	}
 }
-
-// bool test_ray(t_general_data *data)
-// {
-// 	int ray, mx, my, mp, dof;
-// 	float rx, ry, ra, xo, yo;
-// 	ra = data->p.pa;
-// 	for (ray = 0; ray < 1; ray++)
-// 	{
-// 		//--Check horizontal lines--
-// 		dof = 0;
-// 		float aTan = -1 / tan(ra);
-// 		// first checking if the ray is looking up or down (PI = 180degree)
-// 		if (ra > M_PI) // looking down
-// 		{
-// 			ry = (((int)data->p.py * data->map->ratio) / data->map->ratio) - 0.0001; // maybe presicion can go?
-// 			rx = (data->p.py - ry) * aTan + data->p.px;
-// 			yo = data->map->ratio * -1;
-// 			xo = data->map->ratio * aTan;
-// 		}
-// 		if (ra < M_PI) // looking up
-// 		{
-// 			ry = (((int)data->p.py * data->map->ratio) / data->map->ratio) + data->map->ratio;
-// 			rx = (data->p.py - ry) * aTan + data->p.px;
-// 			yo = data->map->ratio;
-// 			xo = data->map->ratio * -1 * aTan;
-// 		}
-// 		if (ra == 0 || ra == M_PI) // if the ray is looking direct rigt or left it is impossible to hit horizontal line
-// 		{
-// 			rx = data->p.px;
-// 			ry = data->p.py;
-// 			dof = 8; // we wont check forever just first eight
-// 		}
-// 		while (dof < 8)
-// 		{
-// 			mx = (int)(rx) >> 6;
-// 			my = (int)(ry) >> 6;
-// 			mp = my * data->map->row + mx;
-// 			// if(mp < data->map->row * data->map->col && data->map->map_data[(int)mp] == '1') //hit wall
-// 			// 	dof = 8;
-// 			// else //next line
-// 			// {
-// 			rx += xo;
-// 			ry += yo;
-// 			dof++;
-// 			// }
-// 		}
-// 	}
-// }

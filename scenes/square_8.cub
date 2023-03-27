@@ -1,0 +1,24 @@
+N ./textures/diamond.png
+
+
+
+S ./textures/diamond.png
+
+
+
+W ./textures/diamond.png
+
+
+E ./textures/diamond.png
+
+F 220,100,0
+C 225,30,0
+
+11111111
+10100001
+10100001
+10100001
+10000001
+10000101
+100000N1
+11111111

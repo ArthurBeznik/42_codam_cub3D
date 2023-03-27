@@ -7,8 +7,8 @@ BLUE		:=	\033[1;36m
 YEL 		:=	\033[0;33m
 DEF 		:=	\033[0m
 
-CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
-# CFLAGS		:= -g3
+# CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
+CFLAGS		:= -g3
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
 MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
@@ -33,7 +33,7 @@ SUBJ_MAP	:= $(SCENE_DIR)/minimalist.cub
 SIMPLE_MAP	:= $(SCENE_DIR)/simple_valid.cub
 DB_MAP		:= $(SCENE_DIR)/
 INVAL_MAP	:= $(SCENE_DIR)/invalid_colors.cub
-
+SQUARE_MAP	:= $(SCENE_DIR)/square_8.cub
 all: libmlx libft $(NAME)
 
 libmlx:
@@ -78,7 +78,8 @@ s: all
 	./$(NAME) $(SIMPLE_MAP)
 
 r:	all
-	./$(NAME) $(SUBJ_MAP)
+	# ./$(NAME) $(SUBJ_MAP)
+	./$(NAME) $(SQUARE_MAP)
 
 i:	all
 	./$(NAME) $(INVAL_MAP)
