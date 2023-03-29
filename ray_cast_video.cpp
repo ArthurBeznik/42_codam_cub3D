@@ -6,9 +6,8 @@
 #define mapX 8	// map width
 #define mapY 8	// map height
 #define mapS 64 // map cube size
-	int map[] = // the map array. Edit to change level but keep the outer walls
-	{
-};
+int map[] =		// the map array. Edit to change level but keep the outer walls
+	{};
 
 void drawMap2D()
 {
@@ -38,7 +37,11 @@ void drawMap2D()
 } //-----------------------------------------------------------------------------
 
 //------------------------PLAYER------------------------------------------------
-float degToRad(int a) { return a * M_PI / 180.0; }
+float degToRad(int a)
+{
+	return a * M_PI / 180.0;
+}
+
 int FixAng(int a)
 {
 	if (a > 359)
@@ -98,7 +101,10 @@ void Buttons(unsigned char key, int x, int y)
 } //-----------------------------------------------------------------------------
 
 //---------------------------Draw Rays and Walls--------------------------------
-float distance(ax, ay, bx, by, ang) { return cos(degToRad(ang)) * (bx - ax) - sin(degToRad(ang)) * (by - ay); }
+float distance(ax, ay, bx, by, ang)
+{
+	return cos(degToRad(ang)) * (bx - ax) - sin(degToRad(ang)) * (by - ay);
+}
 
 void drawRays2D()
 {
@@ -277,19 +283,3 @@ int main(int argc, char *argv[])
 	glutKeyboardFunc(Buttons);
 	glutMainLoop();
 }
-
-Footer
-© 2023 GitHub, Inc.Footer navigation
-						Terms
-							Privacy
-								Security
-									Status
-										Docs
-											Contact GitHub
-												Pricing
-													API
-														Training
-															Blog
-																About
-																	OpenGL -
-					Raycaster_v1 / 3DSage_Raycaster_v1.c at master · 3DSage / OpenGL - Raycaster_v1

@@ -1,26 +1,41 @@
 #include <graphics.h>
 
+/**
+ * See degree to radian conversion 
+ * 	. degree to radian => nb of degrees * M_PI / 180
+ * 	. radian to degree => nb of radians * 180 / M_PI
+ * To mesure radians, we start from the right side of the circle and move counter-clockwise.
+ * A few important mesures:
+ * 	. 0 or 360 degrees = 2 M_PI
+ * 	. 90 degrees = M_PI / 2 (or (3 * M_PI / 2) if we already did a full circle)
+ * 	. 180 degrees = M_PI (or (6 * M_PI / 6) if we already did a full circle)
+ * 	. 270 degrees = 3 M_PI / 2
+ * So if we translate that to our program, it gives us:
+ * 	. N = 90 degrees = 1.5 * M_PI
+*/
 static void	init_direction(t_general_data *data, int x, int y)
 {
 	int	centered;
 
 	centered = PIXELS / 2;
 	if (data->file_data->map_data->map[y][x] == 'N')
-		data->file_data->player->angle = 1.5 * PI;
-	else if (data->file_data->map_data->map[y][x] == 'S')
-		data->file_data->player->angle = 0.5 * PI;
+		data->file_data->player->angle = 0.5 * M_PI;
 	else if (data->file_data->map_data->map[y][x] == 'W')
-		data->file_data->player->angle = 1.0 * PI;
+		data->file_data->player->angle = 1.0 * M_PI;
+	else if (data->file_data->map_data->map[y][x] == 'S')
+		data->file_data->player->angle = 1.5 * M_PI;
 	else if (data->file_data->map_data->map[y][x] == 'E')
-		data->file_data->player->angle = 2.0 * PI;
+		data->file_data->player->angle = 2.0 * M_PI;
 	// fprintf(stderr, "x: %d | y: %d\n", x, y); // ? testing
-	// log_positions(data, "init_dir", 'A'); // ? testing
+	log_val(data, "init_dir", 'A'); // ? testing
 	data->file_data->player->x = (x * PIXELS) + centered; // (+ PIXELS / 2) => gets the exact player x
 	data->file_data->player->y = (y * PIXELS) + centered; // "" gets the exact player y
 	// log_positions(data, "init_dir", 'P'); // ? testing
 	// log_positions(data, "init_dir", 'G'); // ? testing
 	data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED; // ? * 5 because these are very small values
-	data->file_data->player->dy = sin(data->file_data->player->angle) * MOVE_SPEED; // ? also affects the speed of the player
+	// data->file_data->player->dx = cos(data->file_data->player->angle); // ? * 5 because these are very small values
+	data->file_data->player->dy = -sin(data->file_data->player->angle) * MOVE_SPEED; // ? also affects the speed of the player
+	// data->file_data->player->dy = -sin(data->file_data->player->angle); // ? also affects the speed of the player
 	// log_positions(data, "init_dir", 'D'); // ? testing
 	data->graphics->init_dir = true;
 }

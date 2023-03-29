@@ -17,7 +17,7 @@ bool draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 	{
 		// log_positions(data, "draw_dir", 'A');
 		x1 = (i * cos((angle))) + data->file_data->player->x;
-        y1 = (i * sin((angle))) + data->file_data->player->y;
+        y1 = (i * -sin((angle))) + data->file_data->player->y;
 		// fprintf(stderr, "x1 | y1: %f | %f\n", x1, y1); // ? testing
 		// log_positions(data, "draw_dir", 'D'); // ? testing
 		// log_positions(data, "draw_dir", 'P'); // ? testing

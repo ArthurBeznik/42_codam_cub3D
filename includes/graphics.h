@@ -13,7 +13,7 @@
 
 # define ERROR -1
 # define PIXELS 64
-# define PI 3.14159265358979323846
+// # define M_PI 3.14159265358979323846
 # define DR 0.0174533
 
 # define H 10
@@ -21,7 +21,7 @@
 
 # define ROTATION_SPEED 0.02
 # define MOVE_SPEED 2.5
-# define RESET_ANGLE 2 * PI
+# define RESET_ANGLE 2 * M_PI
 
 
 typedef struct s_general_data	t_general_data;
