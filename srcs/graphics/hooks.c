@@ -41,6 +41,8 @@ void	captain(void *param)
 		terminate(data2->graphics);
 	movement(data2, data2->graphics->mlx);
 	draw_2d_map(data2);
-	ray_casting(data2);
+	// ray_casting(data2);
+	if (!test_ray(data2))
+		terminate(data2->graphics);
 	// log_positions(data2, "captain", 'P'); // ? testing
 }
