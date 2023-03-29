@@ -2,10 +2,12 @@
 
 void	fix_angle(t_general_data *data)
 {
-	if (data->file_data->player->angle < 0)
-		data->file_data->player->angle += RESET_ANGLE;
-	if (data->file_data->player->angle > 2 * M_PI)
-		data->file_data->player->angle -= RESET_ANGLE;
+	if (data == NULL)
+		return ;
+	// if (data->file_data->player->angle < 0)
+	// 	data->file_data->player->angle += RESET_ANGLE;
+	// if (data->file_data->player->angle > 2 * M_PI)
+	// 	data->file_data->player->angle -= RESET_ANGLE;
 }
 
 void	movement(t_general_data *data, mlx_t *mlx)
@@ -15,9 +17,9 @@ void	movement(t_general_data *data, mlx_t *mlx)
 	{
 		data->file_data->player->angle += ROTATION_SPEED * M_PI;
 		// data->file_data->player->angle += M_PI;
-		fix_angle(data);
-		// if (data->file_data->player->angle < 0)
-		// 	data->file_data->player->angle += RESET_ANGLE;
+		// fix_angle(data);
+		if (data->file_data->player->angle < 0)
+			data->file_data->player->angle += RESET_ANGLE;
 		data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED;
 		data->file_data->player->dy = -sin(data->file_data->player->angle) * MOVE_SPEED;
 		// data->file_data->player->dx = cos(data->file_data->player->angle);
@@ -27,9 +29,9 @@ void	movement(t_general_data *data, mlx_t *mlx)
 	{
 		data->file_data->player->angle -= ROTATION_SPEED * M_PI;
 		// data->file_data->player->angle -= M_PI;
-		// if (data->file_data->player->angle > 2 * M_PI)
-		// 	data->file_data->player->angle -= RESET_ANGLE;
-		fix_angle(data);
+		if (data->file_data->player->angle > 2 * M_PI)
+			data->file_data->player->angle -= RESET_ANGLE;
+		// fix_angle(data);
 		data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED;
 		data->file_data->player->dy = -sin(data->file_data->player->angle) * MOVE_SPEED;
 		// data->file_data->player->dx = cos(data->file_data->player->angle);

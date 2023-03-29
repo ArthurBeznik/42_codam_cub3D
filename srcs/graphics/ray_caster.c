@@ -29,8 +29,11 @@ bool draw_ray(t_general_data *data, double angle, int ray_x, int ray_y, int off_
 		mlx_put_pixel(data->graphics->img, x1, y1, 0xFF0000FF);
 		// if (tal == H)
 		// {
-			if (y1 == ray_y) // ? only for horizontal lines
+			if (y1 == ray_y && x1 == ray_x)
+			{
+				fprintf(stderr, "here\n");
 				return (true);
+			} // ? only for horizontal lines
 		// }
 		// else if (tal == V)
 		// {
@@ -41,174 +44,6 @@ bool draw_ray(t_general_data *data, double angle, int ray_x, int ray_y, int off_
 	}
 	return (true);
 }
-
-// bool	check_vertical_gridlines(t_general_data *data)
-// {
-// 	int i;
-// 	double ra;
-// 	int dof;
-// 	int ray_x;
-// 	int ray_y;
-// 	int off_y;
-// 	int off_x;
-// 	int	hit_x;
-// 	int	hit_y;
-// 	int	vx;
-// 	int	vy;
-
-// 	i = 0;
-// 	ra = data->file_data->player->angle;
-// 	// ra = data->file_data->player->angle - DR * 30;
-// 	// log_val(data, "ray_casting", 'A');
-// 	// fprintf(stderr, "ra: %f\n", ra);
-// 	while (i < 1)
-// 	{
-// 		// fprintf(stderr, "TESTING1\n");
-// 		dof = 0;
-// 		float aTan = tan(ra); // calculates the x and y components of the ray direction vector based on the pixel coordinates on the screen
-// 		// fprintf(stderr, "aTan: %f\n", aTan);
-// 		if (ra > M_PI) // ? looking left
-// 		{
-// 			// fprintf(stderr, "ra > M_PI\n");
-// 			ray_x = (((int)data->file_data->player->x >> 6) << 6) + 64;
-// 			ray_y = (data->file_data->player->x - ray_x) * aTan + data->file_data->player->y;
-// 			off_x = 64;
-// 			off_y = -off_x * aTan;
-// 		}
-// 		else if (ra < M_PI) // ? looking right
-// 		{
-// 			// fprintf(stderr, "ra < M_PI\n");
-// 			ray_x = (((int)data->file_data->player->x >> 6) << 6) - 0.0001;
-// 			ray_y = (data->file_data->player->x - ray_x) * aTan + data->file_data->player->y;
-// 			off_x = -64;
-// 			off_y = -off_x * aTan;
-// 		}
-// 		else if (ra == 0 || ra == M_PI) // ? looking up or down
-// 		{
-// 			// fprintf(stderr, "ra = 0 || ra = M_PI\n");
-// 			ray_x = data->file_data->player->x;
-// 			ray_y = data->file_data->player->y;
-// 			dof = 8;
-// 		}
-// 		// fprintf(stderr, "col | row : %d | %d\n", data->file_data->map_data->col, data->file_data->map_data->row);
-// 		while (dof < 8)
-// 		{
-// 			// fprintf(stderr, "dof < 8\n");
-// 			hit_x = (int)(ray_x) >> 6; // ? x where the ray hits a wall or line
-// 			// fprintf(stderr, "mapX: %d\n", mapX);
-// 			hit_y = (int)(ray_y) >> 6; // ? y where the ray hits a wall or line
-// 			fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", hit_x, hit_y, data->file_data->map_data->copy[hit_y][hit_x]);
-// 			if ((hit_x >= 0 && hit_y >= 0) \
-// 				&& ((hit_x < data->file_data->map_data->row && hit_y < data->file_data->map_data->col)) \
-// 				&& data->file_data->map_data->copy[hit_y][hit_x] == '1')
-// 			{
-// 				// fprintf(stderr, "\thit wall\n");
-// 				dof = 8;
-// 				float dist_v = cos(ra) * (ray_x - data->file_data->player->x) - sin(ra) * (ray_y - data->file_data->player->y);
-// 			}
-// 			else
-// 			{
-// 				// fprintf(stderr, "\tdid not hit\n");
-// 				ray_x += off_x;
-// 				ray_y += off_y;
-// 				dof += 1;
-// 				// fprintf(stderr, "rx | ry : %d | %d\n", ray_x, ray_y);
-// 			}
-// 		}
-// 		vx = ray_x;
-// 		vy = ray_y;
-
-// 		i++;
-// 		// ra+=DR;
-// 		// draw_ray(data, ra, ray_x, ray_y, off_x, off_y, V);
-// 	}
-// 	return (true);
-// }
-
-// bool	check_horizontal_gridlines(t_general_data *data)
-// {
-// 	int i;
-// 	double ra;
-// 	int dof;
-// 	int ray_x;
-// 	int ray_y;
-// 	int off_y;
-// 	int off_x;
-// 	int	hit_x;
-// 	int	hit_y;
-
-// 	i = 0;
-// 	ra = data->file_data->player->angle;
-// 	// ra = data->file_data->player->angle - DR * 30;
-// 	// log_val(data, "ray_casting", 'A');
-// 	// fprintf(stderr, "ra: %f\n", ra);
-// 	while (i < 1)
-// 	{
-// 		// fprintf(stderr, "TESTING1\n");
-// 		dof = 0;
-// 		// float aTan = -1 / tan(ra); // calculates the x and y components of the ray direction vector based on the pixel coordinates on the screen
-// 		float aTan = 1 / tan(ra); // calculates the x and y components of the ray direction vector based on the pixel coordinates on the screen
-// 		// fprintf(stderr, "aTan: %f\n", aTan);
-// 		if (ra > M_PI) // ? looking up
-// 		{
-// 			// fprintf(stderr, "ra > M_PI\n");
-// 			ray_y = (((int)data->file_data->player->y >> 6) << 6) - 0.0001;
-// 			ray_x = (data->file_data->player->y - ray_y) * aTan + data->file_data->player->x;
-// 			off_y = -64;
-// 			off_x = -off_y * aTan;
-// 		}
-// 		if (ra < M_PI) // ? looking down
-// 		{
-// 			// fprintf(stderr, "ra < M_PI\n");
-// 			ray_y = (((int)data->file_data->player->y >> 6) << 6) + 64;
-// 			ray_x = (data->file_data->player->y - ray_y) * aTan + data->file_data->player->x;
-// 			off_y = 64;
-// 			off_x = -off_y * aTan;
-// 		}
-// 		if (ra == 0 || ra == M_PI) // ? looking left or right
-// 		{
-// 			// fprintf(stderr, "ra = 0 || ra = M_PI\n");
-// 			ray_x = data->file_data->player->x;
-// 			ray_y = data->file_data->player->y;
-// 			dof = 8;
-// 		}
-// 		// fprintf(stderr, "col | row : %d | %d\n", data->file_data->map_data->col, data->file_data->map_data->row);
-// 		while (dof < 8)
-// 		{
-// 			// fprintf(stderr, "dof < 8\n");
-// 			hit_x = (int)(ray_x) >> 6; // ? x where the ray hits a wall or line
-// 			// fprintf(stderr, "mapX: %d\n", mapX);
-// 			hit_y = (int)(ray_y) >> 6; // ? y where the ray hits a wall or line
-// 			fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", hit_x, hit_y, data->file_data->map_data->copy[hit_y][hit_x]);
-// 			if ((hit_x >= 0 && hit_y >= 0) \
-// 				&& ((hit_x < data->file_data->map_data->row && hit_y < data->file_data->map_data->col)) \
-// 				&& data->file_data->map_data->copy[hit_y][hit_x] == '1')
-// 			{
-// 				// fprintf(stderr, "\thit wall\n");
-// 				dof = 8;
-// 				float dist_h = cos(degToRad(ra)) * (ray_x - data->file_data->player->y) - sin(ra) * (ray_y - py);
-// 			}
-// 			else
-// 			{
-// 				// fprintf(stderr, "\tdid not hit\n");
-// 				ray_x += off_x;
-// 				ray_y += off_y;
-// 				dof += 1;
-// 				// fprintf(stderr, "rx | ry : %d | %d\n", ray_x, ray_y);
-// 			}
-// 		}
-// 		i++;
-// 		// ra+=DR;
-// 		if (dist_v < dist_h)
-// 		{
-// 			ray_x = vx;
-// 			ray_y = vy;
-// 			dist_h = dist_v;
-// 		} // horizontal hit first
-// 		draw_ray(data, ra, ray_x, ray_y, off_x, off_y, H);
-// 	}
-// 	return (true);
-// }
 
 bool	ray_caster(t_general_data *data)
 {
