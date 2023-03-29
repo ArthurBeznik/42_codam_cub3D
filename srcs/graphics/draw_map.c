@@ -27,16 +27,16 @@ static void	init_direction(t_general_data *data, int x, int y)
 	else if (data->file_data->map_data->map[y][x] == 'E')
 		data->file_data->player->angle = 2.0 * M_PI;
 	// fprintf(stderr, "x: %d | y: %d\n", x, y); // ? testing
-	log_val(data, "init_dir", 'A'); // ? testing
+	// log_val(data, "init_dir", 'A'); // ? testing
 	data->file_data->player->x = (x * PIXELS) + centered; // (+ PIXELS / 2) => gets the exact player x
 	data->file_data->player->y = (y * PIXELS) + centered; // "" gets the exact player y
-	// log_positions(data, "init_dir", 'P'); // ? testing
+	// log_val(data, "init_dir", 'P'); // ? testing
 	// log_positions(data, "init_dir", 'G'); // ? testing
 	data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED; // ? * 5 because these are very small values
 	// data->file_data->player->dx = cos(data->file_data->player->angle); // ? * 5 because these are very small values
 	data->file_data->player->dy = -sin(data->file_data->player->angle) * MOVE_SPEED; // ? also affects the speed of the player
 	// data->file_data->player->dy = -sin(data->file_data->player->angle); // ? also affects the speed of the player
-	// log_positions(data, "init_dir", 'D'); // ? testing
+	// log_val(data, "init_dir", 'D'); // ? testing
 	data->graphics->init_dir = true;
 }
 

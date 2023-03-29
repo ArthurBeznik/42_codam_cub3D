@@ -21,10 +21,10 @@ typedef struct s_general_data	t_general_data;
 */
 typedef struct s_player
 {
-	double		x;
-	double		y;
-	double		dx;
-	double		dy;
+	float		x;
+	float		y;
+	float		dx;
+	float		dy;
 	double		angle;
 	char		facing;
 }	t_player;
