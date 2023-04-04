@@ -1,15 +1,5 @@
 #include <graphics.h>
 
-void	fix_angle(t_general_data *data)
-{
-	if (data == NULL)
-		return ;
-	// if (data->file_data->player->angle < 0)
-	// 	data->file_data->player->angle += RESET_ANGLE;
-	// if (data->file_data->player->angle > 2 * M_PI)
-	// 	data->file_data->player->angle -= RESET_ANGLE;
-}
-
 void	movement(t_general_data *data, mlx_t *mlx)
 {
 	ft_memset(data->graphics->img->pixels, 0, data->graphics->img->width * data->graphics->img->height * sizeof(int));
@@ -59,8 +49,7 @@ void	captain(void *param)
 		terminate(data2->graphics);
 	movement(data2, data2->graphics->mlx);
 	draw_2d_map(data2);
-	// ray_casting(data2);
-	if (!test_ray(data2))
+	if (!ray_caster(data2))
 		terminate(data2->graphics);
 	// log_positions(data2, "captain", 'P'); // ? testing
 }

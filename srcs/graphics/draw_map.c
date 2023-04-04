@@ -33,9 +33,7 @@ static void	init_direction(t_general_data *data, int x, int y)
 	// log_val(data, "init_dir", 'P'); // ? testing
 	// log_positions(data, "init_dir", 'G'); // ? testing
 	data->file_data->player->dx = cos(data->file_data->player->angle) * MOVE_SPEED; // ? * 5 because these are very small values
-	// data->file_data->player->dx = cos(data->file_data->player->angle); // ? * 5 because these are very small values
 	data->file_data->player->dy = -sin(data->file_data->player->angle) * MOVE_SPEED; // ? also affects the speed of the player
-	// data->file_data->player->dy = -sin(data->file_data->player->angle); // ? also affects the speed of the player
 	// log_val(data, "init_dir", 'D'); // ? testing
 	data->graphics->init_dir = true;
 }

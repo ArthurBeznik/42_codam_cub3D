@@ -13,7 +13,6 @@
 
 # define ERROR -1
 # define PIXELS 64
-// # define M_PI 3.14159265358979323846
 # define DR 0.0174533
 
 # define H 10
@@ -23,8 +22,25 @@
 # define MOVE_SPEED 2.5
 # define RESET_ANGLE 2 * M_PI
 
+# define NB_RAYS 30
 
 typedef struct s_general_data	t_general_data;
+
+typedef struct s_ray
+{
+	float 	x;	// in pixels
+	float 	y;	// in pixels
+	float	angle;
+	float 	off_y;
+	float 	off_x;
+	int		hit_x;	// in grid
+	int		hit_y;	// in grid
+	int		vx;
+	int		vy;
+	float 	dist_v;
+	float 	dist_h;
+}	t_ray;
+
 
 typedef enum mlx_images
 {
@@ -47,6 +63,7 @@ typedef struct s_graphics
 	mlx_image_t		*img;
 	mlx_texture_t	*textures[IMG_COUNT];
 	bool			init_dir;
+	t_ray			**ray;
 }	t_graphics;
 
 bool	run_graphics(t_general_data	*data);

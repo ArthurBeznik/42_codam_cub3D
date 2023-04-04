@@ -8,8 +8,8 @@ bool draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 {
 	int		i;
 	int		d_size;
-	double	x1;
-    double	y1;
+	float	x1;
+    float	y1;
 
 	d_size = 16;
 	i = 0;
@@ -24,8 +24,8 @@ bool draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 		if (!check_put_pixel(data, x1, y1))
 			return (false);	
 		mlx_put_pixel(img, x1, y1, 0x00FF00FF);
-		mlx_put_pixel(img, x1 - 1, y1 - 1, 0x00FF00FF);
-		mlx_put_pixel(img, x1 + 1, y1 + 1, 0x00FF00FF);
+		// mlx_put_pixel(img, x1 - 1, y1 - 1, 0x00FF00FF);
+		// mlx_put_pixel(img, x1 + 1, y1 + 1, 0x00FF00FF);
 		i++;
 	}
 	return (true);

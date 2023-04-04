@@ -16,7 +16,6 @@ void	free_close_window(t_graphics *graphics, void *var, char *str)
 }
 
 void	log_val(t_general_data *data, char *function, char values)
-// void	log_positions(t_general_data *data, char *function, char values, int x=-1, int y=-1)
 {
 	if (values == 'D')
 		fprintf(stderr, "[%s]\tdx | dy\t\t%f | %f\n", function, data->file_data->player->dx, data->file_data->player->dy);
