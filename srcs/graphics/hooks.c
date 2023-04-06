@@ -29,13 +29,22 @@ void	movement(t_general_data *data, mlx_t *mlx)
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W))
 	{
-		data->file_data->player->x += data->file_data->player->dx;
-		data->file_data->player->y += data->file_data->player->dy;
+		fprintf(stderr, "c: %c\n", data->file_data->map_data->copy[((int)data->file_data->player->x / PIXELS)][((int)data->file_data->player->y / PIXELS)]);
+		if (data->file_data->map_data->copy[((int)data->file_data->player->x / PIXELS)][((int)data->file_data->player->y / PIXELS)] != '1')
+		{
+			data->file_data->player->x += data->file_data->player->dx;
+			data->file_data->player->y += data->file_data->player->dy;
+		}
+		// data->file_data->player->x += data->file_data->player->dx;
+		// data->file_data->player->y += data->file_data->player->dy;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S))
 	{
-		data->file_data->player->x -= data->file_data->player->dx;
-		data->file_data->player->y -= data->file_data->player->dy;
+		if (data->file_data->map_data->copy[((int)data->file_data->player->x / PIXELS)][((int)data->file_data->player->y / PIXELS)] != '1')
+		{
+			data->file_data->player->x -= data->file_data->player->dx;
+			data->file_data->player->y -= data->file_data->player->dy;
+		}
 	}
 }
 
