@@ -92,11 +92,10 @@ bool	fill_map(t_general_data	*data);
 void	free_close_window(t_graphics *graphics, void *var, char *str);
 void	terminate(t_graphics *graphics);
 
-void	ray_casting(t_general_data *data);
 bool	ray_caster(t_general_data *data);
-bool	test_ray(t_general_data *data);
 
 void	vertical_ray(t_general_data *data, t_ray *raymond, float angle);
 void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle);
+bool	init_rays(t_general_data *data);
 
 #endif

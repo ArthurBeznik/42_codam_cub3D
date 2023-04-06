@@ -108,17 +108,14 @@ void	vertical_ray(t_general_data *data, t_ray *raymond, float angle)
 	float	tan_var;
 	// t_ray **raymond;
 
-	// raymond = data->graphics->ray;
+	// fprintf(stderr, "\tVertical\n");
 	raymond->angle = angle;
 	// fprintf(stderr, "angle | raymond angle : %f | %f\n", angle, raymond->angle);
 	// fprintf(stderr, "raymond angle: %f", raymond->angle);
-	// fprintf(stderr, "cos(angle) = %f\n", cos(angle));
-	// fprintf(stderr, "\tVertical\n");
 	dof = 0;
 	raymond->dist_v = 100000;
 	tan_var = tan(angle);
 	raymond->tan_var = tan_var;
-	// fprintf(stderr, "aTan: %f\n", aTan);
 	// log_val(data, "ray_caster", 'A');
 	// log_val(data, "ray_caster", 'P');
 	vertical_looking(data, raymond, angle, tan_var);
@@ -143,5 +140,11 @@ void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle)
 	dof = raymond->dof;
 	// fprintf(stderr, "col | row : %d | %d\n", data->file_data->map_data->col, data->file_data->map_data->row);
 	try_hit_walls(data, raymond, angle, dof, HORIZONTAL);
+	if (raymond->dist_v < raymond->dist_h)
+	{
+		raymond->x = raymond->vx;
+		raymond->y = raymond->vy;
+		raymond->dist_h = raymond->dist_v;
+	} // ! horizontal hits first
 }
 

@@ -2,7 +2,8 @@
 
 void	movement(t_general_data *data, mlx_t *mlx)
 {
-	// ft_memset(data->graphics->img->pixels, 0, data->graphics->img->width * data->graphics->img->height * sizeof(int));
+	ft_memset(data->graphics->img->pixels, 0, data->graphics->img->width * data->graphics->img->height * sizeof(int));
+	ft_memset(data->graphics->img_3d->pixels, 0, 500 * 500 * sizeof(int)); // ! removes the "outdated" pixels when moving around, overwrites the whole image basically
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT) || mlx_is_key_down(mlx, MLX_KEY_A))
 	{
 		data->file_data->player->angle += ROTATION_SPEED * M_PI;
