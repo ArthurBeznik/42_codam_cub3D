@@ -16,7 +16,7 @@
 # define DR 0.0174533
 
 # define ROTATION_SPEED 0.02
-# define MOVE_SPEED 2.5
+# define S 2.5
 # define RESET_ANGLE 2 * M_PI
 
 # define NB_RAYS 30
@@ -46,6 +46,17 @@ typedef struct s_ray
 	int		dof;
 }	t_ray;
 
+typedef struct s_wall_collision
+{
+	int		xo;
+	int		yo;
+	int		ipx;
+	int		ipx_add_xo;
+	int		ipx_sub_xo;
+	int		ipy;
+	int		ipy_add_yo;
+	int		ipy_sub_yo;
+}	t_wall_collision;
 
 typedef enum mlx_images
 {
