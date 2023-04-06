@@ -7,8 +7,8 @@
 
 # define ERROR -1
 
-# define Y 888
-# define X 777
+// # define Y 888
+// # define X 777
 
 # include <cub3D.h>
 

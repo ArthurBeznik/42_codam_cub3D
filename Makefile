@@ -31,7 +31,7 @@ OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 SCENE_DIR	:= scenes
 SUBJ_MAP	:= $(SCENE_DIR)/minimalist.cub
 SIMPLE_MAP	:= $(SCENE_DIR)/simple_valid.cub
-DB_MAP		:= $(SCENE_DIR)/
+DB_MAP		:= $(SCENE_DIR)/square_8.cub
 INVAL_MAP	:= $(SCENE_DIR)/invalid_colors.cub
 SQUARE_MAP	:= $(SCENE_DIR)/square_8.cub
 all: libmlx libft $(NAME)

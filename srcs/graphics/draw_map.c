@@ -53,8 +53,8 @@ static bool	draw_gridlines(char	**map, t_general_data *data, int map_height)
 		x = 0;
 		while (x < curr_line_len)
 		{
-			ret_v = draw_line(data, x * PIXELS, y * PIXELS, V);
-			ret_h = draw_line(data, x * PIXELS, y * PIXELS, H);
+			ret_v = draw_line(data, x * PIXELS, y * PIXELS, VERTICAL);
+			ret_h = draw_line(data, x * PIXELS, y * PIXELS, HORIZONTAL);
 			if (!ret_v || !ret_h)
 				return (false);
 			x++;

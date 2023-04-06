@@ -2,7 +2,7 @@
 
 bool	run_graphics(t_general_data	*data)
 {
-	t_graphics graphics;
+	t_graphics	graphics;
 
 	data->graphics = &graphics;
 	if (!init_graphics(data, data->graphics))
@@ -18,10 +18,17 @@ bool	run_graphics(t_general_data	*data)
 	if ((mlx_image_to_window(data->graphics->mlx, data->graphics->img, 0, 0) < 0))
 		return (error_msg("mlx_image_to_window"));
 
+
+	if ((mlx_image_to_window(data->graphics->mlx, data->graphics->img_3d, data->graphics->width, 0) < 0))
+		return (error_msg("mlx_image_to_window 3D"));
+
 	mlx_loop_hook(data->graphics->mlx, &captain, data);
+	// mlx_loop_hook(data->graphics->mlx_3d, &captain, data);
 
 	mlx_loop(data->graphics->mlx);
+	// mlx_loop(data->graphics->mlx_3d);
 
 	mlx_terminate(data->graphics->mlx);
+	// mlx_terminate(data->graphics->mlx_3d);
 	return (true);
 }

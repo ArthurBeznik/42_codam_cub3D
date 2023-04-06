@@ -1,19 +1,19 @@
 #include <graphics.h>
 
-bool	draw_line(t_general_data *data, int x, int y, int orientation)
+bool	draw_line(t_general_data *data, int x, int y, t_axis axis)
 {
     int	i;
 
 	i = 0;
 	while (i < PIXELS)
 	{
-		if (orientation == H)
+		if (axis == HORIZONTAL)
 		{
 			if (!check_put_pixel(data, x + i, y))
 				return (false);
 			mlx_put_pixel(data->graphics->img, x + i, y, 0x00000000);
 		}
-		if (orientation == V)
+		if (axis == VERTICAL)
 		{
 			if (!check_put_pixel(data, x + i, y))
 				return (false);
