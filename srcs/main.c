@@ -9,7 +9,7 @@ int	main(int argc, char *argv[])
 
 	if (!parser(argc, argv, &data))
 		return (1);
-  	if (!run_graphics(&data))
+	if (!run_graphics(&data))
 	{
 		return (1);
 		// return (terminate(data.graphics), false);

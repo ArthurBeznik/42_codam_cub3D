@@ -2,7 +2,7 @@
 
 bool	draw_line(t_general_data *data, int x, int y, t_axis axis)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	while (i < PIXELS)
@@ -26,7 +26,7 @@ bool	draw_line(t_general_data *data, int x, int y, t_axis axis)
 
 bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player)
 {
-    int	i;
+	int	i;
 	int	j;
 	int	size;
 
@@ -41,7 +41,7 @@ bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player
 		{
 			if (!check_put_pixel(data, x + i, y + j))
 				return (false);
-            mlx_put_pixel(data->graphics->img, x + i, y + j, color);
+			mlx_put_pixel(data->graphics->img, x + i, y + j, color);
 			j++;
 		}
 		i++;

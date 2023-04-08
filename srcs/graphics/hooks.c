@@ -68,12 +68,13 @@ void	captain(void *param)
 	t_general_data		*data2;
 
 	data2 = (t_general_data *)param;
-	// log_positions(data2, "captain", 'P'); // ? testing
+	// log_val(data2, "captain", 'P'); // ? testing
 	if (mlx_is_key_down(data2->graphics->mlx, MLX_KEY_ESCAPE))
 		terminate(data2->graphics);
 	movement(data2, data2->graphics->mlx);
-	draw_2d_map(data2);
+	if (!draw_2d_map(data2))
+		terminate(data2->graphics);
 	if (!ray_caster(data2))
 		terminate(data2->graphics);
-	// log_positions(data2, "captain", 'P'); // ? testing
+	// log_val(data2, "captain", 'P'); // ? testing
 }

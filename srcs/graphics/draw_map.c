@@ -31,7 +31,7 @@ static void	init_direction(t_general_data *data, int x, int y)
 	data->file_data->player->x = (x * PIXELS) + centered; // (+ PIXELS / 2) => gets the exact player x
 	data->file_data->player->y = (y * PIXELS) + centered; // "" gets the exact player y
 	// log_val(data, "init_dir", 'P'); // ? testing
-	// log_positions(data, "init_dir", 'G'); // ? testing
+	// log_val(data, "init_dir", 'G'); // ? testing
 	data->file_data->player->dx = cos(data->file_data->player->angle) * S; // ? * 5 because these are very small values
 	data->file_data->player->dy = -sin(data->file_data->player->angle) * S; // ? also affects the speed of the player
 	// log_val(data, "init_dir", 'D'); // ? testing

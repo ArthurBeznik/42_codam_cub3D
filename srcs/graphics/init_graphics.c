@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-bool init_rays(t_general_data *data)
+bool	init_rays(t_general_data *data)
 {
 	int		i;
 	t_ray	**ray;
@@ -53,6 +53,7 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 	}
 
 	graphics->img_3d = mlx_new_image(graphics->mlx, 500, 500);
+	// graphics->img_3d = NULL; // ? testing
 	if (!graphics->img_3d)
 	{
 		mlx_terminate(graphics->mlx);
