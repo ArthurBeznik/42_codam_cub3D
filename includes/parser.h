@@ -72,5 +72,7 @@ bool	check_scene_file_order(t_file_data *data, const int nb_rows);
 bool	check_map_content(const char **map);
 bool	check_walls(t_file_data *data);
 void	flood_fill(const int y, const int x, t_map_data *map_data, bool *is_enclosed);
+void	free_data(t_general_data *data);
+void	free_2d(char **array);
 
 #endif

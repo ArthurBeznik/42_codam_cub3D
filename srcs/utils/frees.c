@@ -15,3 +15,19 @@ void	free_2d(char **array)
 	free(array);
 	return ;
 }
+
+void	free_data(t_general_data *data)
+{
+	free(data->file_data->identifiers->path_to_north_texture);
+	free(data->file_data->identifiers->path_to_south_texture);
+	free(data->file_data->identifiers->path_to_west_texture);
+	free(data->file_data->identifiers->path_to_east_texture);
+	free(data->file_data->identifiers->floor);
+	free(data->file_data->identifiers->ceiling);
+	free(data->file_data->identifiers);
+	free(data->file_data->player);
+	free_2d(data->file_data->map_data->map);
+	free(data->file_data->map_data);
+	free(data->file_data->line);
+	free(data->file_data);
+}
