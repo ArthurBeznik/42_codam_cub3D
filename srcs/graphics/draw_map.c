@@ -80,14 +80,14 @@ static bool	draw_cells(char	**map, t_general_data *data, int map_height)
 		while (x < curr_line_len)
 		{
 			if (map[y][x] == '1')
-				ret = draw_square(data, x * PIXELS, y * PIXELS, 0x000000FF, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, BLACK, false);
 			else if (map[y][x] == '0')
-				ret = draw_square(data, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE, false);
 			else if (map[y][x] == 'X')
-				ret = draw_square(data, x * PIXELS, y * PIXELS, 0x00000000, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, GREY, false);
 			else if (is_player((const char)map[y][x]))
 			{
-				ret = draw_square(data, x * PIXELS, y * PIXELS, 0xFFFFFFFF, false);
+				ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE, false);
 				if (data->graphics->init_dir == false)
 					init_direction(data, x, y);
 			}

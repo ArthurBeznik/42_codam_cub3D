@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i)
+bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *textures)
 {
 	float	ca;
 	int		line_h;
@@ -8,6 +8,8 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i)
 	int		n;
 	int		x1;
 	int		y1;
+
+	int color;
 
 	/**
 	 * ! fixing fish eye
@@ -28,11 +30,63 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i)
 		ca -= RESET_ANGLE;
 	raymond->dist_h = raymond->dist_h * cos(ca);
 	line_h = (PIXELS * 320) / (raymond->dist_h);
+
+	textures->y_step = 32.0 / (float)line_h; // !
+	textures->y_off = 0; // !
+	
 	if (line_h > 320)
+	{
+		textures->y_off = (line_h - 320) / 2.0; // !
 		line_h = 320;
+	}
 	line_off = 160 - (line_h >> 1);
+
 	// fprintf(stderr, "[draw_3d_walls]\tline_off: %d\n", line_off); // ? testing
 
+	textures->y = textures->y_off * textures->y_step + textures->hmt * 32; // !
+	if (textures->shade == 1)
+	{
+		textures->x = (int)(raymond->x / 2.0) % 32;
+		// if (raymond->angle > 180)
+		if (raymond->angle > M_PI) // ? angle is in radian
+		{
+			textures->x = 31 - textures->x;
+		}
+	}
+	else
+	{
+		textures->x = (int)(raymond->y / 2.0) % 32;
+		// if (raymond->angle > 90 && raymond->angle < 270)
+		if (raymond->angle > (M_PI / 2) && raymond->angle < (3 * M_PI / 2))
+		{
+			textures->x = 31 - textures->x;
+		}
+	}
+
+	// float c = All_Textures[(int)(ty)*32 + (int)(tx)] * shade;
+
+	if (textures->hmt == 0)
+	{
+		// glColor3f(c, c / 2.0, c / 2.0);
+		color = RED;
+	} // red
+	if (textures->hmt == 1)
+	{
+		// glColor3f(c, c, c / 2.0);
+		color = YELLOW;
+	} // yellow
+	if (textures->hmt == 2)
+	{
+		// glColor3f(c / 2.0, c / 2.0, c);
+		color = BLUE;
+	} // blue
+	if (textures->hmt == 3)
+	{
+		// glColor3f(c / 2.0, c, c / 2.0);
+		color = GREEN;
+	} // green
+
+	/* draw walls */
 	n = 0;
 	while (n < line_h)
 	{
@@ -44,7 +98,48 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i)
 		// log_val(data, "draw_3d_walls", 'P'); // ? testing
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, 0x00FF00FF);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, RED);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, 0x00FF00FF);
+		textures->y += textures->y_step;
+		n++;
+	}
+
+	/* draw ceiling and floor */
+	n = line_off + line_h;
+	while (n < 320)
+	{
+		/* draw floor */
+		float dy = n - (320 / 2.0);
+		float deg = raymond->angle;
+		float raFix = cos(data->file_data->player->angle - raymond->angle);
+		textures->x = data->file_data->player->x / 2 + cos(deg) * 158 * 32 / dy / raFix;
+		textures->y = data->file_data->player->y / 2 - sin(deg) * 158 * 32 / dy / raFix;
+		x1 = i * 8;
+		y1 = n;
+
+		// int mp = mapF[(int)(ty / 32.0) * mapX + (int)(tx / 32.0)] * 32 * 32; // !
+		// float c = All_Textures[((int)(ty)&31) * 32 + ((int)(tx)&31) + mp] * 0.7; // !
+
+		if (!check_put_pixel(data, x1, y1))
+			return (false);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, GREEN);
+
+		/* draw ceiling */
+
+		// mp = mapC[(int)(ty / 32.0) * mapX + (int)(tx / 32.0)] * 32 * 32; // !
+		// c = All_Textures[((int)(ty)&31) * 32 + ((int)(tx)&31) + mp] * 0.7; // !
+		
+		x1 = i * 8;
+		y1 = 320 - n;
+		if (!check_put_pixel(data, x1, y1))
+			return (false);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, BLUE);
 		n++;
 	}
 	return (true);
@@ -77,7 +172,7 @@ bool	draw_ray(t_general_data *data, double angle, float x, float y)
 		// fprintf(stderr, "[draw_ray]\tx1 | y1: %f | %f\n", x1, y1); // ? testing
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img, x1, y1, 0xFF0000FF);
+		mlx_put_pixel(data->graphics->img, x1, y1, RED);
 		i++;
 	}
 	return (true);
@@ -91,15 +186,19 @@ bool	ray_caster(t_general_data *data)
 	int		i;
 	float	angle;
 	t_ray	**raymond;
+	t_textures	*textures;
 
 	i = 0;
 	raymond = data->graphics->ray;
+	textures = data->graphics->textures;
 	angle = data->file_data->player->angle + (NB_RAYS * DR); // ! (NB_RAYS * DR) is the FOV angle in radian
 	// log_val(data, "ray_caster", 'A'); // ? testing
 	while (i < NB_RAYS)
 	{
-		vertical_ray(data, raymond[i], angle);
-		horizontal_ray(data, raymond[i], angle);
+		textures->hmt = 0;
+		textures->vmt = 0;
+		vertical_ray(data, raymond[i], angle, textures);
+		horizontal_ray(data, raymond[i], angle, textures);
 		// fprintf(stderr, "[ray_caster] dist_v | dist_h : \t%f | %f\n", raymond[i]->dist_v, raymond[i]->dist_h); // ? testing
 
 		// fprintf(stderr, "[ray_caster] rx | ry : \t%f | %f\n", raymond[i]->x, raymond[i]->y); // ? testing
@@ -109,7 +208,7 @@ bool	ray_caster(t_general_data *data)
 		/**
 		 * ! the "3D" window size will be 320/160
 		*/
-		if (!draw_3d_walls(data, raymond[i], i))
+		if (!draw_3d_walls(data, raymond[i], i, textures))
 			return (error_msg("draw_3d"));
 
 		angle -= (DR * 2); // ! when drawing multiple rays, we need to decrement the angle of each ray

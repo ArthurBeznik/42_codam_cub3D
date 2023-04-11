@@ -11,13 +11,13 @@ bool	draw_line(t_general_data *data, int x, int y, t_axis axis)
 		{
 			if (!check_put_pixel(data, x + i, y))
 				return (false);
-			mlx_put_pixel(data->graphics->img, x + i, y, 0x00000000);
+			mlx_put_pixel(data->graphics->img, x + i, y, GREY);
 		}
 		if (axis == VERTICAL)
 		{
 			if (!check_put_pixel(data, x + i, y))
 				return (false);
-			mlx_put_pixel(data->graphics->img, x, y + i, 0x00000000);
+			mlx_put_pixel(data->graphics->img, x, y + i, GREY);
 		}
 		i++;
 	}

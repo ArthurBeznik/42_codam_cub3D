@@ -1,6 +1,6 @@
 #include <graphics.h>
 
-void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t_axis axis)
+void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t_axis axis, t_textures *textures)
 {
 	while (dof < 8)
 	{
@@ -9,17 +9,33 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 		// fprintf(stderr, "dof : %d\n", dof); // ? testing
 		raymond->hit_x = (int)(raymond->x) >> 6; // ? x where the ray hits a wall or line
 		raymond->hit_y = (int)(raymond->y) >> 6; // where the ray hits a wall or line
+
+		// mp = my * mapX + mx; // !
+		// mp = // !
+		
 		// fprintf(stderr, "hit_x | hit_y : %d | %d\n", raymond->hit_x, raymond->hit_y); // ? testing
 		// fprintf(stderr, "col | row : %lld | %lld\n", data->file_data->map_data->col, data->file_data->map_data->row); // ? testing
+		
+		// if (mp > 0 && mp < mapX * mapY && mapW[mp] > 0) // !
+		
 		if ((raymond->hit_x >= 0 && raymond->hit_y >= 0) && ((raymond->hit_x < data->file_data->map_data->row && raymond->hit_y < data->file_data->map_data->col)) && data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x] == '1')
 		{
 			// fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", hit_x, hit_y, data->file_data->map_data->copy[hit_y][hit_x]); // ? testing
 			// fprintf(stderr, "\thit wall\n"); // ? testing
+
 			dof = 8;
 			if (axis == VERTICAL)
+			{
+				// textures->vmt = mapW[mp] - 1; // !
+				textures->vmt = 1; // !
 				raymond->dist_v = cos(angle) * (raymond->x - data->file_data->player->x) - sin(angle) * (raymond->y - data->file_data->player->y);
+			}
 			if (axis == HORIZONTAL)
+			{
+				// textures->hmt = mapW[mp] - 1; // !
+				textures->hmt = 0; // !
 				raymond->dist_h = cos(angle) * (raymond->x - data->file_data->player->x) - sin(angle) * (raymond->y - data->file_data->player->y);
+			}
 			// fprintf(stderr, "dist_h : %f\n", dist_h); // ? testing
 		}
 		else
@@ -102,7 +118,7 @@ void	vertical_looking(t_general_data *data, t_ray *raymond, float angle, float t
 	}
 }
 
-void	vertical_ray(t_general_data *data, t_ray *raymond, float angle)
+void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures)
 {
 	int		dof;
 	float	tan_var;
@@ -118,10 +134,10 @@ void	vertical_ray(t_general_data *data, t_ray *raymond, float angle)
 	// log_val(data, "ray_caster", 'P'); // ? testing
 	vertical_looking(data, raymond, angle, tan_var);
 	dof = raymond->dof;
-	try_hit_walls(data, raymond, angle, dof, VERTICAL);
+	try_hit_walls(data, raymond, angle, dof, VERTICAL, textures);
 }
 
-void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle)
+void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures)
 {
 	int		dof;
 	float	tan_var;
@@ -137,9 +153,13 @@ void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle)
 	horizontal_looking(data, raymond, angle, tan_var);
 	dof = raymond->dof;
 	// fprintf(stderr, "col | row : %d | %d\n", data->file_data->map_data->col, data->file_data->map_data->row); // ? testing
-	try_hit_walls(data, raymond, angle, dof, HORIZONTAL);
+	try_hit_walls(data, raymond, angle, dof, HORIZONTAL, textures);
+
+	textures->shade = 1; // !
 	if (raymond->dist_v < raymond->dist_h)
 	{
+		textures->hmt = textures->vmt; // !
+		textures->shade = 0.5; // !
 		raymond->x = raymond->vx;
 		raymond->y = raymond->vy;
 		raymond->dist_h = raymond->dist_v;

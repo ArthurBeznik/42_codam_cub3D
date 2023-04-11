@@ -19,7 +19,15 @@
 # define S 2.5
 # define RESET_ANGLE 2 * M_PI
 
-# define NB_RAYS 30
+# define NB_RAYS 60
+
+# define RED 0xFF0000FF
+# define GREEN 0x00FF00FF
+# define BLUE 0x0000FFFF
+# define YELLOW 0xFFFF00FF
+# define WHITE 0xFFFFFFFF
+# define BLACK 0x000000FF
+# define GREY 0x00000000
 
 typedef struct s_general_data	t_general_data;
 
@@ -28,6 +36,17 @@ typedef enum e_axis
 	HORIZONTAL,
 	VERTICAL
 }	t_axis;
+
+typedef struct s_textures
+{
+	int		vmt; // vertical and horizontal map texture number (= color value)
+	int		hmt;
+	float	shade;
+	float	x;
+	float	y;
+	float	y_step;
+	float	y_off;
+}	t_textures;
 
 typedef struct s_ray
 {
@@ -79,9 +98,9 @@ typedef struct s_graphics
 	int64_t			height;
 	mlx_image_t		*img;
 	mlx_image_t		*img_3d;
-	mlx_texture_t	*textures[IMG_COUNT];
 	bool			init_dir;
 	t_ray			**ray;
+	t_textures		*textures;
 }	t_graphics;
 
 bool	run_graphics(t_general_data	*data);
@@ -105,8 +124,10 @@ void	terminate(t_graphics *graphics);
 
 bool	ray_caster(t_general_data *data);
 
-void	vertical_ray(t_general_data *data, t_ray *raymond, float angle);
-void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle);
+void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
 bool	init_rays(t_general_data *data);
+
+bool	init_textures(t_general_data *data);
 
 #endif

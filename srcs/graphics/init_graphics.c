@@ -1,5 +1,23 @@
 #include <graphics.h>
 
+bool	init_textures(t_general_data *data)
+{
+	t_textures *textures;
+
+	textures = (t_textures *)malloc(sizeof(t_textures));
+	if (!textures)
+		return (error_msg("Malloc textures struct"));
+	textures->hmt = 999;
+	textures->vmt = 999;
+	textures->shade = 999;
+	textures->x = 999;
+	textures->y = 999;
+	textures->y_off = 999;
+	textures->y_step = 999;
+	data->graphics->textures = textures;
+	return (true);
+}
+
 bool	init_rays(t_general_data *data)
 {
 	int		i;
@@ -12,7 +30,7 @@ bool	init_rays(t_general_data *data)
 	while (i < NB_RAYS)
 	{
 		ray[i] = (t_ray *)malloc(sizeof(t_ray));
-		if (!ray)
+		if (!ray[i])
 			// ! free ray
 			return (error_msg("Malloc ray ptr"));
 		ray[i]->x = 999;

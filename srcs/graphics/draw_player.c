@@ -24,7 +24,7 @@ bool	draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 		// log_val(data, "draw_dir", 'P'); // ? testing
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(img, x1, y1, 0x00FF00FF);
+		mlx_put_pixel(img, x1, y1, GREEN);
 		// mlx_put_pixel(img, x1 - 1, y1 - 1, 0x00FF00FF);
 		// mlx_put_pixel(img, x1 + 1, y1 + 1, 0x00FF00FF);
 		i++;
@@ -69,7 +69,7 @@ bool	draw_player(t_general_data *data, mlx_image_t *img)
 			// log_val(data, "draw_player", 'A'); // ? testing
 			// fprintf(stderr, "%d | %d\n", x - centered, y - centered); // ? testing
 			// fprintf(stderr, "%d | %d\n", x - p_size, y - p_size); // ? testing
-			mlx_put_pixel(img, x - centered, y - centered, 0xFFFF00FF);
+			mlx_put_pixel(img, x - centered, y - centered, YELLOW); 
 			y++;
 		}
 		x++;
