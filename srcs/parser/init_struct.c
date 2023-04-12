@@ -8,9 +8,9 @@ static bool	st_init_player_data(t_file_data *file_data)
 	if (!player)
 		return (false);
 	player->facing = 'X';
-	player->x = 999;
-	player->y = 999;
-	player->angle = 999;
+	player->x = NA;
+	player->y = NA;
+	player->angle = NA;
 	file_data->player = player;
 	return (true);
 }
@@ -22,9 +22,9 @@ static t_rgb	*st_init_colors_data(void)
 	rgb_data = (t_rgb *)malloc(sizeof(t_rgb));
 	if (!rgb_data)
 		return (NULL);
-	rgb_data->red = 999;
-	rgb_data->green = 999;
-	rgb_data->blue = 999;
+	rgb_data->red = NA;
+	rgb_data->green = NA;
+	rgb_data->blue = NA;
 	return (rgb_data);
 }
 
@@ -56,8 +56,8 @@ static bool	st_init_map_data(t_file_data *file_data)
 		return (false);
 	map_data->copy = NULL;
 	map_data->map = NULL;
-	map_data->row = 999;
-	map_data->col = 999;
+	map_data->row = NA;
+	map_data->col = NA;
 	file_data->map_data = map_data;
 	return (true);
 }
@@ -69,8 +69,8 @@ bool	init_file_data(t_general_data *data)
 	file_data = (t_file_data *)malloc(sizeof(t_file_data));
 	if (!file_data)
 		return (error_msg("Malloc file_data struct"));
-	file_data->buflen = 999;
-	file_data->fd = 999;
+	file_data->buflen = NA;
+	file_data->fd = NA;
 	file_data->file_extension = ".cub";
 	file_data->line = NULL;
 	file_data->scene = NULL;

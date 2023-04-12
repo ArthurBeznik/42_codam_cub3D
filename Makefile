@@ -78,7 +78,9 @@ s: all
 	./$(NAME) $(SIMPLE_MAP)
 
 r:	all
-	# ./$(NAME) $(SUBJ_MAP)
+	./$(NAME) $(SQUARE_MAP)
+
+run: re
 	./$(NAME) $(SQUARE_MAP)
 
 i:	all

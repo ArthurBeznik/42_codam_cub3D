@@ -5,7 +5,7 @@
 #  define BUFFER_SIZE 10
 # endif
 
-# define ERROR -1
+// # define ERROR -1
 
 # include <cub3D.h>
 
@@ -41,7 +41,6 @@ typedef struct s_identifiers_data
 	char	*path_to_east_texture;
 	t_rgb	*floor;
 	t_rgb	*ceiling;
-
 }	t_identifiers_data;
 
 typedef struct map_data

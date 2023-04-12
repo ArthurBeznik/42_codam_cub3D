@@ -7,19 +7,22 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <libft.h>
-# include <MLX42.h>
-# include <utils.h>
 # include <math.h>
 
+# include <utils.h>
+# include <MLX42.h>
+
 # define ERROR -1
+# define NA 999
+
 # define PIXELS 64
 # define DR 0.0174533
 
-# define ROTATION_SPEED 0.02
-# define S 2.5
+# define ROT_SPEED 0.01
+# define MOV_SPEED 1.2
 # define RESET_ANGLE 2 * M_PI
 
-# define NB_RAYS 60
+# define NB_RAYS 30
 
 # define RED 0xFF0000FF
 # define GREEN 0x00FF00FF
@@ -37,6 +40,15 @@ typedef enum e_axis
 	VERTICAL
 }	t_axis;
 
+typedef struct s_color
+{
+	// unsigned int	rgb;
+	int				r;
+	int				g;
+	int				b;
+	int				a;
+}	t_color;
+
 typedef struct s_textures
 {
 	int		vmt; // vertical and horizontal map texture number (= color value)
@@ -46,6 +58,13 @@ typedef struct s_textures
 	float	y;
 	float	y_step;
 	float	y_off;
+	int		color;
+	mlx_texture_t	*north_tex;
+	mlx_texture_t	*south_tex;
+	mlx_texture_t	*west_tex;
+	mlx_texture_t	*east_tex;
+	t_color	*floor;
+	t_color	*ceiling;
 }	t_textures;
 
 typedef struct s_ray
@@ -77,18 +96,6 @@ typedef struct s_wall_collision
 	int		ipy_sub_yo;
 }	t_wall_collision;
 
-typedef enum mlx_images
-{
-	IMG_FLOOR,
-	IMG_CEILING,
-	WALL,
-	IMG_SPRITE,
-	BG,
-	PLAYER,
-	LINE,
-	IMG_COUNT
-}	t_mlx_images;
-
 typedef struct s_graphics
 {
 	mlx_t			*mlx;
@@ -104,30 +111,41 @@ typedef struct s_graphics
 }	t_graphics;
 
 bool	run_graphics(t_general_data	*data);
-bool	init_graphics(t_general_data *data, t_graphics *graphics);
 
-bool	loading_images(mlx_texture_t **textures);
-bool	texture_to_image(t_graphics *graphics, mlx_texture_t **textures, \
-													mlx_image_t **image);
-bool	draw_2d_map(t_general_data *data);
+/**
+ * Init. structs functions
+*/
+bool	init_graphics(t_general_data *data, t_graphics *graphics);
+bool	init_rays(t_general_data *data);
+bool	init_textures(t_general_data *data);
+
+/**
+ * Draw functions
+*/
 bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player);
 bool	draw_line(t_general_data *data, int x, int y, t_axis axis);
 bool	draw_player(t_general_data *data, mlx_image_t *img);
-
-void	captain(void *param);
-
-void	log_val(t_general_data *data, char *function, char values);
+bool	draw_2d_map(t_general_data *data);
 bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
-bool	fill_map(t_general_data	*data);
+
+/**
+ * Hooks functions
+*/
+void	captain(void *param);
 void	free_close_window(t_graphics *graphics, void *var, char *str);
 void	terminate(t_graphics *graphics);
 
+/**
+ * Raycasting functions
+*/
 bool	ray_caster(t_general_data *data);
-
 void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
 void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
-bool	init_rays(t_general_data *data);
 
-bool	init_textures(t_general_data *data);
+/**
+ * Misc. functions
+*/
+bool	fill_map(t_general_data	*data);
+void	log_val(t_general_data *data, char *function, char values);
 
 #endif

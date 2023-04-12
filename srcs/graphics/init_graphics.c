@@ -7,13 +7,33 @@ bool	init_textures(t_general_data *data)
 	textures = (t_textures *)malloc(sizeof(t_textures));
 	if (!textures)
 		return (error_msg("Malloc textures struct"));
-	textures->hmt = 999;
-	textures->vmt = 999;
-	textures->shade = 999;
-	textures->x = 999;
-	textures->y = 999;
-	textures->y_off = 999;
-	textures->y_step = 999;
+	textures->hmt = NA;
+	textures->vmt = NA;
+	textures->shade = NA;
+	textures->x = NA;
+	textures->y = NA;
+	textures->y_off = NA;
+	textures->y_step = NA;
+	textures->color = NA;
+	textures->north_tex = NULL;
+	textures->west_tex = NULL;
+	textures->south_tex = NULL;
+	textures->east_tex = NULL;
+	textures->north_tex = mlx_load_png(data->file_data->identifiers->path_to_north_texture);
+	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture);
+	textures->west_tex = mlx_load_png(data->file_data->identifiers->path_to_west_texture);
+	textures->south_tex = mlx_load_png(data->file_data->identifiers->path_to_south_texture);
+	textures->east_tex = mlx_load_png(data->file_data->identifiers->path_to_east_texture);
+	textures->floor = (t_color *)malloc(sizeof(t_color));
+	textures->floor->r = data->file_data->identifiers->floor->red;
+	textures->floor->g = data->file_data->identifiers->floor->green;
+	textures->floor->b = data->file_data->identifiers->floor->blue;
+	textures->floor->a = 0;
+	textures->ceiling = (t_color *)malloc(sizeof(t_color));
+	textures->ceiling->r = data->file_data->identifiers->ceiling->red;
+	textures->ceiling->g = data->file_data->identifiers->ceiling->green;
+	textures->ceiling->b = data->file_data->identifiers->ceiling->blue;
+	textures->ceiling->a = 0;
 	data->graphics->textures = textures;
 	return (true);
 }
@@ -33,19 +53,19 @@ bool	init_rays(t_general_data *data)
 		if (!ray[i])
 			// ! free ray
 			return (error_msg("Malloc ray ptr"));
-		ray[i]->x = 999;
-		ray[i]->y = 999;
-		ray[i]->angle = 999;
-		ray[i]->off_x = 999;
-		ray[i]->off_y = 999;
-		ray[i]->hit_x = 999;
-		ray[i]->hit_y = 999;
-		ray[i]->vx = 999;
-		ray[i]->vy = 999;
-		ray[i]->dist_v = 999;
-		ray[i]->dist_h = 999;
-		ray[i]->tan_var = 999;
-		ray[i]->dof = 999;
+		ray[i]->x = NA;
+		ray[i]->y = NA;
+		ray[i]->angle = NA;
+		ray[i]->off_x = NA;
+		ray[i]->off_y = NA;
+		ray[i]->hit_x = NA;
+		ray[i]->hit_y = NA;
+		ray[i]->vx = NA;
+		ray[i]->vy = NA;
+		ray[i]->dist_v = NA;
+		ray[i]->dist_h = NA;
+		ray[i]->tan_var = NA;
+		ray[i]->dof = NA;
 		i++;
 	}
 	data->graphics->ray = ray;

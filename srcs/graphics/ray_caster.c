@@ -1,5 +1,20 @@
 #include <graphics.h>
 
+static int	get_rgba(mlx_texture_t *texture, int x, int y)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+
+	r = texture->pixels[y + (x)];
+	g = texture->pixels[y + (x) + 1];
+	b = texture->pixels[y + (x) + 2];
+	a = texture->pixels[y + (x) + 3];
+	fprintf(stderr, "r: %d | g: %d | b: %d | a: %d\n", r,g , b, a);
+	return (r << 24 | g << 16 | b << 8 | a);
+}
+
 bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *textures)
 {
 	float	ca;
@@ -31,7 +46,7 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 	raymond->dist_h = raymond->dist_h * cos(ca);
 	line_h = (PIXELS * 320) / (raymond->dist_h);
 
-	textures->y_step = 32.0 / (float)line_h; // !
+	textures->y_step = 64.0 / (float)line_h; // !
 	textures->y_off = 0; // !
 	
 	if (line_h > 320)
@@ -43,69 +58,78 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 
 	// fprintf(stderr, "[draw_3d_walls]\tline_off: %d\n", line_off); // ? testing
 
-	textures->y = textures->y_off * textures->y_step + textures->hmt * 32; // !
+	textures->y = textures->y_off * textures->y_step + textures->hmt * 64; // !
 	if (textures->shade == 1)
 	{
-		textures->x = (int)(raymond->x / 2.0) % 32;
+		textures->x = (int)(raymond->x) % 64;
 		// if (raymond->angle > 180)
 		if (raymond->angle > M_PI) // ? angle is in radian
 		{
-			textures->x = 31 - textures->x;
+			textures->x = 63 - textures->x;
 		}
 	}
 	else
 	{
-		textures->x = (int)(raymond->y / 2.0) % 32;
+		textures->x = (int)(raymond->y) % 64;
 		// if (raymond->angle > 90 && raymond->angle < 270)
 		if (raymond->angle > (M_PI / 2) && raymond->angle < (3 * M_PI / 2))
 		{
-			textures->x = 31 - textures->x;
+			textures->x = 63 - textures->x;
 		}
 	}
 
-	// float c = All_Textures[(int)(ty)*32 + (int)(tx)] * shade;
-
-	if (textures->hmt == 0)
-	{
-		// glColor3f(c, c / 2.0, c / 2.0);
-		color = RED;
-	} // red
-	if (textures->hmt == 1)
-	{
-		// glColor3f(c, c, c / 2.0);
-		color = YELLOW;
-	} // yellow
-	if (textures->hmt == 2)
-	{
-		// glColor3f(c / 2.0, c / 2.0, c);
-		color = BLUE;
-	} // blue
-	if (textures->hmt == 3)
-	{
-		// glColor3f(c / 2.0, c, c / 2.0);
-		color = GREEN;
-	} // green
 
 	/* draw walls */
 	n = 0;
 	while (n < line_h)
 	{
+		// float c = All_Textures[(int)(ty)*32 + (int)(tx)] * shade; // !
+		int rgba = get_rgba(data->graphics->textures->north_tex, (int)textures->x, (int)textures->y*64);
+		// int c = data->graphics->textures->north_tex->pixels[(int)textures->y*64 + (int)textures->x];
+		// fprintf(stderr, "c: %f\n", c);
+		fprintf(stderr, "rgba: %d\n", rgba);
+		if (textures->hmt == 0)
+		{
+			// glColor3f(c, c / 2.0, c / 2.0);
+			color = RED;
+		} // red
+		if (textures->hmt == 1)
+		{
+			// glColor3f(c, c, c / 2.0);
+			color = YELLOW;
+		} // yellow
+		if (textures->hmt == 2)
+		{
+			// glColor3f(c / 2.0, c / 2.0, c);
+			color = BLUE;
+		} // blue
+		if (textures->hmt == 3)
+		{
+			// glColor3f(c / 2.0, c, c / 2.0);
+			color = GREEN;
+		} // green
+
 		// log_val(data, "draw_3d_walls", 'A');
 		x1 = i * 8; // ! on x, draw every 8th pixel
 		y1 = line_off + n; // ! on y, starting at line_off, draw every n pixels until line_h
 		// fprintf(stderr, "[draw_3d_walls]\tx1 | y1: %d | %d\n", x1, y1); // ? testing
 		// log_val(data, "draw_3d_walls", 'D'); // ? testing
 		// log_val(data, "draw_3d_walls", 'P'); // ? testing
+
+
+
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, RED);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, 0x00FF00FF);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, 0x00FF00FF);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, 0x00FF00FF);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, 0x00FF00FF);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, 0x00FF00FF);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, 0x00FF00FF);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, 0x00FF00FF);
+		// mlx_put_pixel(data->graphics->img_3d, x1, y1, color);
+		// mlx_put_pixel(data->graphics->img_3d, x1, y1, textures->color);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, rgba);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, rgba);
 		textures->y += textures->y_step;
 		n++;
 	}
@@ -118,8 +142,8 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 		float dy = n - (320 / 2.0);
 		float deg = raymond->angle;
 		float raFix = cos(data->file_data->player->angle - raymond->angle);
-		textures->x = data->file_data->player->x / 2 + cos(deg) * 158 * 32 / dy / raFix;
-		textures->y = data->file_data->player->y / 2 - sin(deg) * 158 * 32 / dy / raFix;
+		textures->x = data->file_data->player->x / 2 + cos(deg) * 158 * 64 / dy / raFix;
+		textures->y = data->file_data->player->y / 2 - sin(deg) * 158 * 64 / dy / raFix;
 		x1 = i * 8;
 		y1 = n;
 
@@ -128,7 +152,7 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, GREEN);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, WHITE);
 
 		/* draw ceiling */
 
@@ -139,7 +163,7 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 		y1 = 320 - n;
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, BLUE);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, BLACK);
 		n++;
 	}
 	return (true);
@@ -193,8 +217,15 @@ bool	ray_caster(t_general_data *data)
 	textures = data->graphics->textures;
 	angle = data->file_data->player->angle + (NB_RAYS * DR); // ! (NB_RAYS * DR) is the FOV angle in radian
 	// log_val(data, "ray_caster", 'A'); // ? testing
+	// fprintf(stderr, "ray angle: %f\n", angle); // ? testing
+	// log_val(data, "ray_caster", 'A'); // ? testing
+	// fprintf(stderr, "ray angle: %f\n", angle); // ? testing
 	while (i < NB_RAYS)
 	{
+		if (angle > 2 * M_PI)
+			angle -= RESET_ANGLE;
+		if (angle < 0)
+			angle += RESET_ANGLE;
 		textures->hmt = 0;
 		textures->vmt = 0;
 		vertical_ray(data, raymond[i], angle, textures);

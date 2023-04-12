@@ -11,9 +11,11 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 		raymond->hit_y = (int)(raymond->y) >> 6; // where the ray hits a wall or line
 
 		// mp = my * mapX + mx; // !
-		// mp = // !
-		
+
 		// fprintf(stderr, "hit_x | hit_y : %d | %d\n", raymond->hit_x, raymond->hit_y); // ? testing
+		// int mp = data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x]; // !
+		// fprintf(stderr, "%d\n", mp); // !
+
 		// fprintf(stderr, "col | row : %lld | %lld\n", data->file_data->map_data->col, data->file_data->map_data->row); // ? testing
 		
 		// if (mp > 0 && mp < mapX * mapY && mapW[mp] > 0) // !
@@ -23,17 +25,45 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 			// fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", hit_x, hit_y, data->file_data->map_data->copy[hit_y][hit_x]); // ? testing
 			// fprintf(stderr, "\thit wall\n"); // ? testing
 
+			// int mp = data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x]; // !
+			// fprintf(stderr, "%d\n", mp); // !
+			// fprintf(stderr, "raymond angle: %f\n", raymond->angle);
+			// fprintf(stderr, "player angle: %f\n", data->file_data->player->angle);
+			// fprintf(stderr, "hit angle: %f\n", angle); // ? testing
 			dof = 8;
 			if (axis == VERTICAL)
 			{
 				// textures->vmt = mapW[mp] - 1; // !
-				textures->vmt = 1; // !
+				if (raymond->angle > M_PI / 4 && raymond->angle < 3 * M_PI / 4) // ! facing north
+				{
+					// fprintf(stderr, "NORTH\n"); // ? [2pi, pi]
+					textures->vmt = 0; // !
+					textures->color = RED;
+				}
+				if (raymond->angle > 5 * M_PI / 4 && raymond->angle < 7 * M_PI / 4) // ! facing south
+				{
+					// fprintf(stderr, "SOUTH\n"); // ?  [pi, 2pi]
+					textures->vmt = 1; // !
+					textures->color = GREEN;
+				}
 				raymond->dist_v = cos(angle) * (raymond->x - data->file_data->player->x) - sin(angle) * (raymond->y - data->file_data->player->y);
 			}
 			if (axis == HORIZONTAL)
 			{
+				if (raymond->angle > 3 * M_PI / 4 && raymond->angle < 5 * M_PI / 4) // ! facing west
+				{	
+					// fprintf(stderr, "WEST\n"); // ? [pi/2, 3pi/2]
+					textures->hmt = 2; // !
+					textures->color = BLUE;
+				}
+				if ((raymond->angle > 7 * M_PI / 4 && raymond->angle < (2 * M_PI)) \
+					|| (raymond->angle > 0 && raymond->angle < M_PI / 4)) // ! facing east
+				{
+					// fprintf(stderr, "EAST\n"); // ? [3pi/2, pi/2]
+					textures->hmt = 3; // !
+					textures->color = YELLOW;
+				}
 				// textures->hmt = mapW[mp] - 1; // !
-				textures->hmt = 0; // !
 				raymond->dist_h = cos(angle) * (raymond->x - data->file_data->player->x) - sin(angle) * (raymond->y - data->file_data->player->y);
 			}
 			// fprintf(stderr, "dist_h : %f\n", dist_h); // ? testing
@@ -142,6 +172,12 @@ void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_texture
 	int		dof;
 	float	tan_var;
 
+	// fprintf(stderr, "angle: %f\n", angle);
+	// if (angle > 2 * M_PI)
+	// 	angle -= RESET_ANGLE;
+	// if (angle < 0)
+	// 	angle += RESET_ANGLE;
+	// fprintf(stderr, "angle: %f\n", angle);
 	raymond->vx = raymond->x;
 	raymond->vy = raymond->y;
 	// fprintf(stderr, "rx | ry : %f | %f\n", raymond->x, raymond->y); // ? testing

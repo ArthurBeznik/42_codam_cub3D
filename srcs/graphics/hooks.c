@@ -23,16 +23,16 @@ void	check_w_s_keys(t_general_data *data, mlx_t *mlx, t_wall_collision wall)
 	if (mlx_is_key_down(mlx, MLX_KEY_UP) || mlx_is_key_down(mlx, MLX_KEY_W))
 	{
 		if (data->file_data->map_data->copy[wall.ipy][wall.ipx_add_xo] != '1')
-			data->file_data->player->x += data->file_data->player->dx;
+			data->file_data->player->x += data->file_data->player->dx * MOV_SPEED;
 		if (data->file_data->map_data->copy[wall.ipy_add_yo][wall.ipx] != '1')
-			data->file_data->player->y += data->file_data->player->dy;
+			data->file_data->player->y += data->file_data->player->dy * MOV_SPEED;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || mlx_is_key_down(mlx, MLX_KEY_S))
 	{
 		if (data->file_data->map_data->copy[wall.ipy][wall.ipx_sub_xo] != '1')
-			data->file_data->player->x -= data->file_data->player->dx;
+			data->file_data->player->x -= data->file_data->player->dx * MOV_SPEED;
 		if (data->file_data->map_data->copy[wall.ipy_sub_yo][wall.ipx] != '1')
-			data->file_data->player->y -= data->file_data->player->dy;
+			data->file_data->player->y -= data->file_data->player->dy * MOV_SPEED;
 	}
 }
 
@@ -46,19 +46,27 @@ void	movement(t_general_data *data, mlx_t *mlx)
 	ft_memset(data->graphics->img_3d->pixels, 0, 500 * 500 * sizeof(int));
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT) || mlx_is_key_down(mlx, MLX_KEY_A))
 	{
-		data->file_data->player->angle += ROTATION_SPEED * M_PI;
+		data->file_data->player->angle += ROT_SPEED * M_PI;
 		if (data->file_data->player->angle < 0)
 			data->file_data->player->angle += RESET_ANGLE;
-		data->file_data->player->dx = cos(data->file_data->player->angle) * S;
-		data->file_data->player->dy = -sin(data->file_data->player->angle) * S;
+		if (data->file_data->player->angle > 2 * M_PI)
+			data->file_data->player->angle -= RESET_ANGLE;
+		// data->file_data->player->dx = cos(data->file_data->player->angle) * MOV_SPEED;
+		// data->file_data->player->dy = -sin(data->file_data->player->angle) * MOV_SPEED;
+		data->file_data->player->dx = cos(data->file_data->player->angle);
+		data->file_data->player->dy = -sin(data->file_data->player->angle);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT) || mlx_is_key_down(mlx, MLX_KEY_D))
 	{
-		data->file_data->player->angle -= ROTATION_SPEED * M_PI;
+		data->file_data->player->angle -= ROT_SPEED * M_PI;
+		if (data->file_data->player->angle < 0)
+			data->file_data->player->angle += RESET_ANGLE;
 		if (data->file_data->player->angle > 2 * M_PI)
 			data->file_data->player->angle -= RESET_ANGLE;
-		data->file_data->player->dx = cos(data->file_data->player->angle) * S;
-		data->file_data->player->dy = -sin(data->file_data->player->angle) * S;
+		// data->file_data->player->dx = cos(data->file_data->player->angle) * MOV_SPEED;
+		// data->file_data->player->dy = -sin(data->file_data->player->angle) * MOV_SPEED;
+		data->file_data->player->dx = cos(data->file_data->player->angle);
+		data->file_data->player->dy = -sin(data->file_data->player->angle);
 	}
 	check_w_s_keys(data, mlx, wall);
 }
