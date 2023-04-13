@@ -1,5 +1,14 @@
 #include <graphics.h>
 
+/**
+ * the index of the pixel at (x, y) in the pixels array is calculated by 
+ * multiplying the y-coordinate by the width of the texture in pixels, 
+ * and adding the product of the x-coordinate and four 
+ * (which represents the number of bytes per pixel).
+ * 
+ * Then, the r, g, b, and a values are obtained by adding the appropriate 
+ * offset to this index: 0 for red, 1 for green, 2 for blue, and 3 for alpha.
+*/
 static int	get_rgba(mlx_texture_t *texture, int x, int y)
 {
 	int	r;
@@ -7,11 +16,12 @@ static int	get_rgba(mlx_texture_t *texture, int x, int y)
 	int	b;
 	int	a;
 
-	r = texture->pixels[y + (x)];
-	g = texture->pixels[y + (x) + 1];
-	b = texture->pixels[y + (x) + 2];
-	a = texture->pixels[y + (x) + 3];
-	fprintf(stderr, "r: %d | g: %d | b: %d | a: %d\n", r,g , b, a);
+	// fprintf(stderr, "x | y : %d | %d\n", x, y); // ? testing
+	r = texture->pixels[y * texture->width * 4 + (x * 4)];
+	g = texture->pixels[y * texture->width * 4 + (x * 4) + 1];
+	b = texture->pixels[y * texture->width * 4 + (x * 4) + 2];
+	a = texture->pixels[y * texture->width * 4 + (x * 4) + 3];
+	// fprintf(stderr, "r: %d | g: %d | b: %d | a: %d\n", r,g , b, a); // ? testing
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
@@ -23,8 +33,6 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 	int		n;
 	int		x1;
 	int		y1;
-
-	int color;
 
 	/**
 	 * ! fixing fish eye
@@ -46,7 +54,7 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 	raymond->dist_h = raymond->dist_h * cos(ca);
 	line_h = (PIXELS * 320) / (raymond->dist_h);
 
-	textures->y_step = 64.0 / (float)line_h; // !
+	textures->y_step = 64.0 / (float)line_h; // ! wall height / line height
 	textures->y_off = 0; // !
 	
 	if (line_h > 320)
@@ -58,24 +66,26 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 
 	// fprintf(stderr, "[draw_3d_walls]\tline_off: %d\n", line_off); // ? testing
 
-	textures->y = textures->y_off * textures->y_step + textures->hmt * 64; // !
+	// ! textures->y = textures->y_off * textures->y_step + textures->hmt * 64; // ! read next texture
+	textures->y = textures->y_off * textures->y_step; // ! 
+	// fprintf(stderr, "ty: %f\n", textures->y);
 	if (textures->shade == 1)
 	{
 		textures->x = (int)(raymond->x) % 64;
-		// if (raymond->angle > 180)
-		if (raymond->angle > M_PI) // ? angle is in radian
+		if (raymond->angle > M_PI) // ! flip the texture if we are looking south
 		{
 			textures->x = 63 - textures->x;
 		}
+		// fprintf(stderr, "tx: %f\n", textures->x);
 	}
 	else
 	{
 		textures->x = (int)(raymond->y) % 64;
-		// if (raymond->angle > 90 && raymond->angle < 270)
-		if (raymond->angle > (M_PI / 2) && raymond->angle < (3 * M_PI / 2))
+		if (raymond->angle > (M_PI / 2) && raymond->angle < (3 * M_PI / 2)) // ! flip the texture if we are looking south
 		{
 			textures->x = 63 - textures->x;
 		}
+		// fprintf(stderr, "tx: %f\n", textures->x);
 	}
 
 
@@ -83,30 +93,25 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 	n = 0;
 	while (n < line_h)
 	{
-		// float c = All_Textures[(int)(ty)*32 + (int)(tx)] * shade; // !
-		int rgba = get_rgba(data->graphics->textures->north_tex, (int)textures->x, (int)textures->y*64);
-		// int c = data->graphics->textures->north_tex->pixels[(int)textures->y*64 + (int)textures->x];
+		// ! int c = data->graphics->textures->north_tex->pixels[(int)textures->y*64 + (int)textures->x];
 		// fprintf(stderr, "c: %f\n", c);
-		fprintf(stderr, "rgba: %d\n", rgba);
+		// fprintf(stderr, "hmt | vmt : %d | %d\n", textures->hmt, textures->vmt);
+		// fprintf(stderr, "rgba: %d\n", rgba);
 		if (textures->hmt == 0)
 		{
-			// glColor3f(c, c / 2.0, c / 2.0);
-			color = RED;
+			textures->rgba = get_rgba(data->graphics->textures->north_tex, (int)textures->x, (int)textures->y);
 		} // red
 		if (textures->hmt == 1)
 		{
-			// glColor3f(c, c, c / 2.0);
-			color = YELLOW;
+			textures->rgba = get_rgba(data->graphics->textures->south_tex, (int)textures->x, (int)textures->y);
 		} // yellow
 		if (textures->hmt == 2)
 		{
-			// glColor3f(c / 2.0, c / 2.0, c);
-			color = BLUE;
+			textures->rgba = get_rgba(data->graphics->textures->west_tex, (int)textures->x, (int)textures->y);
 		} // blue
 		if (textures->hmt == 3)
 		{
-			// glColor3f(c / 2.0, c, c / 2.0);
-			color = GREEN;
+			textures->rgba = get_rgba(data->graphics->textures->east_tex, (int)textures->x, (int)textures->y);
 		} // green
 
 		// log_val(data, "draw_3d_walls", 'A');
@@ -115,21 +120,24 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 		// fprintf(stderr, "[draw_3d_walls]\tx1 | y1: %d | %d\n", x1, y1); // ? testing
 		// log_val(data, "draw_3d_walls", 'D'); // ? testing
 		// log_val(data, "draw_3d_walls", 'P'); // ? testing
-
-
+		// fprintf(stderr, "shade: %f\n", textures->shade);
 
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		// mlx_put_pixel(data->graphics->img_3d, x1, y1, color);
+		// if (textures->shade != 1)
+		// 	mlx_put_pixel(data->graphics->img_3d, x1, y1, GREEN);
+		// else
+		// 	mlx_put_pixel(data->graphics->img_3d, x1, y1, RED);
 		// mlx_put_pixel(data->graphics->img_3d, x1, y1, textures->color);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, rgba);
-		// mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, textures->rgba);
+		mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, textures->rgba);
+
 		textures->y += textures->y_step;
 		n++;
 	}
@@ -152,7 +160,14 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, WHITE);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, GREEN);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, WHITE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, WHITE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, WHITE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, WHITE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, WHITE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, WHITE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, WHITE);
 
 		/* draw ceiling */
 
@@ -163,7 +178,14 @@ bool	draw_3d_walls(t_general_data *data, t_ray *raymond, int i, t_textures *text
 		y1 = 320 - n;
 		if (!check_put_pixel(data, x1, y1))
 			return (false);
-		mlx_put_pixel(data->graphics->img_3d, x1, y1, BLACK);
+		mlx_put_pixel(data->graphics->img_3d, x1, y1, BLUE);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 1, y1, BLACK);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 2, y1, BLACK);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 3, y1, BLACK);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 4, y1, BLACK);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 5, y1, BLACK);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 6, y1, BLACK);
+		// mlx_put_pixel(data->graphics->img_3d, x1 + 7, y1, BLACK);
 		n++;
 	}
 	return (true);

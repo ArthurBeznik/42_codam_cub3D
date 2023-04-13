@@ -42,7 +42,7 @@ typedef enum e_axis
 
 typedef struct s_color
 {
-	// unsigned int	rgb;
+	unsigned int	rgba;
 	int				r;
 	int				g;
 	int				b;
@@ -51,20 +51,20 @@ typedef struct s_color
 
 typedef struct s_textures
 {
-	int		vmt; // vertical and horizontal map texture number (= color value)
-	int		hmt;
-	float	shade;
-	float	x;
-	float	y;
-	float	y_step;
-	float	y_off;
-	int		color;
+	int				vmt; // vertical and horizontal map texture number (= color value)
+	int				hmt;
+	float			shade;
+	float			x;
+	float			y;
+	float			y_step;
+	float			y_off;
 	mlx_texture_t	*north_tex;
 	mlx_texture_t	*south_tex;
 	mlx_texture_t	*west_tex;
 	mlx_texture_t	*east_tex;
-	t_color	*floor;
-	t_color	*ceiling;
+	t_color			*floor;
+	t_color			*ceiling;
+	unsigned int	rgba;
 }	t_textures;
 
 typedef struct s_ray

@@ -2,14 +2,14 @@ N ./textures/diamond.png
 
 
 
-S ./textures/diamond.png
+S ./textures/wood.png
 
 
 
-W ./textures/diamond.png
+W ./textures/stone.png
 
 
-E ./textures/diamond.png
+E ./textures/gold.png
 
 F 220,100,0
 C 225,30,0
