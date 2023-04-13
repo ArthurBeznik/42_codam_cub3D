@@ -3,14 +3,16 @@
 
 bool	parser(int argc, char *argv[], t_general_data *data)
 {
-	if (!init_file_data(data))
-		return (false);
 	if (argc != 2)
 		return (error_msg("Usage: ./cub3D <file_name>.cub"));
-	if (!check_ext(argv[1], data->file_data->file_extension))
+	if (!init_file_data(data) || !check_ext(argv[1], data->file_data->file_extension))
+	{
+		free_data(data, false);
 		return (false);
+	}
 	if (!check_map(argv[1], data->file_data))
 	{
+		data->free_data = true;
 		// system("leaks cub3D"); // ? testing
 		return (false);
 	}
