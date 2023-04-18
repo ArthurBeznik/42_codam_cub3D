@@ -34,6 +34,7 @@ SIMPLE_MAP	:= $(SCENE_DIR)/simple_valid.cub
 DB_MAP		:= $(SCENE_DIR)/square_8.cub
 INVAL_MAP	:= $(SCENE_DIR)/invalid_colors.cub
 SQUARE_MAP	:= $(SCENE_DIR)/square_8.cub
+
 all: libmlx libft $(NAME)
 
 libmlx:
@@ -81,6 +82,13 @@ r:	all
 	./$(NAME) $(SQUARE_MAP)
 
 run: re
+	./$(NAME) $(SQUARE_MAP)
+
+g:
+	@rm -rf $(OBJ_DIR)
+	$(MAKE) -C $(LIBMLX)/build clean
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	$(MAKE) $(NAME)
 	./$(NAME) $(SQUARE_MAP)
 
 i:	all

@@ -22,6 +22,7 @@
 # define MOV_SPEED 1.2
 # define RESET_ANGLE 2 * M_PI
 
+// # define NB_RAYS 60
 # define NB_RAYS 30
 
 # define RED 0xFF0000FF

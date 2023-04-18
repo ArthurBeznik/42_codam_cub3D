@@ -80,7 +80,7 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 	graphics->width = data->file_data->map_data->col * PIXELS;
 	graphics->height = (data->file_data->map_data->row * PIXELS) + PIXELS;
 
-	graphics->mlx = mlx_init(graphics->width * 2, graphics->height, "cub3D", true);
+	graphics->mlx = mlx_init(graphics->width * 2.5, graphics->height * 1.5, "cub3D", true);
 	// graphics->mlx = NULL; // ? testing
 	if (!graphics->mlx)
 		return (error_msg("mlx_init"));
@@ -93,7 +93,8 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 		return (error_msg("mlx_new_image"));
 	}
 
-	graphics->img_3d = mlx_new_image(graphics->mlx, 500, 500);
+	// graphics->img_3d = mlx_new_image(graphics->mlx, 500, 500);
+	graphics->img_3d = mlx_new_image(graphics->mlx, 1000, graphics->height);
 	// graphics->img_3d = NULL; // ? testing
 	if (!graphics->img_3d)
 	{

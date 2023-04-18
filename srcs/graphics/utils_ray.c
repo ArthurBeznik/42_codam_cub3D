@@ -4,7 +4,8 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 {
 	while (dof < 8)
 	{
-		// fprintf(stderr, "x | y : %f | %f\n", round(x), round(y)); // ? testing
+		// fprintf(stderr, "x | y : %f | %f\n", raymond->x, raymond->y); // ? testing
+		// fprintf(stderr, "x | y : %f | %f\n", round(raymond->x), round(raymond->y)); // ? testing
 		// fprintf(stderr, "dof : %d\n", dof); // ? testing
 		raymond->hit_x = (int)(raymond->x) >> 6; // ? x where the ray hits a wall or line
 		raymond->hit_y = (int)(raymond->y) >> 6; // where the ray hits a wall or line
@@ -14,6 +15,7 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 		
 		if ((raymond->hit_x >= 0 && raymond->hit_y >= 0) && ((raymond->hit_x < data->file_data->map_data->row && raymond->hit_y < data->file_data->map_data->col)) && data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x] == '1')
 		{
+			// fprintf(stderr, "x | y : %f | %f\n", raymond->x, raymond->y); // ? testing
 			// fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", raymond->hit_x, raymond->hit_y, data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x]); // ? testing
 			// fprintf(stderr, "raymond angle: %f\n", raymond->angle);
 			// fprintf(stderr, "player angle: %f\n", data->file_data->player->angle);
@@ -80,7 +82,8 @@ void	horizontal_looking(t_general_data *data, t_ray *raymond, float angle, float
 	if (sin(angle) > 0.001) // ? (angle > M_PI) => looking up
 	{
 		// fprintf(stderr, "angle > M_PI\n"); // ? testing
-		raymond->y = (((int)data->file_data->player->y >> 6) << 6) - 0.0001;
+		// raymond->y = (((int)data->file_data->player->y >> 6) << 6) - 0.0001;
+		raymond->y = (((int)data->file_data->player->y >> 6) << 6);
 		raymond->x = (data->file_data->player->y - raymond->y) * tan_var + data->file_data->player->x;
 		raymond->off_y = -64;
 		raymond->off_x = -raymond->off_y * tan_var;
@@ -121,7 +124,8 @@ void	vertical_looking(t_general_data *data, t_ray *raymond, float angle, float t
 	{
 		// fprintf(stderr, "angle < M_PI\n"); // ? testing
 		// fprintf(stderr, "before rx | ry : %f | %f\n", x, y); // ? testing
-		raymond->x = (((int)data->file_data->player->x >> 6) << 6) - 0.0001;
+		// raymond->x = (((int)data->file_data->player->x >> 6) << 6) - 0.0001;
+		raymond->x = (((int)data->file_data->player->x >> 6) << 6);
 		raymond->y = (data->file_data->player->x - raymond->x) * tan_var + data->file_data->player->y;
 		raymond->off_x = -64;
 		raymond->off_y = -raymond->off_x * tan_var;
@@ -163,14 +167,11 @@ void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_texture
 	float	tan_var;
 
 	// fprintf(stderr, "angle: %f\n", angle);
-	// if (angle > 2 * M_PI)
-	// 	angle -= RESET_ANGLE;
-	// if (angle < 0)
-	// 	angle += RESET_ANGLE;
 	// fprintf(stderr, "angle: %f\n", angle);
 	raymond->vx = raymond->x;
 	raymond->vy = raymond->y;
 	// fprintf(stderr, "rx | ry : %f | %f\n", raymond->x, raymond->y); // ? testing
+	// fprintf(stderr, "px | py : %f | %f\n", data->file_data->player->x, data->file_data->player->y); // ? testing
 	dof = 0;
 	raymond->dist_h = 100000;
 	tan_var = 1.0 / raymond->tan_var;
