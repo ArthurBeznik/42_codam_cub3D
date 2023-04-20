@@ -23,20 +23,14 @@ bool	init_textures(t_general_data *data)
 	textures->west_tex = mlx_load_png(data->file_data->identifiers->path_to_west_texture);
 	textures->south_tex = mlx_load_png(data->file_data->identifiers->path_to_south_texture);
 	textures->east_tex = mlx_load_png(data->file_data->identifiers->path_to_east_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture);
-	textures->floor = (t_color *)malloc(sizeof(t_color));
-	textures->floor->r = data->file_data->identifiers->floor->red;
-	textures->floor->g = data->file_data->identifiers->floor->green;
-	textures->floor->b = data->file_data->identifiers->floor->blue;
-	textures->floor->a = 0;
-	textures->ceiling = (t_color *)malloc(sizeof(t_color));
-	textures->ceiling->r = data->file_data->identifiers->ceiling->red;
-	textures->ceiling->g = data->file_data->identifiers->ceiling->green;
-	textures->ceiling->b = data->file_data->identifiers->ceiling->blue;
-	textures->ceiling->a = 0;
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture);
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture);
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture);
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture);
+	textures->floor.rgba = data->file_data->identifiers->floor.rgba;
+	textures->floor.a = 255;
+	textures->ceiling.rgba = data->file_data->identifiers->ceiling.rgba;
+	textures->ceiling.a = 255;
 	data->graphics->textures = textures;
 	return (true);
 }

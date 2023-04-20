@@ -11,6 +11,8 @@
 
 # include <utils.h>
 # include <MLX42.h>
+# define SCREENWIDTH 1000
+# define SCREENHEIGHT 1000
 
 # define ERROR -1
 # define NA 999
@@ -34,20 +36,41 @@
 
 typedef struct s_general_data	t_general_data;
 
+typedef union s_rgba_color
+{
+	unsigned int	rgba;
+	struct
+	{
+		uint8_t	a;
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+	};
+	
+}	t_rgba_color;
+
 typedef enum e_axis
 {
 	HORIZONTAL,
 	VERTICAL
 }	t_axis;
 
-typedef struct s_color
+typedef enum e_side
 {
-	unsigned int	rgba;
-	int				r;
-	int				g;
-	int				b;
-	int				a;
-}	t_color;
+	EAST = 0,
+	SOUTH = 1,
+	WEST = 2,
+	NORTH =3
+}	t_side;
+
+// typedef struct s_color
+// {
+// 	unsigned int	rgba;
+// 	int				r;
+// 	int				g;
+// 	int				b;
+// 	int				a;
+// }	t_color;
 
 typedef struct s_textures
 {
@@ -62,8 +85,8 @@ typedef struct s_textures
 	mlx_texture_t	*south_tex;
 	mlx_texture_t	*west_tex;
 	mlx_texture_t	*east_tex;
-	t_color			*floor;
-	t_color			*ceiling;
+	t_rgba_color	floor;
+	t_rgba_color	ceiling;
 	unsigned int	rgba;
 }	t_textures;
 
@@ -96,6 +119,16 @@ typedef struct s_wall_collision
 	int		ipy_sub_yo;
 }	t_wall_collision;
 
+typedef struct s_draw_info
+{
+	int				top;
+	int				bottom;
+	unsigned int	color;
+	double			step;
+	mlx_texture_t	*tex;
+	double			text_start;
+}					t_draw_info;
+
 typedef struct s_graphics
 {
 	mlx_t			*mlx;
@@ -108,7 +141,9 @@ typedef struct s_graphics
 	bool			init_dir;
 	t_ray			**ray;
 	t_textures		*textures;
+	t_draw_info		*draw_info;
 }	t_graphics;
+
 
 bool	run_graphics(t_general_data	*data);
 

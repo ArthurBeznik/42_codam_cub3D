@@ -42,7 +42,8 @@ static bool	st_find_identifiers(t_file_data *data, const int nb_rows)
 	while (i < nb_rows)
 	{
 		find_textures(data->scene[i], data);
-		find_colors(data->scene[i], data);
+		if (!find_colors(data->scene[i], data))
+			return (false);
 		i++;
 	}
 	if (!check_scene_file_order(data, nb_rows))

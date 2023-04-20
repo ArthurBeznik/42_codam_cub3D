@@ -250,19 +250,22 @@ bool	ray_caster(t_general_data *data)
 			angle += RESET_ANGLE;
 		textures->hmt = 0;
 		textures->vmt = 0;
-		vertical_ray(data, raymond[i], angle, textures);
-		horizontal_ray(data, raymond[i], angle, textures);
+		if (i == 15){
+			vertical_ray(data, raymond[i], angle, textures);
+			horizontal_ray(data, raymond[i], angle, textures);
+			if (!draw_ray(data, raymond[i]->angle, raymond[i]->x, raymond[i]->y))
+				return (error_msg("draw_ray"));
+
+			/**
+			 * ! the "3D" window size will be 320/160
+			*/
+			if (!draw_3d_walls(data, raymond[i], i, textures))
+			// if (!draw_3d_map(data, raymond[i], i, textures))
+				return (error_msg("draw_3d"));
+		}
 		// fprintf(stderr, "[ray_caster] dist_v | dist_h : \t%f | %f\n", raymond[i]->dist_v, raymond[i]->dist_h); // ? testing
 
 		// fprintf(stderr, "[ray_caster] rx | ry : \t%f | %f\n", raymond[i]->x, raymond[i]->y); // ? testing
-		if (!draw_ray(data, raymond[i]->angle, raymond[i]->x, raymond[i]->y))
-			return (error_msg("draw_ray"));
-
-		/**
-		 * ! the "3D" window size will be 320/160
-		*/
-		if (!draw_3d_walls(data, raymond[i], i, textures))
-			return (error_msg("draw_3d"));
 
 		angle -= (DR * 2); // ! when drawing multiple rays, we need to decrement the angle of each ray
 		i++;

@@ -15,18 +15,18 @@ static bool	st_init_player_data(t_file_data *file_data)
 	return (true);
 }
 
-static t_rgb	*st_init_colors_data(void)
-{
-	t_rgb	*rgb_data;
+// static t_rgb	*st_init_colors_data(void)
+// {
+// 	t_rgb	*rgb_data;
 
-	rgb_data = (t_rgb *)malloc(sizeof(t_rgb));
-	if (!rgb_data)
-		return (NULL);
-	rgb_data->red = NA;
-	rgb_data->green = NA;
-	rgb_data->blue = NA;
-	return (rgb_data);
-}
+// 	rgb_data = (t_rgb *)malloc(sizeof(t_rgb));
+// 	if (!rgb_data)
+// 		return (NULL);
+// 	rgb_data->red = NA;
+// 	rgb_data->green = NA;
+// 	rgb_data->blue = NA;
+// 	return (rgb_data);
+// }
 
 static bool	st_init_identifiers_data(t_file_data *file_data)
 {
@@ -35,10 +35,10 @@ static bool	st_init_identifiers_data(t_file_data *file_data)
 	identifiers_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
 	if (!identifiers_data)
 		return (false);
-	identifiers_data->ceiling = st_init_colors_data();
-	identifiers_data->floor = st_init_colors_data();
-	if (!identifiers_data->ceiling || !identifiers_data->floor)
-		return (false);
+	// identifiers_data->ceiling = st_init_colors_data();
+	// identifiers_data->floor = st_init_colors_data();
+	// if (!identifiers_data->ceiling || !identifiers_data->floor)
+	// 	return (false);
 	identifiers_data->path_to_north_texture = NULL;
 	identifiers_data->path_to_south_texture = NULL;
 	identifiers_data->path_to_west_texture = NULL;

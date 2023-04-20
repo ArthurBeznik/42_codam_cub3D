@@ -84,5 +84,7 @@ void	captain(void *param)
 		terminate(data2->graphics);
 	if (!ray_caster(data2))
 		terminate(data2->graphics);
+	// if (!draw_3d_map(data2))
+	// 	terminate(data2->graphics);
 	// log_val(data2, "captain", 'P'); // ? testing
 }

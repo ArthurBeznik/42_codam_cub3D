@@ -8,33 +8,42 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 		// fprintf(stderr, "dof : %d\n", dof); // ? testing
 		raymond->hit_x = (int)(raymond->x) >> 6; // ? x where the ray hits a wall or line
 		raymond->hit_y = (int)(raymond->y) >> 6; // where the ray hits a wall or line
+		bool collision = false;
+
 
 		// fprintf(stderr, "hit_x | hit_y : %d | %d\n", raymond->hit_x, raymond->hit_y); // ? testing
 		// fprintf(stderr, "col | row : %lld | %lld\n", data->file_data->map_data->col, data->file_data->map_data->row); // ? testing
 		
-		if ((raymond->hit_x >= 0 && raymond->hit_y >= 0) && ((raymond->hit_x < data->file_data->map_data->row && raymond->hit_y < data->file_data->map_data->col)) && data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x] == '1')
+		if ((raymond->hit_x >= 0 && raymond->hit_y >= 0) && ((raymond->hit_x < data->file_data->map_data->row \
+			&& raymond->hit_y < data->file_data->map_data->col)) && \
+			data->file_data->map_data->copy[(int)raymond->hit_y][(int)raymond->hit_x] == '1')
 		{
+			collision = true;
 			// fprintf(stderr, "hit_x | hit_y (value) : %d | %d (%c)\n", raymond->hit_x, raymond->hit_y, data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x]); // ? testing
 			// fprintf(stderr, "raymond angle: %f\n", raymond->angle);
 			// fprintf(stderr, "player angle: %f\n", data->file_data->player->angle);
 			// fprintf(stderr, "hit angle: %f\n", angle); // ? testing
 			dof = 8;
+			// fprintf(stderr, "Angle is %f\n", angle);
+			
 			if (axis == VERTICAL)
 			{
 				// textures->vmt = 1;
 				// textures->vmt = data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x]; // !
 				// fprintf(stderr, "vmt : %d\n", textures->vmt);
-				if (raymond->angle >= M_PI / 4 && raymond->angle < 3 * M_PI / 4) // ! facing north
+				// anlge >= 0.785398163397448309615660845819875721 && angle < 2.356194490192344928846982537459627163
+				if (raymond->angle >= M_PI_4 && raymond->angle < 3 * M_PI_4) // ! facing north
 				{
 					// textures->vmt = mapW[mp] - 1; // !
 					// fprintf(stderr, "NORTH\n"); // ? [2pi, pi]
-					textures->vmt = 0; // !
+					// textures->vmt = 0; // !
 				}
-				if (raymond->angle >= 5 * M_PI / 4 && raymond->angle < 7 * M_PI / 4) // ! facing south
+				// angle >= 3.926990816987241548078304229099378605 && anle < 5.497787143782138167309625920739130047
+				if (raymond->angle >= 5 * M_PI_4 && raymond->angle < 7 * M_PI_4) // ! facing south
 				{
 					// textures->vmt = mapW[mp] - 1; // !
 					// fprintf(stderr, "SOUTH\n"); // ?  [pi, 2pi]
-					textures->vmt = 1; // !
+					// textures->vmt = 1; // !
 				}
 				raymond->dist_v = cos(angle) * (raymond->x - data->file_data->player->x) - sin(angle) * (raymond->y - data->file_data->player->y);
 			}
@@ -43,21 +52,95 @@ void	try_hit_walls(t_general_data *data, t_ray *raymond, float angle, int dof, t
 				// textures->hmt = 2;
 				// textures->hmt = data->file_data->map_data->copy[raymond->hit_y][raymond->hit_x]; // !
 				// fprintf(stderr, "hmt : %d\n", textures->hmt);
-				if (raymond->angle >= 3 * M_PI / 4 && raymond->angle < 5 * M_PI / 4) // ! facing west
+				// anlge >= 2.356194490192344928846982537459627163 && angle < 3.926990816987241548078304229099378605
+				if (raymond->angle >= 3 * M_PI_4 && raymond->angle < 5 * M_PI_4) // ! facing west
 				{	
 					// fprintf(stderr, "WEST\n"); // ? [pi/2, 3pi/2]
-					textures->hmt = 2; // !
+					// textures->hmt = 2; // !
 				}
-				if ((raymond->angle >= 7 * M_PI / 4 && raymond->angle < (2 * M_PI)) \
-					|| (raymond->angle > 0 && raymond->angle < M_PI / 4)) // ! facing east
+				// angle >= 5.497787143782138167309625920739130047 && angle < 6.28318530717958647692528676655900576 
+				// || angle > 0 && angle < 0.785398163397448309615660845819875721
+				
+				// if (raymond->hit_x - (int)raymond->hit_x <= 0.001)
+				// 	//either east or west
+				// else if (raymond->hit_y - (int)raymond->hit_y <= 0.001)
+				// 	//either north or south
+
+				if ((raymond->angle >= 7 * M_PI_4 && raymond->angle < (2 * M_PI)) \
+					|| (raymond->angle > 0 && raymond->angle < M_PI_4)) // ! facing east
 				{
 					// fprintf(stderr, "EAST\n"); // ? [3pi/2, pi/2]
-					textures->hmt = 3; // !
+					// textures->hmt = 3; // !
 				}
-				// textures->hmt = mapW[mp] - 1; // !
 				raymond->dist_h = cos(angle) * (raymond->x - data->file_data->player->x) - sin(angle) * (raymond->y - data->file_data->player->y);
 			}
-			// fprintf(stderr, "dist_h : %f\n", dist_h); // ? testing
+			// (void)axis;
+
+			raymond->hit_x = raymond->x;
+			raymond->hit_y = raymond->y;
+			bool North = (raymond->y - data->file_data->player->y) < 0;
+			bool West = (raymond->x - data->file_data->player->x) < 0;
+			float integral = (float)((int)raymond->hit_x);
+			// fprintf(stderr, "x integral: %f\n", integral);
+			// fprintf(stderr, "x float: %d\n", raymond->hit_x);
+			// fprintf(stderr, "raymond x: %f\n", raymond->x);
+
+			//x integral or y integral check
+			// bool y
+
+			
+			if (collision)
+			{
+				if (West)
+				{
+					printf("West\n");
+					fprintf(stderr, "x: %d\n", raymond->hit_x);
+					fprintf(stderr, "y: %d\n", raymond->hit_y);
+					// fprintf(stderr, "%f\n", (raymond->x - data->file_data->player->x));
+					// printf("West int: %f, float: %f, diff: %f\n", integral, raymond->x, ((raymond->x - integral)));
+					fprintf(stderr, "------------------------------------\n");
+				}
+				else
+				{
+					printf("East\n");
+					fprintf(stderr, "x: %d\n", raymond->hit_x);
+					fprintf(stderr, "y: %d\n", raymond->hit_y);
+					// printf("East int: %f, float: %f, diff: %f\n", integral, raymond->x, ((raymond->x - integral)));
+					fprintf(stderr, "------------------------------------\n");
+
+				}
+				if (North)
+				{
+					printf("North\n");
+					fprintf(stderr, "x: %d\n", raymond->hit_x);
+					fprintf(stderr, "y: %d\n", raymond->hit_y);
+					fprintf(stderr, "------------------------------------\n");
+					// fprintf(stderr, "%f\n", (raymond->y - data->file_data->player->y));
+				}
+				else
+				{
+					printf("South\n");
+					fprintf(stderr, "x: %d\n", raymond->hit_x);
+					fprintf(stderr, "y: %d\n", raymond->hit_y);
+					fprintf(stderr, "------------------------------------\n");
+				}
+				if ((raymond->x - integral)*(raymond->x - integral) >= 0.00000001)
+				{
+					if (West)
+						textures->hmt = 2;
+					else //east
+						textures->hmt = 3;
+				}
+				else //if (raymond->hit_y - (int)raymond->hit_y <= 0.001)
+				{
+					// printf("North or south\n");
+
+					if (North)
+						textures->vmt = 0;
+					else //south
+						textures->vmt = 1;
+				}
+			}
 		}
 		else
 		{
