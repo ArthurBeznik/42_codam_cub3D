@@ -43,48 +43,82 @@ void	find_textures(const char *line, t_file_data *data)
 	free_2d(tmp);
 }
 
-void	save_values(t_file_data *data, const char **rgb_values, const char c)
+static bool	check_rgb_values(const char **rgb_values)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (rgb_values[i][j])
+		{
+			if (!ft_isdigit(rgb_values[i][j]) && !(rgb_values[i][j] == ' '))
+				return (error_msg("Invalid color value"), false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
+bool	save_values(t_file_data *data, const char **rgb_values, const char c)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	if (!check_rgb_values(rgb_values))
+		return (false);
+	r = ft_atoi(rgb_values[0]);
+	// data->identifiers->floor->red = ft_atoi("999999999999999"); // ? testing
+	g = ft_atoi(rgb_values[1]);
+	// data->identifiers->floor->green = -1; // ? testing
+	b = ft_atoi(rgb_values[2]);
 	if (c == 'F')
 	{
-		data->identifiers->floor->red = ft_atoi(rgb_values[0]);
-		// data->identifiers->floor->red = ft_atoi("999999999999999"); // ? testing
-		data->identifiers->floor->green = ft_atoi(rgb_values[1]);
-		// data->identifiers->floor->green = -1; // ? testing
-		data->identifiers->floor->blue = ft_atoi(rgb_values[2]);
-		// data->identifiers->floor->blue = ft_atoi("-1"); // ? testing
+		data->identifiers->floor.r = r;
+		data->identifiers->floor.g = g;
+		data->identifiers->floor.b = b;
+		data->identifiers->floor.a = 255;
 	}
 	else if (c == 'C')
 	{
-		data->identifiers->ceiling->red = ft_atoi(rgb_values[0]);
-		// data->identifiers->ceiling->red = ft_atoi("18446744073709551615"); // ? testing
-		data->identifiers->ceiling->green = ft_atoi(rgb_values[1]);
-		data->identifiers->ceiling->blue = ft_atoi(rgb_values[2]);
+		data->identifiers->ceiling.r = r;
+		data->identifiers->ceiling.g = g;
+		data->identifiers->ceiling.b = b;
+		data->identifiers->ceiling.a = 255;
 	}
+	return (st_check_color_range(r, g, b));
 }
 
-void	find_colors(const char *line, t_file_data *data)
+bool find_colors(const char *line, t_file_data *data)
 {
 	char	*line_without_id;
 	char	**rgb_values;
+	bool	is_valid;
 
+	is_valid = true;
 	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
 		line_without_id = ft_substr(line, 1, ft_strlen(line));
 		// line_without_id = NULL; // ? testing
 		if (!line_without_id)
-			return ;
+			return (false);
 		rgb_values = ft_split(line_without_id, ',');
 		// rgb_values = NULL; // ? testing
 		if (!rgb_values)
 		{
 			free(line_without_id);
-			return ;
+			return (false);
 		}
-		save_values(data, (const char **)rgb_values, line[0]);
+		is_valid = save_values(data, (const char **)rgb_values, line[0]);
 		free(line_without_id);
 		free_2d(rgb_values);
 	}
+	return (is_valid);
 }
 
 bool	check_scene_file_order(t_file_data *data, const int nb_rows)
