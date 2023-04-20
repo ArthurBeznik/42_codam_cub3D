@@ -24,6 +24,10 @@ typedef struct s_player
 	float		dy;
 	float		angle;	// in radian
 	char		facing;
+	double		dir_x;
+	double		dir_y;
+	double		px;
+	double		py;
 }	t_player;
 
 typedef struct s_rgb

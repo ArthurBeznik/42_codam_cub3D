@@ -1,5 +1,40 @@
 #include <graphics.h>
 
+bool	init_dda(t_general_data *data)
+{
+	t_dda	*dda;
+
+	dda = (t_dda *)malloc(sizeof(t_dda));
+	if (!dda)
+		return (error_msg("Malloc dda struct"));
+	dda->camera_x = NA;
+	dda->delta_dist_x = NA;
+	dda->delta_dist_y = NA;
+	dda->dir_x = NA;
+	dda->dir_y = NA;
+	dda->h = NA;
+	dda->hit = NA;
+	dda->map_x = NA;
+	dda->map_y = NA;
+	dda->perp_wall_dist = NA;
+	dda->plane_x = NA;
+	dda->plane_y = NA;
+	dda->player_x = NA;
+	dda->player_y = NA;
+	dda->pos_x = NA;
+	dda->pos_y = NA;
+	dda->ray_dir_x = NA;
+	dda->ray_dir_y = NA;
+	dda->side = NA;
+	dda->side_dist_x = NA;
+	dda->side_dist_y = NA;
+	dda->step_x = NA;
+	dda->step_y = NA;
+	dda->w = NA;
+	data->graphics->dda = dda;
+	return (true);
+}
+
 bool	init_textures(t_general_data *data)
 {
 	t_textures *textures;
@@ -23,10 +58,10 @@ bool	init_textures(t_general_data *data)
 	textures->west_tex = mlx_load_png(data->file_data->identifiers->path_to_west_texture);
 	textures->south_tex = mlx_load_png(data->file_data->identifiers->path_to_south_texture);
 	textures->east_tex = mlx_load_png(data->file_data->identifiers->path_to_east_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture);
-	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture);
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture); // ? testing
 	textures->floor = (t_color *)malloc(sizeof(t_color));
 	textures->floor->r = data->file_data->identifiers->floor->red;
 	textures->floor->g = data->file_data->identifiers->floor->green;
@@ -94,7 +129,7 @@ bool	init_graphics(t_general_data *data, t_graphics *graphics)
 	}
 
 	// graphics->img_3d = mlx_new_image(graphics->mlx, 500, 500);
-	graphics->img_3d = mlx_new_image(graphics->mlx, 1000, graphics->height);
+	graphics->img_3d = mlx_new_image(graphics->mlx, graphics->width, graphics->height);
 	// graphics->img_3d = NULL; // ? testing
 	if (!graphics->img_3d)
 	{

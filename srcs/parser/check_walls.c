@@ -15,6 +15,8 @@ static void	st_find_player(t_file_data *file_data)
 			{
 				file_data->player->x = x;
 				file_data->player->y = y;
+				file_data->player->px = x;
+				file_data->player->py = y;
 				file_data->player->facing = file_data->map_data->map[y][x];
 				return ;
 			}

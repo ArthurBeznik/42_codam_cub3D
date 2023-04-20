@@ -19,7 +19,11 @@ static void	init_direction(t_general_data *data, int x, int y)
 
 	centered = PIXELS / 2;
 	if (data->file_data->map_data->map[y][x] == 'N')
+	{
 		data->file_data->player->angle = 0.5 * M_PI;
+		// data->graphics->dda->dir_x = 0;
+		// data->graphics->dda->dir_y = -1;
+	}
 	else if (data->file_data->map_data->map[y][x] == 'W')
 		data->file_data->player->angle = 1.0 * M_PI;
 	else if (data->file_data->map_data->map[y][x] == 'S')
@@ -30,6 +34,8 @@ static void	init_direction(t_general_data *data, int x, int y)
 	// log_val(data, "init_dir", 'A'); // ? testing
 	data->file_data->player->x = (x * PIXELS) + centered; // (+ PIXELS / 2) => gets the exact player x
 	data->file_data->player->y = (y * PIXELS) + centered; // "" gets the exact player y
+	data->file_data->player->px = x;
+	data->file_data->player->py = y;
 	// log_val(data, "init_dir", 'P'); // ? testing
 	// log_val(data, "init_dir", 'G'); // ? testing
 	data->file_data->player->dx = cos(data->file_data->player->angle) * MOV_SPEED; // ? * 5 because these are very small values

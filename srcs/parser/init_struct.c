@@ -11,6 +11,8 @@ static bool	st_init_player_data(t_file_data *file_data)
 	player->x = NA;
 	player->y = NA;
 	player->angle = NA;
+	player->dir_x = NA;
+	player->dir_y = NA;
 	file_data->player = player;
 	return (true);
 }
