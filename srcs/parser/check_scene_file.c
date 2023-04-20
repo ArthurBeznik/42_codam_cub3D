@@ -39,7 +39,7 @@ static bool	check_rgb_values(const char **rgb_values)
 		j = 0;
 		while (rgb_values[i][j])
 		{
-			if ((!ft_isdigit(rgb_values[i][j]) && !(i == 0 && j == 0 && rgb_values[i][j] == ' ')) || j > 4)
+			if (!ft_isdigit(rgb_values[i][j]) && !(rgb_values[i][j] == ' '))
 				return (error_msg("Invalid color value"), false);
 			j++;
 		}
@@ -66,12 +66,14 @@ bool	save_values(t_file_data *data, const char **rgb_values, const char c)
 		data->identifiers->floor.r = r;
 		data->identifiers->floor.g = g;
 		data->identifiers->floor.b = b;
+		data->identifiers->floor.a = 255;
 	}
 	else if (c == 'C')
 	{
 		data->identifiers->ceiling.r = r;
 		data->identifiers->ceiling.g = g;
 		data->identifiers->ceiling.b = b;
+		data->identifiers->ceiling.a = 255;
 	}
 	return (st_check_color_range(r, g, b));
 }
