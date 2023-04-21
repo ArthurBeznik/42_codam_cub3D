@@ -35,6 +35,14 @@
 
 typedef struct s_general_data	t_general_data;
 
+typedef enum e_side
+{
+	NORTH,
+	WEST,
+	SOUTH,
+	EAST
+}	t_side;
+
 typedef enum e_axis
 {
 	HORIZONTAL,

@@ -35,10 +35,14 @@ bool dda(t_general_data *data)
 		dda->delta_dist_y = (dda->ray_dir_y == 0) ? 1e30 : fabs(1 / dda->ray_dir_y);
 		// fprintf(stderr, "delta_dist_x | delta_dist_y : %f | %f\n", dda->delta_dist_x, dda->delta_dist_y); // ? testing
 
-		/*  */
 		/**
 		 * calculate step and initial side_dist
-		 * 	if ray_dir_x < 0 => looking left
+		 * 	if ray_dir_x 
+		 * 		= 1		=> looking west
+		 * 		= -1	=> looking east
+		 * 	if ray_dir_y 
+		 * 		= 1		=> looking south
+		 * 		= -1	=> looking north
 		*/
 		if (dda->ray_dir_x < 0)
 		{
@@ -71,13 +75,19 @@ bool dda(t_general_data *data)
 			{
 				dda->side_dist_x += dda->delta_dist_x;
 				dda->map_x += dda->step_x;
-				dda->side = 0;
+				if (dda->step_x == -1)
+					dda->side = WEST;
+				if (dda->step_x == 1)
+					dda->side = EAST;		
 			}
 			else
 			{
 				dda->side_dist_y += dda->delta_dist_y;
 				dda->map_y += dda->step_y;
-				dda->side = 1;
+				if (dda->step_y == -1)
+					dda->side = NORTH;
+				if (dda->step_y == 1)
+					dda->side = SOUTH;
 			}
 
 			// fprintf(stderr, "dda->map_x | dda->map_y | value : %d | %d | %c\n", dda->map_x, dda->map_y, data->file_data->map_data->copy[dda->map_y][dda->map_x]); // ? testing
@@ -88,49 +98,49 @@ bool dda(t_general_data *data)
 		}
 
 		/* calculate distance of the ray to the wall, to avoid fisheye effect */
-		if (dda->side == 0)
+		if (dda->side == WEST || dda->side == EAST)
 			dda->perp_wall_dist = (dda->side_dist_x - dda->delta_dist_x);
 		else
 			dda->perp_wall_dist = (dda->side_dist_y - dda->delta_dist_y);
 
 		/* calculate height of line to draw on screen */
-		int lineHeight = (int)(dda->h / dda->perp_wall_dist);
+		int line_height = (int)(dda->h / dda->perp_wall_dist);
 
 		/**
 		 * calculate lowest and highest pixel to fill in current stripe
 		 * 	here we draw from the center of the screen (i.e. / 2)
 		 * 	if the other points are outside of the screen, they are capped to 0 to h-1
 		 */
-		int drawStart = -lineHeight / 2 + dda->h / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + dda->h / 2;
-		if (drawEnd >= dda->h)
-			drawEnd = dda->h - 1;
+		int draw_start = -line_height / 2 + dda->h / 2;
+		if (draw_start < 0)
+			draw_start = 0;
+		int draw_end = line_height / 2 + dda->h / 2;
+		if (draw_end >= dda->h)
+			draw_end = dda->h - 1;
 
 		/* choose wall color */
 		int color;
-		switch (data->file_data->map_data->copy[dda->map_y][dda->map_x])
+		switch (dda->side)
 		{
-			case '0':
+			case NORTH:
 				color = GREEN;
 				break;
-			case '1':
+			case WEST:
 				color = YELLOW;
 				break;
-		}
-
-		/* give x and y sides different brightness */
-		if (dda->side == 1)
-		{
-			color = color / 2;
+			case SOUTH:
+				color = RED;
+				break;
+			case EAST:
+				color = BLUE;
+				break;
 		}
 
 		/* draw the pixels of the stripe as a vertical line */
 		int n = 0;
-		int y = drawStart;
+		int y = draw_start;
 		// fprintf(stderr, "start | end | height : %d | %d | %d\n", drawStart, drawEnd, lineHeight);
-		while (n < (drawEnd - drawStart))
+		while (n < (draw_end - draw_start))
 		{
 			mlx_put_pixel(data->graphics->img_3d, x, y + n, color);
 			n++;
