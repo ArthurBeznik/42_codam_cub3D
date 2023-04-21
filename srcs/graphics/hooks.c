@@ -90,7 +90,7 @@ void	dda_movement(t_general_data *data)
 	// fprintf(stderr, "plane_x | plane_y : %f | %f\n", dda->plane_x, dda->plane_y); // ? testing
 
 	// move forward if no wall in front of you
-	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_UP) || mlx_is_key_down(data->graphics->mlx, MLX_KEY_W))
 	{
 		if (data->file_data->map_data->copy[(int)(dda->pos_y)][(int)(dda->pos_x + dda->dir_x * MOV_SPEED)] != '1')
 		{
@@ -104,7 +104,7 @@ void	dda_movement(t_general_data *data)
 		}
 	}
 	// move backwards if no wall behind you
-	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_DOWN) || mlx_is_key_down(data->graphics->mlx, MLX_KEY_S))
 	{
 		if (data->file_data->map_data->copy[(int)(dda->pos_y)][(int)(dda->pos_x - dda->dir_x * MOV_SPEED)] != '1')
 		{
@@ -118,7 +118,7 @@ void	dda_movement(t_general_data *data)
 		}
 	}
 	// rotate to the right
-	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_RIGHT) || mlx_is_key_down(data->graphics->mlx, MLX_KEY_D))
 	{
 		// both camera direction and camera plane must be rotated
 		double old_dir_x = dda->dir_x;
@@ -129,7 +129,7 @@ void	dda_movement(t_general_data *data)
 		dda->plane_y = old_plane_x * sin(ROT_SPEED) + dda->plane_y * cos(ROT_SPEED);
 	}
 	// rotate to the left
-	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_LEFT) || mlx_is_key_down(data->graphics->mlx, MLX_KEY_A))
 	{
 		// both camera direction and camera plane must be rotated
 		double old_dir_x = dda->dir_x;
