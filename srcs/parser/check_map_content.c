@@ -38,6 +38,6 @@ bool	check_map_content(const char **map)
 	}
 	// player_count = 4; // ? testing
 	if (player_count != 1)
-		return (error_msg("Only one starting position allowed"));
+		return (error_msg("There's more or less than one player in the map"));
 	return (true);
 }
