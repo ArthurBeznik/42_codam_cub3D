@@ -26,10 +26,6 @@ void	free_data(t_general_data *data, bool free_map)
 		free_2d(data->file_data->map_data->map);
 		free(data->file_data->line);
 	}
-	if (data->file_data->identifiers->floor)
-		free(data->file_data->identifiers->floor);
-	if (data->file_data->identifiers->ceiling)
-		free(data->file_data->identifiers->ceiling);
 	if (data->file_data->identifiers)
 		free(data->file_data->identifiers);
 	if (data->file_data->player)

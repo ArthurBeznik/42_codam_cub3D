@@ -10,18 +10,6 @@ bool	st_check_color_range(const int r, const int g, const int b)
 	return (false);
 }
 
-// static bool	st_check_colors(t_rgb *colors)
-// {
-// 	// colors = NULL; // ? testing
-// 	if (!colors)
-// 		return (false);
-// 	if (!st_check_color_range(colors->red)
-// 		|| !st_check_color_range(colors->green)
-// 		|| !st_check_color_range(colors->blue))
-// 		return (false);
-// 	return (true);
-// }
-
 bool	check_identifiers(t_identifiers_data *id_data, \
 	const char *extension)
 {
@@ -38,8 +26,5 @@ bool	check_identifiers(t_identifiers_data *id_data, \
 		|| !check_ext(id_data->path_to_east_texture, extension)
 		|| !check_ext(id_data->path_to_west_texture, extension))
 		return (error_msg("Wrong extension (.png required)"));
-	// if (!st_check_colors(id_data->floor)
-	// 	|| !st_check_colors(id_data->ceiling))
-		// return (error_msg("Colors not in range [0,255]"));
 	return (true);
 }
