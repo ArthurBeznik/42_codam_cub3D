@@ -30,12 +30,25 @@ typedef struct s_player
 	double		py;
 }	t_player;
 
-typedef struct s_rgb
+typedef union s_rgb
 {
-	int	red;
-	int	green;
-	int	blue;
+	unsigned int	rgba;
+	struct
+	{
+		uint8_t	a;
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+	};
+
 }	t_rgb;
+
+// typedef struct s_rgb
+// {
+// 	int	red;
+// 	int	green;
+// 	int	blue;
+// }	t_rgb;
 
 typedef struct s_identifiers_data
 {
@@ -43,8 +56,9 @@ typedef struct s_identifiers_data
 	char	*path_to_south_texture;
 	char	*path_to_west_texture;
 	char	*path_to_east_texture;
-	t_rgb	*floor;
-	t_rgb	*ceiling;
+	t_rgb	floor;
+	t_rgb	ceiling;
+
 }	t_identifiers_data;
 
 typedef struct map_data
@@ -74,11 +88,14 @@ bool	check_map(const char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
 bool	read_scene_data(t_file_data *data);
 void	find_textures(const char *line, t_file_data *data);
-void	find_colors(const char *line, t_file_data *data);
+bool	find_colors(const char *line, t_file_data *data);
+bool	st_check_color_range(const int r, const int g, const int b);
 bool	check_identifiers(t_identifiers_data *id_data, const char *extension);
 bool	check_scene_file_order(t_file_data *data, const int nb_rows);
 bool	check_map_content(const char **map);
 bool	check_walls(t_file_data *data);
 void	flood_fill(const int y, const int x, t_map_data *map_data, bool *is_enclosed);
+void	free_data(t_general_data *data, bool free_map);
+void	free_2d(char **array);
 
 #endif

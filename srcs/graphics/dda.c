@@ -1,5 +1,30 @@
 #include <graphics.h>
 
+unsigned int reverseBits(unsigned int num)
+{
+    unsigned int NO_OF_BITS = sizeof(num) * 8;
+    unsigned int reverse_num = 0;
+    unsigned int i;
+    for (i = 0; i < NO_OF_BITS; i++) {
+        if ((num & (1 << i)))
+            reverse_num |= 1 << ((NO_OF_BITS - 1) - i);
+    }
+    return reverse_num;
+}
+
+void    put_multi_pixels(mlx_image_t *img, unsigned color, int pixels, int offset)
+{
+    uint32_t        *px;
+
+    px = (uint32_t *) img->pixels;
+    int i = 0;
+    while (i < pixels)
+    {
+        px[offset + i] = color;
+        i++;
+    }
+}
+
 static int	get_rgba(mlx_texture_t *texture, int x, int y)
 {
 	int	r;
@@ -28,6 +53,8 @@ bool dda(t_general_data *data)
 
 	// fprintf(stderr, "w | h : %d | %d\n", w, h); // ? testing
 
+	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
+    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
 	/* raycasting loop: goes through every x until reaching map width */
 	for (int x = 0; x < dda->w; x++)
 	{

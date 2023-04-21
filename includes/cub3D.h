@@ -16,6 +16,7 @@ typedef struct s_general_data
 {
 	struct s_file_data		*file_data;
 	struct s_graphics		*graphics;
+	bool					free_data;
 }	t_general_data;
 
 int		main(int argc, char *argv[]);

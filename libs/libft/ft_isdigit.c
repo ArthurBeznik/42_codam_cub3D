@@ -6,11 +6,12 @@
 /*   By: edawood <edawood@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 14:33:00 by edawood           #+#    #+#             */
-/*   Updated: 2022/02/03 14:33:01 by edawood          ###   ########.fr       */
+/*   Updated: 2023/04/20 12:49:03 by edawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int	ft_isdigit(int c)
 {

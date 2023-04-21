@@ -62,16 +62,6 @@ bool	init_textures(t_general_data *data)
 	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture); // ? testing
 	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture); // ? testing
 	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture); // ? testing
-	textures->floor = (t_color *)malloc(sizeof(t_color));
-	textures->floor->r = data->file_data->identifiers->floor->red;
-	textures->floor->g = data->file_data->identifiers->floor->green;
-	textures->floor->b = data->file_data->identifiers->floor->blue;
-	textures->floor->a = 0;
-	textures->ceiling = (t_color *)malloc(sizeof(t_color));
-	textures->ceiling->r = data->file_data->identifiers->ceiling->red;
-	textures->ceiling->g = data->file_data->identifiers->ceiling->green;
-	textures->ceiling->b = data->file_data->identifiers->ceiling->blue;
-	textures->ceiling->a = 0;
 	data->graphics->textures = textures;
 	return (true);
 }
