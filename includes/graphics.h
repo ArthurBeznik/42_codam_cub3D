@@ -19,7 +19,7 @@
 # define DR 0.0174533
 
 # define ROT_SPEED 0.025
-# define MOV_SPEED 0.1
+# define MOV_SPEED 0.05
 # define RESET_ANGLE 2 * M_PI
 
 // # define NB_RAYS 60

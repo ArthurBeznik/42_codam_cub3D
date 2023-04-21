@@ -22,19 +22,59 @@ bool	draw_direction(t_general_data *data, mlx_image_t *img, double angle)
 		// fprintf(stderr, "x1 | y1: %f | %f\n", x1, y1); // ? testing
 		// log_val(data, "draw_dir", 'D'); // ? testing
 		// log_val(data, "draw_dir", 'P'); // ? testing
-		// int tmp_x = data->file_data->player->x + (data->graphics->dda->dir_x * data->file_data->player->x);
-		// int tmp_y = data->file_data->player->y + (data->graphics->dda->dir_y * data->file_data->player->y);
-		
-		// mlx_put_pixel(img, tmp_x, tmp_y, GREEN);
 		if (!check_put_pixel(data, x, y))
 			return (false);
 		mlx_put_pixel(img, x, y, GREEN);
-		// mlx_put_pixel(img, x1 - 1, y1 - 1, 0x00FF00FF);
-		// mlx_put_pixel(img, x1 + 1, y1 + 1, 0x00FF00FF);
 		i++;
 	}
-	fprintf(stderr, "dir_x | dir_y : %f | %f\n", data->graphics->dda->dir_x, data->graphics->dda->dir_y);
-	// mlx_put_pixel(img, data->graphics->dda->dir_x, data->graphics->dda->dir_y, RED);
+	return (true);
+}
+
+bool	dda_draw_direction(t_general_data *data, mlx_image_t *img)
+{
+	int		i;
+	float	x;
+	float	y;
+	float	step;
+	float	dx;
+	float	dy;
+	float	x1;
+	float	x2;
+	float	y1;
+	float	y2;
+
+	/**
+	 * A linear DDA starts by calculating the smaller of dy or dx for a unit increment of the other. 
+	 * A line is then sampled at unit intervals in one coordinate and corresponding integer 
+	 * values nearest the line path are determined for the other coordinate.
+	*/
+	x1 = data->file_data->player->x;
+	y1 = data->file_data->player->y;
+	x2 = data->file_data->player->x + (data->graphics->dda->dir_x * 16);
+	y2 = data->file_data->player->y + (data->graphics->dda->dir_y * 16);
+	dx = (x2 - x1);
+	dy = (y2 - y1);
+	if (fabs(dx) >= fabs(dy))
+		step = fabs(dx);
+	else
+		step = fabs(dy);
+	dx = dx / step;
+	dy = dy / step;
+	x = x1;
+	y = y1;
+	i = 1;
+	while (i <= step)
+	{
+		mlx_put_pixel(img, x, y, RED);
+		x += dx;
+		y += dy;
+		i++;
+	}
+
+	// fprintf(stderr, "dir_x | dir_y : %f | %f\n", data->graphics->dda->dir_x, data->graphics->dda->dir_y);
+	// fprintf(stderr, "tmp_x | tmp_y : %d | %d\n", tmp_x, tmp_y);
+	fprintf(stderr, "px | py : %f | %f\n", data->file_data->player->x, data->file_data->player->y);
+
 	return (true);
 }
 
@@ -80,7 +120,9 @@ bool	draw_player(t_general_data *data, mlx_image_t *img)
 		}
 		x++;
 	}
-	if (!draw_direction(data, data->graphics->img, data->file_data->player->angle))
+	// if (!draw_direction(data, data->graphics->img, data->file_data->player->angle))
+	// 	return (false);
+	if (!dda_draw_direction(data, data->graphics->img))
 		return (false);
 	return (true);
 }

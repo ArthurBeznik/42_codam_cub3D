@@ -78,14 +78,6 @@ void	dda_movement(t_general_data *data)
 	t_dda *dda;
 
 	dda = data->graphics->dda;
-	// dda->dir_x = -1;
-	// dda->dir_y = 0;
-	// dda->plane_x = 0;
-	// dda->plane_y = 0.66; // the 2d raycaster version of camera plane
-	// dda->w = data->graphics->width / PIXELS;
-	// dda->h = data->graphics->height / PIXELS;
-	// dda->pos_x = data->file_data->player->px;
-	// dda->pos_y = data->file_data->player->py;
 
 	ft_memset(data->graphics->img->pixels, 0, data->graphics->img->width * \
 				data->graphics->img->height * sizeof(int));
@@ -97,7 +89,6 @@ void	dda_movement(t_general_data *data)
 	// fprintf(stderr, "dir_x | dir_y : %f | %f\n", dda->dir_x, dda->dir_y); // ? testing
 	// fprintf(stderr, "plane_x | plane_y : %f | %f\n", dda->plane_x, dda->plane_y); // ? testing
 
-	// fprintf(stderr, "hook\n"); // ? testing
 	// move forward if no wall in front of you
 	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_UP))
 	{
@@ -129,12 +120,6 @@ void	dda_movement(t_general_data *data)
 	// rotate to the right
 	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_RIGHT))
 	{
-		data->file_data->player->angle -= ROT_SPEED * M_PI;
-		if (data->file_data->player->angle < 0) // TODO make this a function
-			data->file_data->player->angle += RESET_ANGLE;
-		if (data->file_data->player->angle > 2 * M_PI)
-			data->file_data->player->angle -= RESET_ANGLE;
-
 		// both camera direction and camera plane must be rotated
 		double old_dir_x = dda->dir_x;
 		dda->dir_x = dda->dir_x * cos(ROT_SPEED) - dda->dir_y * sin(ROT_SPEED);
@@ -146,12 +131,6 @@ void	dda_movement(t_general_data *data)
 	// rotate to the left
 	if (mlx_is_key_down(data->graphics->mlx, MLX_KEY_LEFT))
 	{
-		data->file_data->player->angle += ROT_SPEED * M_PI;
-		if (data->file_data->player->angle < 0) // TODO make this a function
-			data->file_data->player->angle += RESET_ANGLE;
-		if (data->file_data->player->angle > 2 * M_PI)
-			data->file_data->player->angle -= RESET_ANGLE;
-		
 		// both camera direction and camera plane must be rotated
 		double old_dir_x = dda->dir_x;
 		dda->dir_x = dda->dir_x * cos(-ROT_SPEED) - dda->dir_y * sin(-ROT_SPEED);
