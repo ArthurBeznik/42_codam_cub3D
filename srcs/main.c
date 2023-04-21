@@ -23,7 +23,6 @@ int	main(int argc, char *argv[])
 	}
   	if (!run_graphics(&data))
 	{
-		fprintf(stderr, "TESTING ERROR\n");
 		free_data(&data, true);
 		terminate(data.graphics);
 	}
