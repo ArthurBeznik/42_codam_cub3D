@@ -139,7 +139,7 @@ void	dda_movement(t_general_data *data)
 		dda->plane_x = dda->plane_x * cos(-ROT_SPEED) - dda->plane_y * sin(-ROT_SPEED);
 		dda->plane_y = old_plane_x * sin(-ROT_SPEED) + dda->plane_y * cos(-ROT_SPEED);
 	}
-	fprintf(stderr, "dir_x | dir_y : %f | %f\n", dda->dir_x, dda->dir_y); // ? testing
+	// fprintf(stderr, "dir_x | dir_y : %f | %f\n", dda->dir_x, dda->dir_y); // ? testing
 }
 
 void	captain(void *param)
