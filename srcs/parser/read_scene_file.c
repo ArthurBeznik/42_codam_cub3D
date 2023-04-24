@@ -19,7 +19,7 @@ static bool	st_join_save_line(t_file_data *data, const char *buf)
 	char	*tmp;
 
 	tmp = ft_strjoin(data->line, buf);
-	if (!tmp)
+	if (!tmp || tmp[0] == '\0')
 		return (false);
 	data->line = ft_strdup(tmp);
 	if (!data->line)
