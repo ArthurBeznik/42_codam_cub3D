@@ -47,11 +47,6 @@ bool	init_textures(t_general_data *data)
 	textures->south_tex = NULL;
 	textures->east_tex = NULL;
 	textures->rgba = NA;
-	// if (!mlx_load_png(data->file_data->identifiers->path_to_north_texture) ||
-	// 	!mlx_load_png(data->file_data->identifiers->path_to_west_texture) ||
-	// 	!mlx_load_png(data->file_data->identifiers->path_to_south_texture) ||
-	// 	!mlx_load_png(data->file_data->identifiers->path_to_east_texture))
-	// 	return (error_msg("mlx_load_png"));
 	textures->north_tex = mlx_load_png(data->file_data->identifiers->path_to_north_texture);
 	textures->west_tex = mlx_load_png(data->file_data->identifiers->path_to_west_texture);
 	textures->south_tex = mlx_load_png(data->file_data->identifiers->path_to_south_texture);
