@@ -90,7 +90,7 @@ typedef struct s_file_data
 	bool				duplicate_identifier;
 	bool				duplicate_color;
 	t_map_data			map_data;
-	t_identifiers_data	*identifiers;
+	t_identifiers_data	identifiers;
 	t_player			player;
 }	t_file_data;
 

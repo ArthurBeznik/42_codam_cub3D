@@ -14,16 +14,16 @@ static bool	st_init_player_data(t_file_data *file_data)
 
 static bool	st_init_identifiers_data(t_file_data *file_data)
 {
-	t_identifiers_data	*identifiers_data;
+	// t_identifiers_data	*identifiers_data;
 
-	identifiers_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
-	if (!identifiers_data)
-		return (false);
-	identifiers_data->path_to_north_texture = NULL;
-	identifiers_data->path_to_south_texture = NULL;
-	identifiers_data->path_to_west_texture = NULL;
-	identifiers_data->path_to_east_texture = NULL;
-	file_data->identifiers = identifiers_data;
+	// identifiers_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
+	// if (!identifiers_data)
+	// 	return (false);
+	file_data->identifiers.path_to_north_texture = NULL;
+	file_data->identifiers.path_to_south_texture = NULL;
+	file_data->identifiers.path_to_west_texture = NULL;
+	file_data->identifiers.path_to_east_texture = NULL;
+	// file_data->identifiers = identifiers_data;
 	return (true);
 }
 

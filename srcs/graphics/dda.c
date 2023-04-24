@@ -69,13 +69,13 @@ bool dda(t_general_data *data)
 	width = data->graphics->img->width;
 
 	/* fill top half of screen with ceiling color */
-	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers->ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
-	// ft_memset(data->graphics->img_3d->pixels, data->file_data.identifiers->ceiling.rgba, switch_height * \
+	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers.ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
+	// ft_memset(data->graphics->img_3d->pixels, data->file_data.identifiers.ceiling.rgba, switch_height * \
     //         width * sizeof(int));
 
 	/* fill bottom half of screen with floor color */
-    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers->floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
-	// ft_memset(data->graphics->img_3d->pixels + switch_height * width, data->file_data.identifiers->floor.rgba, \
+    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers.floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
+	// ft_memset(data->graphics->img_3d->pixels + switch_height * width, data->file_data.identifiers.floor.rgba, \
     //         (height - switch_height) * width * sizeof(int));
 
 	/* raycasting loop: goes through every x until reaching map width */
