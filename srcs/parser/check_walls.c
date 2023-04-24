@@ -13,11 +13,11 @@ static void	st_find_player(t_file_data *file_data)
 		{
 			if (is_player(file_data->map_data.map[y][x]))
 			{
-				file_data->player->x = x;
-				file_data->player->y = y;
-				file_data->player->px = x;
-				file_data->player->py = y;
-				file_data->player->facing = file_data->map_data.map[y][x];
+				file_data->player.x = x;
+				file_data->player.y = y;
+				file_data->player.px = x;
+				file_data->player.py = y;
+				file_data->player.facing = file_data->map_data.map[y][x];
 				return ;
 			}
 			x++;
@@ -46,8 +46,8 @@ bool	check_walls(t_file_data *file_data)
 	// printf("[x, y] = [%d, %d]\n", player_x, player_y); // ? testing
 	// player_x = -1; // ? testing
 	// player_y = -1; // ? testing
-	player_x = file_data->player->x;
-	player_y = file_data->player->y;
+	player_x = file_data->player.x;
+	player_y = file_data->player.y;
 	if (player_x == ERROR || player_y == ERROR)
 		return (error_msg("Finding player position"));
 	is_enclosed = true;

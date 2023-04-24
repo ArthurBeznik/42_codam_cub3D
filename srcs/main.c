@@ -32,7 +32,7 @@ int	main(int argc, char *argv[])
 	free(data.file_data.identifiers->path_to_west_texture);
 	free(data.file_data.identifiers->path_to_east_texture);
 	free(data.file_data.identifiers);
-	free(data.file_data.player);
+	// free(data.file_data.player);
 	// free(data.file_data.map_data);
 	// free(data.file_data);
 	// free_data(&data, false);

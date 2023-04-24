@@ -29,8 +29,8 @@ void	free_data(t_general_data *data, bool free_map)
 	}
 	if (data->file_data.identifiers)
 		free(data->file_data.identifiers);
-	if (data->file_data.player)
-		free(data->file_data.player);
+	// if (data->file_data.player)
+	// 	free(data->file_data.player);
 	// if (data->file_data.map_data)
 	// 	free(data->file_data.map_data);
 	// if (data->file_data)

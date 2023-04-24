@@ -3,18 +3,12 @@
 
 static bool	st_init_player_data(t_file_data *file_data)
 {
-	t_player	*player;
-
-	player = (t_player *)malloc(sizeof(t_player));
-	if (!player)
-		return (false);
-	player->facing = 'X';
-	player->x = NA;
-	player->y = NA;
-	player->angle = NA;
-	player->dir_x = NA;
-	player->dir_y = NA;
-	file_data->player = player;
+	file_data->player.facing = 'X';
+	file_data->player.x = NA;
+	file_data->player.y = NA;
+	file_data->player.angle = NA;
+	file_data->player.dir_x = NA;
+	file_data->player.dir_y = NA;
 	return (true);
 }
 
@@ -35,26 +29,15 @@ static bool	st_init_identifiers_data(t_file_data *file_data)
 
 static bool	st_init_map_data(t_file_data *file_data)
 {
-	// t_map_data	*map_data;
-
-	// map_data = (t_map_data *)malloc(sizeof(t_map_data));
-	// if (!map_data)
-	// 	return (false);
 	file_data->map_data.copy = NULL;
 	file_data->map_data.map = NULL;
 	file_data->map_data.row = NA;
 	file_data->map_data.col = NA;
-	// file_data->map_data = map_data;
 	return (true);
 }
 
 bool	init_file_data(t_general_data *data)
 {
-	// t_file_data file_data;
-
-	// file_data = (t_file_data *)malloc(sizeof(t_file_data));
-	// if (!file_data)
-	// 	return (error_msg("Malloc file_data struct"));
 	data->file_data.buflen = NA;
 	data->file_data.fd = NA;
 	data->file_data.file_extension = ".cub";
