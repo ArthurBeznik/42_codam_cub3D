@@ -76,6 +76,8 @@ typedef struct s_file_data
 	char				*line;
 	int					fd;
 	int					buflen;
+	bool				ceiling_found;
+	bool				floor_found;
 	t_map_data			*map_data;
 	t_identifiers_data	*identifiers;
 	t_player			*player;

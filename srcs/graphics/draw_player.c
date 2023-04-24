@@ -43,7 +43,7 @@ bool	dda_draw_direction(t_general_data *data, mlx_image_t *img)
 
 	// fprintf(stderr, "dir_x | dir_y : %f | %f\n", data->graphics->dda->dir_x, data->graphics->dda->dir_y);
 	// fprintf(stderr, "tmp_x | tmp_y : %d | %d\n", tmp_x, tmp_y);
-	fprintf(stderr, "px | py : %f | %f\n", data->file_data->player->x, data->file_data->player->y);
+	// fprintf(stderr, "px | py : %f | %f\n", data->file_data->player->x, data->file_data->player->y);
 
 	return (true);
 }

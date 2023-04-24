@@ -56,7 +56,7 @@ static bool	check_rgb_values(const char **rgb_values)
 		while (rgb_values[i][j])
 		{
 			if (!ft_isdigit(rgb_values[i][j]) && !(rgb_values[i][j] == ' '))
-				return (error_msg("Invalid color value"), false);
+				return (error_msg("Invalid color value"));
 			j++;
 		}
 		i++;
@@ -77,6 +77,8 @@ bool	save_values(t_file_data *data, const char **rgb_values, const char c)
 	g = ft_atoi(rgb_values[1]);
 	// data->identifiers->floor->green = -1; // ? testing
 	b = ft_atoi(rgb_values[2]);
+	if (rgb_values[3])
+		return (error_msg("Invalid color value"));
 	if (c == 'F')
 	{
 		data->identifiers->floor.r = r;
@@ -100,10 +102,9 @@ bool find_colors(const char *line, t_file_data *data)
 	char	**rgb_values;
 	bool	is_valid;
 
-	is_valid = false;
+	is_valid = true;
 	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
-		fprintf(stderr, "WITH COLOR\n");
 		line_without_id = ft_substr(line, 1, ft_strlen(line));
 		// line_without_id = NULL; // ? testing
 		if (!line_without_id)
@@ -116,6 +117,10 @@ bool find_colors(const char *line, t_file_data *data)
 			return (false);
 		}
 		is_valid = save_values(data, (const char **)rgb_values, line[0]);
+		if (line[0] == 'F' && is_valid)
+			data->floor_found = true;
+		else if (line[0] == 'C' && is_valid)
+			data->ceiling_found = true;
 		free(line_without_id);
 		free_2d(rgb_values);
 	}
