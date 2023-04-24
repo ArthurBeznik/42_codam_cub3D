@@ -45,6 +45,8 @@ static bool	st_find_identifiers(t_file_data *data, const int nb_rows)
 		find_colors(data->scene[i], data);
 		i++;
 	}
+	if (data->duplicate_identifier == true)
+		return (error_msg("Duplicate identifier"));
 	if (data->ceiling_found == false || data->floor_found == false)
 		return (error_msg("Missing ceiling or floor identifier"));
 	if (!check_scene_file_order(data, nb_rows))
