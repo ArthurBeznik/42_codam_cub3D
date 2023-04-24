@@ -52,7 +52,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(NAME): $(OBJS)
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
