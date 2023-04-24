@@ -75,9 +75,9 @@ bool	read_scene_data(t_file_data *data)
 	}
 	if (!st_find_identifiers(data, nb_rows))
 		return (false);
-	data->map_data->map = st_create_map(data, nb_rows);
+	data->map_data.map = st_create_map(data, nb_rows);
 	// data->map_content = NULL; // ? testing
-	if (!data->map_data->map)
+	if (!data->map_data.map)
 	{
 		free_2d(data->scene);
 		return (error_msg("Invalid map"));

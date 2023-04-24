@@ -18,13 +18,13 @@ static void	init_direction(t_general_data *data, int x, int y)
 	int	centered;
 
 	centered = PIXELS / 2;
-	if (data->file_data.map_data->map[y][x] == 'N')
+	if (data->file_data.map_data.map[y][x] == 'N')
 		data->file_data.player->angle = 0.5 * M_PI;
-	else if (data->file_data.map_data->map[y][x] == 'W')
+	else if (data->file_data.map_data.map[y][x] == 'W')
 		data->file_data.player->angle = 1.0 * M_PI;
-	else if (data->file_data.map_data->map[y][x] == 'S')
+	else if (data->file_data.map_data.map[y][x] == 'S')
 		data->file_data.player->angle = 1.5 * M_PI;
-	else if (data->file_data.map_data->map[y][x] == 'E')
+	else if (data->file_data.map_data.map[y][x] == 'E')
 		data->file_data.player->angle = 2.0 * M_PI;
 	// fprintf(stderr, "x: %d | y: %d\n", x, y); // ? testing
 	// log_val(data, "init_dir", 'A'); // ? testing
@@ -104,9 +104,9 @@ static bool	draw_cells(char	**map, t_general_data *data, int map_height)
 
 bool	draw_2d_map(t_general_data *data)
 {
-	if (!draw_cells(data->file_data.map_data->copy, data, data->file_data.map_data->row))
+	if (!draw_cells(data->file_data.map_data.copy, data, data->file_data.map_data.row))
 		return (error_msg("Drawing cells"));
-	if (!draw_gridlines(data->file_data.map_data->copy, data, data->file_data.map_data->row))
+	if (!draw_gridlines(data->file_data.map_data.copy, data, data->file_data.map_data.row))
 		return (error_msg("Drawing gridlines"));
 	if (!draw_player(data, data->graphics->img))
 		return (error_msg("Drawing player"));

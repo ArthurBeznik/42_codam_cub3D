@@ -18,7 +18,7 @@ bool	parser(int argc, char *argv[], t_general_data *data)
 		return (false);
 	}
 	// system("leaks cub3D"); // ? testing
-	free_2d(data->file_data.map_data->copy);
+	free_2d(data->file_data.map_data.copy);
 	free(data->file_data.line);
 	return (true);
 }

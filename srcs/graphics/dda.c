@@ -159,7 +159,7 @@ bool dda(t_general_data *data)
 			// fprintf(stderr, "dda->map_x | dda->map_y | value : %d | %d | %c\n", dda->map_x, dda->map_y, data->file_data.map_data->copy[dda->map_y][dda->map_x]); // ? testing
 
 			/* check if ray has hit a wall */
-			if (data->file_data.map_data->copy[dda->map_y][dda->map_x] == '1')
+			if (data->file_data.map_data.copy[dda->map_y][dda->map_x] == '1')
 				hit = 1;
 		}
 

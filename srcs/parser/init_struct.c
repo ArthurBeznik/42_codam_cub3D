@@ -35,16 +35,16 @@ static bool	st_init_identifiers_data(t_file_data *file_data)
 
 static bool	st_init_map_data(t_file_data *file_data)
 {
-	t_map_data	*map_data;
+	// t_map_data	*map_data;
 
-	map_data = (t_map_data *)malloc(sizeof(t_map_data));
-	if (!map_data)
-		return (false);
-	map_data->copy = NULL;
-	map_data->map = NULL;
-	map_data->row = NA;
-	map_data->col = NA;
-	file_data->map_data = map_data;
+	// map_data = (t_map_data *)malloc(sizeof(t_map_data));
+	// if (!map_data)
+	// 	return (false);
+	file_data->map_data.copy = NULL;
+	file_data->map_data.map = NULL;
+	file_data->map_data.row = NA;
+	file_data->map_data.col = NA;
+	// file_data->map_data = map_data;
 	return (true);
 }
 

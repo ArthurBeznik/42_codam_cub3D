@@ -63,8 +63,8 @@ bool	init_textures(t_general_data *data)
 
 bool	init_graphics(t_general_data *data, t_graphics *graphics)
 {
-	graphics->width = data->file_data.map_data->col * PIXELS;
-	graphics->height = (data->file_data.map_data->row * PIXELS) + PIXELS;
+	graphics->width = data->file_data.map_data.col * PIXELS;
+	graphics->height = (data->file_data.map_data.row * PIXELS) + PIXELS;
 
 	graphics->mlx = mlx_init(graphics->width * 2.5, graphics->height * 1.5, "cub3D", true);
 	// graphics->mlx = NULL; // ? testing
