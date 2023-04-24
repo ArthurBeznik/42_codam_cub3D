@@ -62,6 +62,7 @@ bool	init_file_data(t_general_data *data)
 	file_data->ceiling_found = false;
 	file_data->floor_found = false;
 	file_data->duplicate_identifier = false;
+	file_data->duplicate_color = false;
 	if (!st_init_map_data(file_data))
 		return (error_msg("Initializing map data struct"));
 	if (!st_init_identifiers_data(file_data))

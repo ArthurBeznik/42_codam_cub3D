@@ -129,10 +129,15 @@ bool find_colors(const char *line, t_file_data *data)
 			return (false);
 		}
 		is_valid = save_values(data, (const char **)rgb_values, line[0]);
-		if (line[0] == 'F' && is_valid)
+		if (line[0] == 'F' && is_valid && !data->floor_found)
 			data->floor_found = true;
-		else if (line[0] == 'C' && is_valid)
+		else if (line[0] == 'C' && is_valid && !data->ceiling_found)
 			data->ceiling_found = true;
+		else
+		{
+			data->duplicate_color = true;
+			is_valid = false;
+		}
 		free(line_without_id);
 		free_2d(rgb_values);
 	}
