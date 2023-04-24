@@ -1,35 +1,5 @@
 #include <graphics.h>
 
-/**
- * x1:
- * 	. i * cos(angle)	=> pixel * angle based on x
- * 	. + player dx 		=> (given the direction) value to be added to x
-*/
-bool	draw_direction(t_general_data *data, mlx_image_t *img, double angle)
-{
-	int		i;
-	int		d_size;
-	float	x;
-	float	y;
-
-	d_size = 16;
-	i = 0;
-	while (i < d_size)
-	{
-		// log_val(data, "draw_dir", 'A');
-		x = (i * cos(angle)) + data->file_data->player->x;
-		y = (i * -sin(angle)) + data->file_data->player->y;
-		// fprintf(stderr, "x1 | y1: %f | %f\n", x1, y1); // ? testing
-		// log_val(data, "draw_dir", 'D'); // ? testing
-		// log_val(data, "draw_dir", 'P'); // ? testing
-		if (!check_put_pixel(data, x, y))
-			return (false);
-		mlx_put_pixel(img, x, y, GREEN);
-		i++;
-	}
-	return (true);
-}
-
 bool	dda_draw_direction(t_general_data *data, mlx_image_t *img)
 {
 	int		i;
@@ -120,8 +90,6 @@ bool	draw_player(t_general_data *data, mlx_image_t *img)
 		}
 		x++;
 	}
-	// if (!draw_direction(data, data->graphics->img, data->file_data->player->angle))
-	// 	return (false);
 	if (!dda_draw_direction(data, data->graphics->img))
 		return (false);
 	return (true);

@@ -42,13 +42,6 @@ bool	init_textures(t_general_data *data)
 	textures = (t_textures *)malloc(sizeof(t_textures));
 	if (!textures)
 		return (error_msg("Malloc textures struct"));
-	textures->hmt = NA;
-	textures->vmt = NA;
-	textures->shade = NA;
-	textures->x = NA;
-	textures->y = NA;
-	textures->y_off = NA;
-	textures->y_step = NA;
 	textures->north_tex = NULL;
 	textures->west_tex = NULL;
 	textures->south_tex = NULL;
@@ -58,45 +51,11 @@ bool	init_textures(t_general_data *data)
 	textures->west_tex = mlx_load_png(data->file_data->identifiers->path_to_west_texture);
 	textures->south_tex = mlx_load_png(data->file_data->identifiers->path_to_south_texture);
 	textures->east_tex = mlx_load_png(data->file_data->identifiers->path_to_east_texture);
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture); // ? testing
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture); // ? testing
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture); // ? testing
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture); // ? testing
+	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture); // ? testing
+	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture); // ? testing
+	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture); // ? testing
+	fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture); // ? testing
 	data->graphics->textures = textures;
-	return (true);
-}
-
-bool	init_rays(t_general_data *data)
-{
-	int		i;
-	t_ray	**ray;
-
-	i = 0;
-	ray = (t_ray **)malloc(sizeof(t_ray) * NB_RAYS);
-	if (!ray)
-		return (error_msg("Malloc ray struct"));
-	while (i < NB_RAYS)
-	{
-		ray[i] = (t_ray *)malloc(sizeof(t_ray));
-		if (!ray[i])
-			// ! free ray
-			return (error_msg("Malloc ray ptr"));
-		ray[i]->x = NA;
-		ray[i]->y = NA;
-		ray[i]->angle = NA;
-		ray[i]->off_x = NA;
-		ray[i]->off_y = NA;
-		ray[i]->hit_x = NA;
-		ray[i]->hit_y = NA;
-		ray[i]->vx = NA;
-		ray[i]->vy = NA;
-		ray[i]->dist_v = NA;
-		ray[i]->dist_h = NA;
-		ray[i]->tan_var = NA;
-		ray[i]->dof = NA;
-		i++;
-	}
-	data->graphics->ray = ray;
 	return (true);
 }
 

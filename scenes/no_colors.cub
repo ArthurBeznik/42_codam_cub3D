@@ -2,17 +2,14 @@ N ./textures/diamond.png
 
 
 
-S ./textures/wood.png
+S ./textures/diamond.png
 
 
 
-W ./textures/stone.png
+W ./textures/diamond.png
 
 
-E ./textures/gold.png
-
-F     254,100,5
-C     225,3,4
+E ./textures/diamond.png
 
             1111111111111111111111111  
             1000000000110000000000001

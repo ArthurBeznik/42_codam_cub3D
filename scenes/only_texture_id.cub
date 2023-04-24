@@ -1,15 +1,15 @@
-N ./textures/diamond.png
+N
 
 
 
-S ./textures/wood.png
+S
 
 
 
-W ./textures/stone.png
+W
 
 
-E ./textures/gold.png
+E
 
 F     254,100,5
 C     225,3,4
