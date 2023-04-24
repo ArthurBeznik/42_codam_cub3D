@@ -100,9 +100,10 @@ bool find_colors(const char *line, t_file_data *data)
 	char	**rgb_values;
 	bool	is_valid;
 
-	is_valid = true;
+	is_valid = false;
 	if ((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
 	{
+		fprintf(stderr, "WITH COLOR\n");
 		line_without_id = ft_substr(line, 1, ft_strlen(line));
 		// line_without_id = NULL; // ? testing
 		if (!line_without_id)
