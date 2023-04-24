@@ -26,15 +26,15 @@ int	main(int argc, char *argv[])
 		free_data(&data, true);
 		terminate(data.graphics);
 	}
-	free_2d(data.file_data->map_data->map);
-	free(data.file_data->identifiers->path_to_north_texture);
-	free(data.file_data->identifiers->path_to_south_texture);
-	free(data.file_data->identifiers->path_to_west_texture);
-	free(data.file_data->identifiers->path_to_east_texture);
-	free(data.file_data->identifiers);
-	free(data.file_data->player);
-	free(data.file_data->map_data);
-	free(data.file_data);
+	free_2d(data.file_data.map_data->map);
+	free(data.file_data.identifiers->path_to_north_texture);
+	free(data.file_data.identifiers->path_to_south_texture);
+	free(data.file_data.identifiers->path_to_west_texture);
+	free(data.file_data.identifiers->path_to_east_texture);
+	free(data.file_data.identifiers);
+	free(data.file_data.player);
+	free(data.file_data.map_data);
+	// free(data.file_data);
 	// free_data(&data, false);
 	// free(file_data.line);
 	// system("leaks cub3D");

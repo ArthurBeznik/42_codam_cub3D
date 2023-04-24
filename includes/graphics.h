@@ -10,6 +10,7 @@
 # include <math.h>
 
 # include <utils.h>
+# include <cub3D.h>
 # include <MLX42.h>
 
 # define ERROR -1

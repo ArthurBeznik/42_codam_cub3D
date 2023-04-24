@@ -1,5 +1,5 @@
-
 #include <utils.h>
+#include <stdio.h>
 
 void	print_map(const char **map)
 {

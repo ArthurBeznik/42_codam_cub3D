@@ -1,7 +1,11 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-# include <cub3D.h>
+// # include <cub3D.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <libft.h>
+# define ERROR -1
 
 bool	error_msg(const char *message);
 int		logger(const int code, const char *function, const char *message);

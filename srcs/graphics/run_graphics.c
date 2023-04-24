@@ -3,7 +3,7 @@
 void	init_dir_plane(t_general_data *data)
 {
 	// FOV = (2 * atan(0.66 / 1.0) = 66 deg)
-	switch (data->file_data->player->facing)
+	switch (data->file_data.player->facing)
 	{
 		case 'N':
 			data->graphics->dda->dir_x = 0;
@@ -41,8 +41,8 @@ bool	fill_dda_data(t_general_data *data)
 	init_dir_plane(data);
 	dda->w = data->graphics->width;
 	dda->h = data->graphics->height;
-	dda->pos_x = data->file_data->player->x;
-	dda->pos_y = data->file_data->player->y;
+	dda->pos_x = data->file_data.player->x;
+	dda->pos_y = data->file_data.player->y;
 	return (true);
 }
 

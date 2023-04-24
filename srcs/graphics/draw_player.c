@@ -18,10 +18,10 @@ bool	dda_draw_direction(t_general_data *data, mlx_image_t *img)
 	 * A line is then sampled at unit intervals in one coordinate and corresponding integer 
 	 * values nearest the line path are determined for the other coordinate.
 	*/
-	x1 = data->file_data->player->x;
-	y1 = data->file_data->player->y;
-	x2 = data->file_data->player->x + (data->graphics->dda->dir_x * 16);
-	y2 = data->file_data->player->y + (data->graphics->dda->dir_y * 16);
+	x1 = data->file_data.player->x;
+	y1 = data->file_data.player->y;
+	x2 = data->file_data.player->x + (data->graphics->dda->dir_x * 16);
+	y2 = data->file_data.player->y + (data->graphics->dda->dir_y * 16);
 	dx = (x2 - x1);
 	dy = (y2 - y1);
 	if (fabs(dx) >= fabs(dy))
@@ -43,7 +43,7 @@ bool	dda_draw_direction(t_general_data *data, mlx_image_t *img)
 
 	// fprintf(stderr, "dir_x | dir_y : %f | %f\n", data->graphics->dda->dir_x, data->graphics->dda->dir_y);
 	// fprintf(stderr, "tmp_x | tmp_y : %d | %d\n", tmp_x, tmp_y);
-	// fprintf(stderr, "px | py : %f | %f\n", data->file_data->player->x, data->file_data->player->y);
+	// fprintf(stderr, "px | py : %f | %f\n", data->file_data.player->x, data->file_data.player->y);
 
 	return (true);
 }
@@ -71,11 +71,11 @@ bool	draw_player(t_general_data *data, mlx_image_t *img)
 
 	p_size = 16;
 	centered = p_size / 2;
-	x = (int)data->file_data->player->x;
-	while (x - p_size < data->file_data->player->x)
+	x = (int)data->file_data.player->x;
+	while (x - p_size < data->file_data.player->x)
 	{
-		y = (int)data->file_data->player->y;
-		while (y - p_size < data->file_data->player->y)
+		y = (int)data->file_data.player->y;
+		while (y - p_size < data->file_data.player->y)
 		{
 			// fprintf(stderr, "%d | %d\n", x - centered, y - centered); // ? testing
 			// log_val(data, "draw_player", 'P'); // ? testing

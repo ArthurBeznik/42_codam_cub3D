@@ -47,24 +47,24 @@ bool	init_textures(t_general_data *data)
 	textures->south_tex = NULL;
 	textures->east_tex = NULL;
 	textures->rgba = NA;
-	textures->north_tex = mlx_load_png(data->file_data->identifiers->path_to_north_texture);
-	textures->west_tex = mlx_load_png(data->file_data->identifiers->path_to_west_texture);
-	textures->south_tex = mlx_load_png(data->file_data->identifiers->path_to_south_texture);
-	textures->east_tex = mlx_load_png(data->file_data->identifiers->path_to_east_texture);
+	textures->north_tex = mlx_load_png(data->file_data.identifiers->path_to_north_texture);
+	textures->west_tex = mlx_load_png(data->file_data.identifiers->path_to_west_texture);
+	textures->south_tex = mlx_load_png(data->file_data.identifiers->path_to_south_texture);
+	textures->east_tex = mlx_load_png(data->file_data.identifiers->path_to_east_texture);
 	if (!textures->north_tex || !textures->west_tex || !textures->south_tex || !textures->east_tex)
 		return (error_msg("mlx_load_png"));
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_north_texture); // ? testing
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_south_texture); // ? testing
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_east_texture); // ? testing
-	// fprintf(stderr, "path: %s\n", data->file_data->identifiers->path_to_west_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data.identifiers->path_to_north_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data.identifiers->path_to_south_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data.identifiers->path_to_east_texture); // ? testing
+	// fprintf(stderr, "path: %s\n", data->file_data.identifiers->path_to_west_texture); // ? testing
 	data->graphics->textures = textures;
 	return (true);
 }
 
 bool	init_graphics(t_general_data *data, t_graphics *graphics)
 {
-	graphics->width = data->file_data->map_data->col * PIXELS;
-	graphics->height = (data->file_data->map_data->row * PIXELS) + PIXELS;
+	graphics->width = data->file_data.map_data->col * PIXELS;
+	graphics->height = (data->file_data.map_data->row * PIXELS) + PIXELS;
 
 	graphics->mlx = mlx_init(graphics->width * 2.5, graphics->height * 1.5, "cub3D", true);
 	// graphics->mlx = NULL; // ? testing

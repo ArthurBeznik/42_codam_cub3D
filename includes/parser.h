@@ -5,11 +5,20 @@
 #  define BUFFER_SIZE 10
 # endif
 
-// # define ERROR -1
+# define ERROR -1
+# define NA 999
 
-# include <cub3D.h>
+// # include <cub3D.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <libft.h>
+# include <MLX42.h>
+# include <utils.h>
 
-typedef struct s_general_data	t_general_data;
+// typedef struct s_general_data	t_general_data;
 
 /**
  * x, y : 
@@ -85,8 +94,8 @@ typedef struct s_file_data
 	t_player			*player;
 }	t_file_data;
 
-bool	parser(int argc, char *argv[], t_general_data *data);
-bool	init_file_data(t_general_data *data);
+// bool	parser(int argc, char *argv[], t_general_data *data);
+// bool	init_file_data(t_general_data *data);
 bool	check_ext(const char *file_name, const char *file_extension);
 bool	check_map(const char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
@@ -99,7 +108,7 @@ bool	check_scene_file_order(t_file_data *data, const int nb_rows);
 bool	check_map_content(const char **map);
 bool	check_walls(t_file_data *data);
 void	flood_fill(const int y, const int x, t_map_data *map_data, bool *is_enclosed);
-void	free_data(t_general_data *data, bool free_map);
+// void	free_data(t_general_data *data, bool free_map);
 void	free_2d(char **array);
 
 #endif

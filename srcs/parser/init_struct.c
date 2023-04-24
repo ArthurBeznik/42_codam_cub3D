@@ -1,4 +1,5 @@
 #include <parser.h>
+#include <cub3D.h>
 
 static bool	st_init_player_data(t_file_data *file_data)
 {
@@ -49,26 +50,25 @@ static bool	st_init_map_data(t_file_data *file_data)
 
 bool	init_file_data(t_general_data *data)
 {
-	t_file_data *file_data;
+	// t_file_data file_data;
 
-	file_data = (t_file_data *)malloc(sizeof(t_file_data));
-	if (!file_data)
-		return (error_msg("Malloc file_data struct"));
-	file_data->buflen = NA;
-	file_data->fd = NA;
-	file_data->file_extension = ".cub";
-	file_data->line = NULL;
-	file_data->scene = NULL;
-	file_data->ceiling_found = false;
-	file_data->floor_found = false;
-	file_data->duplicate_identifier = false;
-	file_data->duplicate_color = false;
-	if (!st_init_map_data(file_data))
+	// file_data = (t_file_data *)malloc(sizeof(t_file_data));
+	// if (!file_data)
+	// 	return (error_msg("Malloc file_data struct"));
+	data->file_data.buflen = NA;
+	data->file_data.fd = NA;
+	data->file_data.file_extension = ".cub";
+	data->file_data.line = NULL;
+	data->file_data.scene = NULL;
+	data->file_data.ceiling_found = false;
+	data->file_data.floor_found = false;
+	data->file_data.duplicate_identifier = false;
+	data->file_data.duplicate_color = false;
+	if (!st_init_map_data(&data->file_data))
 		return (error_msg("Initializing map data struct"));
-	if (!st_init_identifiers_data(file_data))
+	if (!st_init_identifiers_data(&data->file_data))
 		return (error_msg("Initializing identifiers data struct"));
-	if (!st_init_player_data(file_data))
+	if (!st_init_player_data(&data->file_data))
 		return (error_msg("Initializing player data struct"));
-	data->file_data = file_data;
 	return (true);
 }
