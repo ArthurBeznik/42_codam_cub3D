@@ -54,9 +54,6 @@ bool	run_graphics(t_general_data	*data)
 	if (!init_graphics(data, data->graphics))
 		return (error_msg("init_graphics"));
 
-	if (!init_rays(data))
-		return (error_msg("init_rays"));
-
 	if (!init_textures(data))
 		return (error_msg("init_textures"));
 

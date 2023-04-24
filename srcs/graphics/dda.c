@@ -43,18 +43,41 @@ static int	get_rgba(mlx_texture_t *texture, int x, int y)
 
 bool dda(t_general_data *data)
 {
-	t_dda *dda;
+	t_dda 	*dda;
+	int		height;
+	int		switch_height;
+	int 	width;
+	int 	line_height;
+	int		pitch;
+	int		draw_start;
+	int		draw_end;
+	int		hit;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	tex_pos;
+	double	step;
 
 	dda = data->graphics->dda;
 
-	// bool is_done = false;
-
 	// fprintf(stderr, "pos_x | pos_y : %f | %f\n", dda->pos_x, dda->pos_y); // ? testing
-
 	// fprintf(stderr, "w | h : %d | %d\n", w, h); // ? testing
 
-	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
-    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
+	// put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
+    // put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
+	
+	height = data->graphics->img->height;
+	switch_height = height / 2;
+	width = data->graphics->img->width;
+
+	/* fill top half of screen with ceiling color */
+	ft_memset(data->graphics->img_3d->pixels, data->file_data->identifiers->ceiling.rgba, switch_height * \
+            width * sizeof(int));
+
+	/* fill bottom half of screen with floor color */
+	ft_memset(data->graphics->img_3d->pixels + switch_height * width, data->file_data->identifiers->floor.rgba, \
+            (height - switch_height) * width * sizeof(int));
+
 	/* raycasting loop: goes through every x until reaching map width */
 	for (int x = 0; x < dda->w; x++)
 	{
@@ -110,7 +133,7 @@ bool dda(t_general_data *data)
 		// fprintf(stderr, "side_dist_x | side_dist_y : %f | %f\n", dda->side_dist_x, dda->side_dist_y); // ? testing
 
 		/* DDA */
-		int hit = 0;
+		hit = 0;
 		while (hit == 0)
 		{
 			/* jump to next map square, either in x-direction, or in y-direction, the closest */
@@ -147,95 +170,65 @@ bool dda(t_general_data *data)
 			dda->perp_wall_dist = (dda->side_dist_y - dda->delta_dist_y);
 
 		/* calculate height of line to draw on screen */
-		int line_height = (int)(dda->h / dda->perp_wall_dist);
+		line_height = (int)(dda->h / dda->perp_wall_dist);
 
-		int pitch = 100;
+		pitch = 100;
 
 		/**
 		 * calculate lowest and highest pixel to fill in current stripe
 		 * 	here we draw from the center of the screen (i.e. / 2)
 		 * 	if the other points are outside of the screen, they are capped to 0 to h-1
 		 */
-		int draw_start = -line_height / 2 + dda->h / 2 + pitch;
+		draw_start = -line_height / 2 + dda->h / 2 + pitch;
 		if (draw_start < 0)
 			draw_start = 0;
-		int draw_end = line_height / 2 + dda->h / 2 + pitch;
+		draw_end = line_height / 2 + dda->h / 2 + pitch;
 		if (draw_end >= dda->h)
 			draw_end = dda->h - 1;
 
-		/* choose wall color */
-		int color;
-		switch (dda->side)
-		{
-			case NORTH:
-				color = GREEN;
-				break;
-			case WEST:
-				color = YELLOW;
-				break;
-			case SOUTH:
-				color = RED;
-				break;
-			case EAST:
-				color = BLUE;
-				break;
-		}
-
-		// calculate value of wallX
-		double wallX; // where exactly the wall was hit
+		/* calculate value of wall_x */
 		if (dda->side == WEST || dda->side == EAST)
-			wallX = dda->pos_y + dda->perp_wall_dist * dda->ray_dir_y;
+			wall_x = dda->pos_y + dda->perp_wall_dist * dda->ray_dir_y;
 		else
-			wallX = dda->pos_x + dda->perp_wall_dist * dda->ray_dir_x;
-		wallX -= floor((wallX));
+			wall_x = dda->pos_x + dda->perp_wall_dist * dda->ray_dir_x;
+		wall_x -= floor((wall_x));
 
-		// x coordinate on the texture
-		int texX = (int)(wallX * (double)(PIXELS));
+		/* x coordinate on the texture */
+		tex_x = (int)(wall_x * (double)(PIXELS));
 		if (dda->side == EAST)
-			texX = PIXELS - texX - 1;
+			tex_x = PIXELS - tex_x - 1;
 		if (dda->side == NORTH)
-			texX = PIXELS - texX - 1;
+			tex_x = PIXELS - tex_x - 1;
 
-		// How much to increase the texture coordinate per screen pixel
-		double step = 1.0 * PIXELS / line_height;
+		/* how much to increase the texture coordinate per screen pixel */
+		step = 1.0 * PIXELS / line_height;
 
-		// Starting texture coordinate
-		double texPos = (draw_start - pitch - dda->h / 2 + line_height / 2) * step;
+		/* starting texture coordinate */
+		tex_pos = (draw_start - pitch - dda->h / 2 + line_height / 2) * step;
 		for (int y = draw_start; y < draw_end; y++)
 		{
-			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-			int texY = (int)texPos & (PIXELS - 1);
-			texPos += step;
+			/* cast the texture coordinate to integer, and mask with (tex_height - 1) in case of overflow */
+			tex_y = (int)tex_pos & (PIXELS - 1);
+			tex_pos += step;
 			// Uint32 color = texture[texNum][PIXELS * texY + texX];
 			// buffer[y][x] = color;
 			switch (dda->side)
 			{
 				case NORTH:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->north_tex, texX, texY);
+					data->graphics->textures->rgba = get_rgba(data->graphics->textures->north_tex, tex_x, tex_y);
 					break;
 				case WEST:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->west_tex, texX, texY);
+					data->graphics->textures->rgba = get_rgba(data->graphics->textures->west_tex, tex_x, tex_y);
 					break;
 				case SOUTH:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->south_tex, texX, texY);
+					data->graphics->textures->rgba = get_rgba(data->graphics->textures->south_tex, tex_x, tex_y);
 					break;
 				case EAST:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->east_tex, texX, texY);
+					data->graphics->textures->rgba = get_rgba(data->graphics->textures->east_tex, tex_x, tex_y);
 					break;
 			}
 			mlx_put_pixel(data->graphics->img_3d, x, y, data->graphics->textures->rgba);
 		}
-
-		/* draw the pixels of the stripe as a vertical line */
-		// int n = 0;
-		// int y = draw_start;
-		// fprintf(stderr, "start | end | height : %d | %d | %d\n", drawStart, drawEnd, lineHeight);
-		// while (n < (draw_end - draw_start))
-		// {
-		// 	mlx_put_pixel(data->graphics->img_3d, x, y + n, color);
-		// 	n++;
-		// }
-		// fprintf(stderr, "here\n"); // ? testing
 	}
 	return (true);
 }

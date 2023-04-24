@@ -22,9 +22,6 @@
 # define MOV_SPEED 0.05
 # define RESET_ANGLE 2 * M_PI
 
-// # define NB_RAYS 60
-# define NB_RAYS 30
-
 # define RED 0xFF0000FF
 # define GREEN 0x00FF00FF
 # define BLUE 0x0000FFFF
@@ -60,13 +57,6 @@ typedef struct s_color
 
 typedef struct s_textures
 {
-	int				vmt; // vertical and horizontal map texture number (= color value)
-	int				hmt;
-	float			shade;
-	float			x;
-	float			y;
-	float			y_step;
-	float			y_off;
 	mlx_texture_t	*north_tex;
 	mlx_texture_t	*south_tex;
 	mlx_texture_t	*west_tex;
@@ -75,23 +65,6 @@ typedef struct s_textures
 	t_color			*ceiling;
 	unsigned int	rgba;
 }	t_textures;
-
-typedef struct s_ray
-{
-	float 	x;	// in pixels
-	float 	y;	// in pixels
-	float	angle;
-	float 	off_y;
-	float 	off_x;
-	int		hit_x;	// in grid
-	int		hit_y;	// in grid
-	int		vx;
-	int		vy;
-	float 	dist_v;
-	float 	dist_h;
-	float	tan_var;
-	int		dof;
-}	t_ray;
 
 typedef struct s_wall_collision
 {
@@ -182,7 +155,7 @@ typedef struct s_graphics
 	mlx_image_t		*img;
 	mlx_image_t		*img_3d;
 	bool			init_dir;
-	t_ray			**ray;
+	// t_ray			**ray;
 	t_textures		*textures;
 	t_dda			*dda;
 }	t_graphics;
@@ -193,7 +166,7 @@ bool	run_graphics(t_general_data	*data);
  * Init. structs functions
 */
 bool	init_graphics(t_general_data *data, t_graphics *graphics);
-bool	init_rays(t_general_data *data);
+// bool	init_rays(t_general_data *data);
 bool	init_textures(t_general_data *data);
 bool	init_dda(t_general_data *data);
 
@@ -216,9 +189,9 @@ void	terminate(t_graphics *graphics);
 /**
  * Raycasting functions
 */
-bool	ray_caster(t_general_data *data);
-void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
-void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+// bool	ray_caster(t_general_data *data);
+// void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+// void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
 
 bool	dda(t_general_data *data);
 

@@ -19,11 +19,7 @@ static void	init_direction(t_general_data *data, int x, int y)
 
 	centered = PIXELS / 2;
 	if (data->file_data->map_data->map[y][x] == 'N')
-	{
 		data->file_data->player->angle = 0.5 * M_PI;
-		// data->graphics->dda->dir_x = 0;
-		// data->graphics->dda->dir_y = -1;
-	}
 	else if (data->file_data->map_data->map[y][x] == 'W')
 		data->file_data->player->angle = 1.0 * M_PI;
 	else if (data->file_data->map_data->map[y][x] == 'S')

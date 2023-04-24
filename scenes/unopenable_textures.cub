@@ -1,4 +1,4 @@
-N ./textures/diamond.png
+N ./textures/cant_be_opened.png
 
 
 
@@ -11,8 +11,8 @@ W ./textures/diamond.png
 
 E ./textures/diamond.png
 
-F 300,,,,,,,100,0
-C 22,5,30,0,57
+F 220,100,0
+C 225,30,0
 
 111111
 100101
