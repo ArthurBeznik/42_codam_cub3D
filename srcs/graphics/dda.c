@@ -63,20 +63,20 @@ bool dda(t_general_data *data)
 	// fprintf(stderr, "pos_x | pos_y : %f | %f\n", dda->pos_x, dda->pos_y); // ? testing
 	// fprintf(stderr, "w | h : %d | %d\n", w, h); // ? testing
 
-	// put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
-    // put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
 	
 	height = data->graphics->img->height;
 	switch_height = height / 2;
 	width = data->graphics->img->width;
 
 	/* fill top half of screen with ceiling color */
-	ft_memset(data->graphics->img_3d->pixels, data->file_data->identifiers->ceiling.rgba, switch_height * \
-            width * sizeof(int));
+	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
+	// ft_memset(data->graphics->img_3d->pixels, data->file_data->identifiers->ceiling.rgba, switch_height * \
+    //         width * sizeof(int));
 
 	/* fill bottom half of screen with floor color */
-	ft_memset(data->graphics->img_3d->pixels + switch_height * width, data->file_data->identifiers->floor.rgba, \
-            (height - switch_height) * width * sizeof(int));
+    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data->identifiers->floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
+	// ft_memset(data->graphics->img_3d->pixels + switch_height * width, data->file_data->identifiers->floor.rgba, \
+    //         (height - switch_height) * width * sizeof(int));
 
 	/* raycasting loop: goes through every x until reaching map width */
 	for (int x = 0; x < dda->w; x++)
