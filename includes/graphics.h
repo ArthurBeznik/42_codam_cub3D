@@ -10,7 +10,7 @@
 # include <math.h>
 
 # include <utils.h>
-# include <cub3D.h>
+// # include <cub3D.h>
 # include <MLX42.h>
 
 # define ERROR -1
@@ -161,24 +161,24 @@ typedef struct s_graphics
 	t_dda			dda;
 }	t_graphics;
 
-bool	run_graphics(t_general_data	*data);
+// bool	run_graphics(t_general_data	*data);
 
-/**
- * Init. structs functions
-*/
-bool	init_graphics(t_general_data *data, t_graphics *graphics);
-// bool	init_rays(t_general_data *data);
-bool	init_textures(t_general_data *data);
-bool	init_dda(t_general_data *data);
+// /**
+//  * Init. structs functions
+// */
+// bool	init_graphics(t_general_data *data);
+// // bool	init_rays(t_general_data *data);
+// bool	init_textures(t_general_data *data);
+// bool	init_dda(t_general_data *data);
 
-/**
- * Draw functions
-*/
-bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player);
-bool	draw_line(t_general_data *data, int x, int y, t_axis axis);
-bool	draw_player(t_general_data *data, mlx_image_t *img);
-bool	draw_2d_map(t_general_data *data);
-bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
+// /**
+//  * Draw functions
+// */
+// bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player);
+// bool	draw_line(t_general_data *data, int x, int y, t_axis axis);
+// bool	draw_player(t_general_data *data, mlx_image_t *img);
+// bool	draw_2d_map(t_general_data *data);
+// bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
 
 /**
  * Hooks functions
@@ -187,19 +187,19 @@ void	captain(void *param);
 void	free_close_window(t_graphics *graphics, void *var, char *str);
 void	terminate(t_graphics *graphics);
 
-/**
- * Raycasting functions
-*/
-// bool	ray_caster(t_general_data *data);
-// void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
-// void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+// /**
+//  * Raycasting functions
+// */
+// // bool	ray_caster(t_general_data *data);
+// // void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+// // void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
 
-bool	dda(t_general_data *data);
+// bool	dda(t_general_data *data);
 
-/**
- * Misc. functions
-*/
-bool	fill_map(t_general_data	*data);
-void	log_val(t_general_data *data, char *function, char values);
+// /**
+//  * Misc. functions
+// */
+// bool	fill_map(t_general_data	*data);
+// void	log_val(t_general_data *data, char *function, char values);
 
 #endif

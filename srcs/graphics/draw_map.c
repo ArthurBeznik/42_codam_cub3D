@@ -1,4 +1,4 @@
-#include <graphics.h>
+#include <cub3D.h>
 
 /**
  * See degree to radian conversion 
@@ -37,7 +37,7 @@ static void	init_direction(t_general_data *data, int x, int y)
 	data->file_data.player.dx = cos(data->file_data.player.angle) * MOV_SPEED; // ? * 5 because these are very small values
 	data->file_data.player.dy = -sin(data->file_data.player.angle) * MOV_SPEED; // ? also affects the speed of the player
 	// log_val(data, "init_dir", 'D'); // ? testing
-	data->graphics->init_dir = true;
+	data->graphics.init_dir = true;
 }
 
 static bool	draw_gridlines(char	**map, t_general_data *data, int map_height)
@@ -90,7 +90,7 @@ static bool	draw_cells(char	**map, t_general_data *data, int map_height)
 			else if (is_player((const char)map[y][x]))
 			{
 				ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE, false);
-				if (data->graphics->init_dir == false)
+				if (data->graphics.init_dir == false)
 					init_direction(data, x, y);
 			}
 			if (ret == false)
@@ -108,7 +108,7 @@ bool	draw_2d_map(t_general_data *data)
 		return (error_msg("Drawing cells"));
 	if (!draw_gridlines(data->file_data.map_data.copy, data, data->file_data.map_data.row))
 		return (error_msg("Drawing gridlines"));
-	if (!draw_player(data, data->graphics->img))
+	if (!draw_player(data, data->graphics.img))
 		return (error_msg("Drawing player"));
 	return (true);
 }

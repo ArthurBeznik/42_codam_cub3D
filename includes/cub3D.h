@@ -15,12 +15,46 @@
 typedef struct s_general_data
 {
 	t_file_data		file_data;
-	struct s_graphics		*graphics;
+	t_graphics		graphics;
 }	t_general_data;
 
 int		main(int argc, char *argv[]);
 bool	parser(int argc, char *argv[], t_general_data *data);
 bool	init_file_data(t_general_data *data);
 void	free_data(t_general_data *data);
+
+bool	run_graphics(t_general_data	*data);
+
+/**
+ * Init. structs functions
+*/
+bool	init_graphics(t_general_data *data);
+// bool	init_rays(t_general_data *data);
+bool	init_textures(t_general_data *data);
+bool	init_dda(t_general_data *data);
+
+/**
+ * Draw functions
+*/
+bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player);
+bool	draw_line(t_general_data *data, int x, int y, t_axis axis);
+bool	draw_player(t_general_data *data, mlx_image_t *img);
+bool	draw_2d_map(t_general_data *data);
+bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
+
+/**
+ * Raycasting functions
+*/
+// bool	ray_caster(t_general_data *data);
+// void	vertical_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+// void	horizontal_ray(t_general_data *data, t_ray *raymond, float angle, t_textures *textures);
+
+bool	dda(t_general_data *data);
+
+/**
+ * Misc. functions
+*/
+bool	fill_map(t_general_data	*data);
+void	log_val(t_general_data *data, char *function, char values);
 
 #endif
