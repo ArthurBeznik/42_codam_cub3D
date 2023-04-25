@@ -8,11 +8,12 @@ void	find_textures(const char *line, t_file_data *data)
 	// tmp = NULL; // ? testing
 	if (!tmp)
 		return ;
-	if (ft_strlen(tmp[0]) > 2)
+	if (ft_strlen(tmp[0]) > 2 || !tmp[1])
 	// int x = 4; // ? testing
 	// if (x > 2) // ? testing
 	{
 		free_2d(tmp);
+		data->only_texture_id = true;
 		return ;
 	}
 	if (tmp[0][0] == 'N' || !ft_strncmp("NO", tmp[0], 2))
@@ -51,8 +52,11 @@ void	find_textures(const char *line, t_file_data *data)
 			data->duplicate_identifier = true;
 		}
 		data->identifiers.path_to_east_texture = ft_strdup(tmp[1]);
-	}
+	} 
+	else 
+		data->only_texture_id = true;
 	free_2d(tmp);
+
 }
 
 static bool	check_rgb_values(const char **rgb_values)

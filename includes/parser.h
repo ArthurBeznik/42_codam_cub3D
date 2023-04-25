@@ -79,6 +79,7 @@ typedef struct s_file_data
 	bool				floor_found;
 	bool				duplicate_identifier;
 	bool				duplicate_color;
+	bool				only_texture_id;
 	t_map_data			map_data;
 	t_identifiers_data	identifiers;
 	t_player			player;

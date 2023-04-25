@@ -47,6 +47,8 @@ static bool	st_find_identifiers(t_file_data *data, const int nb_rows)
 	}
 	if (data->duplicate_identifier == true)
 		return (error_msg("Duplicate texture identifier"));
+	if (data->only_texture_id == true)
+		return (error_msg("Missing textures"));
 	if (data->duplicate_color == true)
 		return (error_msg("Duplicate color identifier"));
 	if (data->ceiling_found == false || data->floor_found == false)

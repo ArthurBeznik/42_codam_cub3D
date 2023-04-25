@@ -47,6 +47,7 @@ bool	init_file_data(t_general_data *data)
 	data->file_data.floor_found = false;
 	data->file_data.duplicate_identifier = false;
 	data->file_data.duplicate_color = false;
+	data->file_data.only_texture_id = false;
 	if (!st_init_map_data(&data->file_data))
 		return (error_msg("Initializing map data struct"));
 	if (!st_init_identifiers_data(&data->file_data))
