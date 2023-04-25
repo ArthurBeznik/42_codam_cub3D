@@ -17,11 +17,30 @@ void	free_2d(char **array)
 
 void	free_data(t_general_data *data)
 {
-	free(data->file_data.identifiers.path_to_north_texture);
-	free(data->file_data.identifiers.path_to_south_texture);
-	free(data->file_data.identifiers.path_to_west_texture);
-	free(data->file_data.identifiers.path_to_east_texture);
-	free_2d(data->file_data.map_data.map);
-	free_2d(data->file_data.map_data.copy);
-	free(data->file_data.line);
+	if (data->file_data.identifiers.path_to_north_texture != NULL)
+		free(data->file_data.identifiers.path_to_north_texture);
+	if (data->file_data.identifiers.path_to_south_texture != NULL)
+		free(data->file_data.identifiers.path_to_south_texture);
+	if (data->file_data.identifiers.path_to_west_texture != NULL)
+		free(data->file_data.identifiers.path_to_west_texture);
+	if (data->file_data.identifiers.path_to_east_texture != NULL)
+		free(data->file_data.identifiers.path_to_east_texture);
+	if (data->file_data.scene != NULL)
+		free_2d(data->file_data.scene);
+	if (data->file_data.map_data.map != NULL)
+	{
+		fprintf(stderr, "FREEING MAP\n");
+		free_2d(data->file_data.map_data.map);
+		fprintf(stderr, "MAP FREED\n");
+	}
+	if (data->file_data.map_data.copy != NULL)
+	{
+		fprintf(stderr, "FREEING COPY\n");
+		free_2d(data->file_data.map_data.copy);
+		fprintf(stderr, "COPY FREED\n");
+	}
+	fprintf(stderr, "FREEING LINE\n");
+	if (data->file_data.line != NULL)
+		free(data->file_data.line);
+	fprintf(stderr, "LINE FREED\n");
 }

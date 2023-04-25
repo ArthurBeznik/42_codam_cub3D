@@ -20,12 +20,15 @@ int	main(int argc, char *argv[])
   	if (!run_graphics(&data))
 	{
 		free_data(&data);
-		terminate(data.graphics);
+		// terminate(data.graphics);
 	}
-	free_2d(data.file_data.map_data.map);
-	free(data.file_data.identifiers.path_to_north_texture);
-	free(data.file_data.identifiers.path_to_south_texture);
-	free(data.file_data.identifiers.path_to_west_texture);
-	free(data.file_data.identifiers.path_to_east_texture);
+	// fprintf(stderr, "SUCCESS\n");
+	// free_data(&data);
+	// fprintf(stderr, "SUCCESS2\n");
+	// free_2d(data.file_data.map_data.map);
+	// free(data.file_data.identifiers.path_to_north_texture);
+	// free(data.file_data.identifiers.path_to_south_texture);
+	// free(data.file_data.identifiers.path_to_west_texture);
+	// free(data.file_data.identifiers.path_to_east_texture);
 	return (0);
 }
