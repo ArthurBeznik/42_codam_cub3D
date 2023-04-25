@@ -215,19 +215,19 @@ bool dda(t_general_data *data)
 			switch (dda->side)
 			{
 				case NORTH:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->north_tex, tex_x, tex_y);
+					data->graphics->textures.rgba = get_rgba(data->graphics->textures.north_tex, tex_x, tex_y);
 					break;
 				case WEST:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->west_tex, tex_x, tex_y);
+					data->graphics->textures.rgba = get_rgba(data->graphics->textures.west_tex, tex_x, tex_y);
 					break;
 				case SOUTH:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->south_tex, tex_x, tex_y);
+					data->graphics->textures.rgba = get_rgba(data->graphics->textures.south_tex, tex_x, tex_y);
 					break;
 				case EAST:
-					data->graphics->textures->rgba = get_rgba(data->graphics->textures->east_tex, tex_x, tex_y);
+					data->graphics->textures.rgba = get_rgba(data->graphics->textures.east_tex, tex_x, tex_y);
 					break;
 			}
-			mlx_put_pixel(data->graphics->img_3d, x, y, data->graphics->textures->rgba);
+			mlx_put_pixel(data->graphics->img_3d, x, y, data->graphics->textures.rgba);
 		}
 	}
 	return (true);

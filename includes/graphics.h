@@ -157,7 +157,7 @@ typedef struct s_graphics
 	mlx_image_t		*img_3d;
 	bool			init_dir;
 	// t_ray			**ray;
-	t_textures		*textures;
+	t_textures		textures;
 	t_dda			*dda;
 }	t_graphics;
 
