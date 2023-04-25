@@ -43,7 +43,6 @@ static int	get_rgba(mlx_texture_t *texture, int x, int y)
 
 bool dda(t_general_data *data)
 {
-	t_dda 	*dda;
 	int		height;
 	int		switch_height;
 	int 	width;
@@ -58,9 +57,7 @@ bool dda(t_general_data *data)
 	double	tex_pos;
 	double	step;
 
-	dda = data->graphics->dda;
-
-	// fprintf(stderr, "pos_x | pos_y : %f | %f\n", dda->pos_x, dda->pos_y); // ? testing
+	// fprintf(stderr, "pos_x | pos_y : %f | %f\n", data->graphics->dda.pos_x, data->graphics->dda.pos_y); // ? testing
 	// fprintf(stderr, "w | h : %d | %d\n", w, h); // ? testing
 
 	
@@ -69,37 +66,37 @@ bool dda(t_general_data *data)
 	width = data->graphics->img->width;
 
 	/* fill top half of screen with ceiling color */
-	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers.ceiling.rgba), ((dda->h / 3 * 2) * dda->w), 0);
+	put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers.ceiling.rgba), ((data->graphics->dda.h / 3 * 2) * data->graphics->dda.w), 0);
 	// ft_memset(data->graphics->img_3d->pixels, data->file_data.identifiers.ceiling.rgba, switch_height * \
     //         width * sizeof(int));
 
 	/* fill bottom half of screen with floor color */
-    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers.floor.rgba), (dda->h / 3 * dda->w), ((dda->h / 3 * 2) * dda->w));
+    put_multi_pixels(data->graphics->img_3d, reverseBits(data->file_data.identifiers.floor.rgba), (data->graphics->dda.h / 3 * data->graphics->dda.w), ((data->graphics->dda.h / 3 * 2) * data->graphics->dda.w));
 	// ft_memset(data->graphics->img_3d->pixels + switch_height * width, data->file_data.identifiers.floor.rgba, \
     //         (height - switch_height) * width * sizeof(int));
 
 	/* raycasting loop: goes through every x until reaching map width */
-	for (int x = 0; x < dda->w; x++)
+	for (int x = 0; x < data->graphics->dda.w; x++)
 	{
 		/* calculate ray position and direction */
-		dda->camera_x = 2 * x / (double)dda->w - 1;					// x-coordinate in camera space
-		dda->ray_dir_x = dda->dir_x + dda->plane_x * dda->camera_x; // ray starts at player position
-		dda->ray_dir_y = dda->dir_y + dda->plane_y * dda->camera_x; // ray starts at player position
+		data->graphics->dda.camera_x = 2 * x / (double)data->graphics->dda.w - 1;					// x-coordinate in camera space
+		data->graphics->dda.ray_dir_x = data->graphics->dda.dir_x + data->graphics->dda.plane_x * data->graphics->dda.camera_x; // ray starts at player position
+		data->graphics->dda.ray_dir_y = data->graphics->dda.dir_y + data->graphics->dda.plane_y * data->graphics->dda.camera_x; // ray starts at player position
 
-		// fprintf(stderr, "camera_x : %f\n", dda->camera_x); // ? testing
-		// fprintf(stderr, "ray_dir_x | ray_dir_y : %f | %f\n", dda->ray_dir_x, dda->ray_dir_y); // ? testing
+		// fprintf(stderr, "camera_x : %f\n", data->graphics->dda.camera_x); // ? testing
+		// fprintf(stderr, "ray_dir_x | ray_dir_y : %f | %f\n", data->graphics->dda.ray_dir_x, data->graphics->dda.ray_dir_y); // ? testing
 
 		/* square of the map the ray is in */
-		dda->map_x = (int)dda->pos_x;
-		dda->map_y = (int)dda->pos_y;
+		data->graphics->dda.map_x = (int)data->graphics->dda.pos_x;
+		data->graphics->dda.map_y = (int)data->graphics->dda.pos_y;
 
-		// fprintf(stderr, "dda->map_x | dda->map_y : %d | %d\n", dda->map_x, dda->map_y); // ? testing
-		// fprintf(stderr, "dda->pos_x | dda->pos_y : %f | %f\n", dda->pos_x, dda->pos_y); // ? testing
+		// fprintf(stderr, "data->graphics->dda.map_x | data->graphics->dda.map_y : %d | %d\n", data->graphics->dda.map_x, data->graphics->dda.map_y); // ? testing
+		// fprintf(stderr, "data->graphics->dda.pos_x | data->graphics->dda.pos_y : %f | %f\n", data->graphics->dda.pos_x, data->graphics->dda.pos_y); // ? testing
 
 		/* length of ray from one x or y-side to next x or y-side */
-		dda->delta_dist_x = (dda->ray_dir_x == 0) ? 1e30 : fabs(1 / dda->ray_dir_x);
-		dda->delta_dist_y = (dda->ray_dir_y == 0) ? 1e30 : fabs(1 / dda->ray_dir_y);
-		// fprintf(stderr, "delta_dist_x | delta_dist_y : %f | %f\n", dda->delta_dist_x, dda->delta_dist_y); // ? testing
+		data->graphics->dda.delta_dist_x = (data->graphics->dda.ray_dir_x == 0) ? 1e30 : fabs(1 / data->graphics->dda.ray_dir_x);
+		data->graphics->dda.delta_dist_y = (data->graphics->dda.ray_dir_y == 0) ? 1e30 : fabs(1 / data->graphics->dda.ray_dir_y);
+		// fprintf(stderr, "delta_dist_x | delta_dist_y : %f | %f\n", data->graphics->dda.delta_dist_x, data->graphics->dda.delta_dist_y); // ? testing
 
 		/**
 		 * calculate step and initial side_dist
@@ -110,67 +107,67 @@ bool dda(t_general_data *data)
 		 * 		= 1		=> looking south
 		 * 		= -1	=> looking north
 		*/
-		if (dda->ray_dir_x < 0)
+		if (data->graphics->dda.ray_dir_x < 0)
 		{
-			dda->step_x = -1;
-			dda->side_dist_x = (dda->pos_x - dda->map_x) * dda->delta_dist_x;
+			data->graphics->dda.step_x = -1;
+			data->graphics->dda.side_dist_x = (data->graphics->dda.pos_x - data->graphics->dda.map_x) * data->graphics->dda.delta_dist_x;
 		}
 		else
 		{
-			dda->step_x = 1;
-			dda->side_dist_x = (dda->map_x + 1.0 - dda->pos_x) * dda->delta_dist_x;
+			data->graphics->dda.step_x = 1;
+			data->graphics->dda.side_dist_x = (data->graphics->dda.map_x + 1.0 - data->graphics->dda.pos_x) * data->graphics->dda.delta_dist_x;
 		}
-		if (dda->ray_dir_y < 0)
+		if (data->graphics->dda.ray_dir_y < 0)
 		{
-			dda->step_y = -1;
-			dda->side_dist_y = (dda->pos_y - dda->map_y) * dda->delta_dist_y;
+			data->graphics->dda.step_y = -1;
+			data->graphics->dda.side_dist_y = (data->graphics->dda.pos_y - data->graphics->dda.map_y) * data->graphics->dda.delta_dist_y;
 		}
 		else
 		{
-			dda->step_y = 1;
-			dda->side_dist_y = (dda->map_y + 1.0 - dda->pos_y) * dda->delta_dist_y;
+			data->graphics->dda.step_y = 1;
+			data->graphics->dda.side_dist_y = (data->graphics->dda.map_y + 1.0 - data->graphics->dda.pos_y) * data->graphics->dda.delta_dist_y;
 		}
-		// fprintf(stderr, "side_dist_x | side_dist_y : %f | %f\n", dda->side_dist_x, dda->side_dist_y); // ? testing
+		// fprintf(stderr, "side_dist_x | side_dist_y : %f | %f\n", data->graphics->dda.side_dist_x, data->graphics->dda.side_dist_y); // ? testing
 
 		/* DDA */
 		hit = 0;
 		while (hit == 0)
 		{
 			/* jump to next map square, either in x-direction, or in y-direction, the closest */
-			if (dda->side_dist_x < dda->side_dist_y)
+			if (data->graphics->dda.side_dist_x < data->graphics->dda.side_dist_y)
 			{
-				dda->side_dist_x += dda->delta_dist_x;
-				dda->map_x += dda->step_x;
-				if (dda->step_x == -1)
-					dda->side = WEST;
-				if (dda->step_x == 1)
-					dda->side = EAST;		
+				data->graphics->dda.side_dist_x += data->graphics->dda.delta_dist_x;
+				data->graphics->dda.map_x += data->graphics->dda.step_x;
+				if (data->graphics->dda.step_x == -1)
+					data->graphics->dda.side = WEST;
+				if (data->graphics->dda.step_x == 1)
+					data->graphics->dda.side = EAST;		
 			}
 			else
 			{
-				dda->side_dist_y += dda->delta_dist_y;
-				dda->map_y += dda->step_y;
-				if (dda->step_y == -1)
-					dda->side = NORTH;
-				if (dda->step_y == 1)
-					dda->side = SOUTH;
+				data->graphics->dda.side_dist_y += data->graphics->dda.delta_dist_y;
+				data->graphics->dda.map_y += data->graphics->dda.step_y;
+				if (data->graphics->dda.step_y == -1)
+					data->graphics->dda.side = NORTH;
+				if (data->graphics->dda.step_y == 1)
+					data->graphics->dda.side = SOUTH;
 			}
 
-			// fprintf(stderr, "dda->map_x | dda->map_y | value : %d | %d | %c\n", dda->map_x, dda->map_y, data->file_data.map_data->copy[dda->map_y][dda->map_x]); // ? testing
+			// fprintf(stderr, "data->graphics->dda.map_x | data->graphics->dda.map_y | value : %d | %d | %c\n", data->graphics->dda.map_x, data->graphics->dda.map_y, data->file_data.map_data->copy[data->graphics->dda.map_y][data->graphics->dda.map_x]); // ? testing
 
 			/* check if ray has hit a wall */
-			if (data->file_data.map_data.copy[dda->map_y][dda->map_x] == '1')
+			if (data->file_data.map_data.copy[data->graphics->dda.map_y][data->graphics->dda.map_x] == '1')
 				hit = 1;
 		}
 
 		/* calculate distance of the ray to the wall, to avoid fisheye effect */
-		if (dda->side == WEST || dda->side == EAST)
-			dda->perp_wall_dist = (dda->side_dist_x - dda->delta_dist_x);
+		if (data->graphics->dda.side == WEST || data->graphics->dda.side == EAST)
+			data->graphics->dda.perp_wall_dist = (data->graphics->dda.side_dist_x - data->graphics->dda.delta_dist_x);
 		else
-			dda->perp_wall_dist = (dda->side_dist_y - dda->delta_dist_y);
+			data->graphics->dda.perp_wall_dist = (data->graphics->dda.side_dist_y - data->graphics->dda.delta_dist_y);
 
 		/* calculate height of line to draw on screen */
-		line_height = (int)(dda->h / dda->perp_wall_dist);
+		line_height = (int)(data->graphics->dda.h / data->graphics->dda.perp_wall_dist);
 
 		pitch = 100;
 
@@ -179,32 +176,32 @@ bool dda(t_general_data *data)
 		 * 	here we draw from the center of the screen (i.e. / 2)
 		 * 	if the other points are outside of the screen, they are capped to 0 to h-1
 		 */
-		draw_start = -line_height / 2 + dda->h / 2 + pitch;
+		draw_start = -line_height / 2 + data->graphics->dda.h / 2 + pitch;
 		if (draw_start < 0)
 			draw_start = 0;
-		draw_end = line_height / 2 + dda->h / 2 + pitch;
-		if (draw_end >= dda->h)
-			draw_end = dda->h - 1;
+		draw_end = line_height / 2 + data->graphics->dda.h / 2 + pitch;
+		if (draw_end >= data->graphics->dda.h)
+			draw_end = data->graphics->dda.h - 1;
 
 		/* calculate value of wall_x */
-		if (dda->side == WEST || dda->side == EAST)
-			wall_x = dda->pos_y + dda->perp_wall_dist * dda->ray_dir_y;
+		if (data->graphics->dda.side == WEST || data->graphics->dda.side == EAST)
+			wall_x = data->graphics->dda.pos_y + data->graphics->dda.perp_wall_dist * data->graphics->dda.ray_dir_y;
 		else
-			wall_x = dda->pos_x + dda->perp_wall_dist * dda->ray_dir_x;
+			wall_x = data->graphics->dda.pos_x + data->graphics->dda.perp_wall_dist * data->graphics->dda.ray_dir_x;
 		wall_x -= floor((wall_x));
 
 		/* x coordinate on the texture */
 		tex_x = (int)(wall_x * (double)(PIXELS));
-		if (dda->side == EAST)
+		if (data->graphics->dda.side == EAST)
 			tex_x = PIXELS - tex_x - 1;
-		if (dda->side == NORTH)
+		if (data->graphics->dda.side == NORTH)
 			tex_x = PIXELS - tex_x - 1;
 
 		/* how much to increase the texture coordinate per screen pixel */
 		step = 1.0 * PIXELS / line_height;
 
 		/* starting texture coordinate */
-		tex_pos = (draw_start - pitch - dda->h / 2 + line_height / 2) * step;
+		tex_pos = (draw_start - pitch - data->graphics->dda.h / 2 + line_height / 2) * step;
 		for (int y = draw_start; y < draw_end; y++)
 		{
 			/* cast the texture coordinate to integer, and mask with (tex_height - 1) in case of overflow */
@@ -212,7 +209,7 @@ bool dda(t_general_data *data)
 			tex_pos += step;
 			// Uint32 color = texture[texNum][PIXELS * texY + texX];
 			// buffer[y][x] = color;
-			switch (dda->side)
+			switch (data->graphics->dda.side)
 			{
 				case NORTH:
 					data->graphics->textures.rgba = get_rgba(data->graphics->textures.north_tex, tex_x, tex_y);

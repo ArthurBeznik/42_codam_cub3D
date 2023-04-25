@@ -2,36 +2,30 @@
 
 bool	init_dda(t_general_data *data)
 {
-	t_dda	*dda;
-
-	dda = (t_dda *)malloc(sizeof(t_dda));
-	if (!dda)
-		return (error_msg("Malloc dda struct"));
-	dda->camera_x = NA;
-	dda->delta_dist_x = NA;
-	dda->delta_dist_y = NA;
-	dda->dir_x = NA;
-	dda->dir_y = NA;
-	dda->h = NA;
-	dda->hit = NA;
-	dda->map_x = NA;
-	dda->map_y = NA;
-	dda->perp_wall_dist = NA;
-	dda->plane_x = NA;
-	dda->plane_y = NA;
-	dda->player_x = NA;
-	dda->player_y = NA;
-	dda->pos_x = NA;
-	dda->pos_y = NA;
-	dda->ray_dir_x = NA;
-	dda->ray_dir_y = NA;
-	dda->side = NA;
-	dda->side_dist_x = NA;
-	dda->side_dist_y = NA;
-	dda->step_x = NA;
-	dda->step_y = NA;
-	dda->w = NA;
-	data->graphics->dda = dda;
+	data->graphics->dda.camera_x = NA;
+	data->graphics->dda.delta_dist_x = NA;
+	data->graphics->dda.delta_dist_y = NA;
+	data->graphics->dda.dir_x = NA;
+	data->graphics->dda.dir_y = NA;
+	data->graphics->dda.h = NA;
+	data->graphics->dda.hit = NA;
+	data->graphics->dda.map_x = NA;
+	data->graphics->dda.map_y = NA;
+	data->graphics->dda.perp_wall_dist = NA;
+	data->graphics->dda.plane_x = NA;
+	data->graphics->dda.plane_y = NA;
+	data->graphics->dda.player_x = NA;
+	data->graphics->dda.player_y = NA;
+	data->graphics->dda.pos_x = NA;
+	data->graphics->dda.pos_y = NA;
+	data->graphics->dda.ray_dir_x = NA;
+	data->graphics->dda.ray_dir_y = NA;
+	data->graphics->dda.side = NA;
+	data->graphics->dda.side_dist_x = NA;
+	data->graphics->dda.side_dist_y = NA;
+	data->graphics->dda.step_x = NA;
+	data->graphics->dda.step_y = NA;
+	data->graphics->dda.w = NA;
 	return (true);
 }
 

@@ -6,43 +6,39 @@ void	init_dir_plane(t_general_data *data)
 	switch (data->file_data.player.facing)
 	{
 		case 'N':
-			data->graphics->dda->dir_x = 0;
-			data->graphics->dda->dir_y = -1;
-			data->graphics->dda->plane_x = 0.66;
-			data->graphics->dda->plane_y = 0;
+			data->graphics->dda.dir_x = 0;
+			data->graphics->dda.dir_y = -1;
+			data->graphics->dda.plane_x = 0.66;
+			data->graphics->dda.plane_y = 0;
 			break;
 		case 'W':
-			data->graphics->dda->dir_x = -1;
-			data->graphics->dda->dir_y = 0;
-			data->graphics->dda->plane_x = 0;
-			data->graphics->dda->plane_y = -0.66;
+			data->graphics->dda.dir_x = -1;
+			data->graphics->dda.dir_y = 0;
+			data->graphics->dda.plane_x = 0;
+			data->graphics->dda.plane_y = -0.66;
 			break;
 		case 'S':
-			data->graphics->dda->dir_x = 0;
-			data->graphics->dda->dir_y = 1;
-			data->graphics->dda->plane_x = -0.66;
-			data->graphics->dda->plane_y = 0;
+			data->graphics->dda.dir_x = 0;
+			data->graphics->dda.dir_y = 1;
+			data->graphics->dda.plane_x = -0.66;
+			data->graphics->dda.plane_y = 0;
 			break;
 		case 'E':
-			data->graphics->dda->dir_x = 1;
-			data->graphics->dda->dir_y = 0;
-			data->graphics->dda->plane_x = 0;
-			data->graphics->dda->plane_y = 0.66;
+			data->graphics->dda.dir_x = 1;
+			data->graphics->dda.dir_y = 0;
+			data->graphics->dda.plane_x = 0;
+			data->graphics->dda.plane_y = 0.66;
 			break;
 	}
 }
 
 bool	fill_dda_data(t_general_data *data)
 {
-	t_dda *dda;
-
-	dda = data->graphics->dda;
-	
 	init_dir_plane(data);
-	dda->w = data->graphics->width;
-	dda->h = data->graphics->height;
-	dda->pos_x = data->file_data.player.x;
-	dda->pos_y = data->file_data.player.y;
+	data->graphics->dda.w = data->graphics->width;
+	data->graphics->dda.h = data->graphics->height;
+	data->graphics->dda.pos_x = data->file_data.player.x;
+	data->graphics->dda.pos_y = data->file_data.player.y;
 	return (true);
 }
 
