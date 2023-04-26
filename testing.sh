@@ -33,13 +33,28 @@ if [ ! -f $EXE ]; then
   exit 1
 fi
 
-# Iterate over all files in the scenes directory
-# Execute cub3D with current scene file
-for file in ./scenes/*; do
+# Run cub3D with valid maps
+echo -e "\n\n${GREEN}Testing valid maps${NC} "
+for file in ./scenes/valid/*; do
 	echo -e "\n${BLUE}Running cub3D with $file${NC}\n"
-	./cub3D "$file"
+	echo -e "$file\n" >> out
+	./cub3D "$file" >> out
 	EXIT_CODE=$?
+	echo -e "=========================================================================================================\n" >> out
 	check_exit
 	wait_key
 done
 
+# Run cub3D with invalid maps
+echo -e "\n\n${RED}Testing invalid maps${NC}"
+for file in ./scenes/invalid/*; do
+	echo -e "\n${BLUE}Running cub3D with $file${NC}\n"
+	echo -e "$file\n" >> out
+	./cub3D "$file" >> out
+	EXIT_CODE=$?
+	echo -e "=========================================================================================================\n" >> out
+	check_exit
+	wait_key
+done
+
+rm -rf out
