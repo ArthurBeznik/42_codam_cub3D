@@ -41,6 +41,8 @@ static bool	st_find_identifiers(t_file_data *data, const int nb_rows)
 	i = 0;
 	while (i < nb_rows)
 	{
+		if ((data->identifiers.ceiling.rgba != 0 || data->identifiers.floor.rgba != 0) && (!data->identifiers.path_to_east_texture || !data->identifiers.path_to_north_texture || !data->identifiers.path_to_south_texture || !data->identifiers.path_to_west_texture))
+			return (error_msg("Colors are defined but not textures"));
 		find_textures(data->scene[i], data);
 		find_colors(data->scene[i], data);
 		i++;
@@ -75,7 +77,11 @@ bool	read_scene_data(t_file_data *data)
 	// data->map_content = NULL; // ? testing
 	if (!data->map_data.map)
 		return (error_msg("Invalid map"));
-	free_2d(data->scene);
+	if (data->scene != NULL)
+	{
+		free_2d(data->scene);
+		data->scene = NULL;
+	}
 	// system("leaks cub3D"); // ? testing
 	return (true);
 }

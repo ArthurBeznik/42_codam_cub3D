@@ -42,7 +42,12 @@ bool	init_textures(t_general_data *data)
 	data->graphics.textures.east_tex = mlx_load_png(data->file_data.identifiers.path_to_east_texture);
 	if (!data->graphics.textures.north_tex || !data->graphics.textures.west_tex || \
 		!data->graphics.textures.south_tex || !data->graphics.textures.east_tex)
+	{
+		fprintf(stderr, "mlx_load_png failed\n");
+		free_data(data);
+		terminate(&data->graphics);
 		return (error_msg("mlx_load_png"));
+	}
 	return (true);
 }
 

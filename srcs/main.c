@@ -22,6 +22,7 @@ int	main(int argc, char *argv[])
 		free_data(&data);
 		// terminate(data.graphics);
 	}
+	free_data(&data);
 	// fprintf(stderr, "SUCCESS\n");
 	// free_data(&data);
 	// fprintf(stderr, "SUCCESS2\n");

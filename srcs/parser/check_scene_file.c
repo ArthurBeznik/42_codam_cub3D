@@ -1,5 +1,15 @@
 #include <parser.h>
 
+bool	check_identifiers_values(char **tmp, t_file_data *data)
+{
+	if ((tmp[0][0] == 'N' || tmp[0][0] == 'S'|| tmp[0][0] == 'W' || tmp[0][0] == 'E') && !tmp[1])
+	{
+		data->only_texture_id = true;
+		return (false);
+	}
+	return (true);
+}
+
 void	find_textures(const char *line, t_file_data *data)
 {
 	char	**tmp;
@@ -8,15 +18,14 @@ void	find_textures(const char *line, t_file_data *data)
 	// tmp = NULL; // ? testing
 	if (!tmp)
 		return ;
-	if (ft_strlen(tmp[0]) > 2 || !tmp[1])
+	if (ft_strlen(tmp[0]) > 2)
 	// int x = 4; // ? testing
 	// if (x > 2) // ? testing
 	{
 		free_2d(tmp);
-		data->only_texture_id = true;
 		return ;
 	}
-	if (tmp[0][0] == 'N' || !ft_strncmp("NO", tmp[0], 2))
+	if (((tmp[0][0] == 'N' && !tmp[0][1]) || !ft_strncmp("NO", tmp[0], 2)) && tmp[1])
 	{
 		if (data->identifiers.path_to_north_texture)
 		{
@@ -26,7 +35,7 @@ void	find_textures(const char *line, t_file_data *data)
 		data->identifiers.path_to_north_texture = ft_strdup(tmp[1]);
 	}
 		// data->identifiers.path_to_north_texture = NULL; // ? testing
-	else if (tmp[0][0] == 'S' || !ft_strncmp("SO", tmp[0], 2))
+	else if (((tmp[0][0] == 'S' && !tmp[0][1]) || !ft_strncmp("SO", tmp[0], 2)) && tmp[1])
 	{
 		if (data->identifiers.path_to_south_texture)
 		{
@@ -35,7 +44,7 @@ void	find_textures(const char *line, t_file_data *data)
 		}
 		data->identifiers.path_to_south_texture = ft_strdup(tmp[1]);
 	}
-	else if (tmp[0][0] == 'W' || !ft_strncmp("WE", tmp[0], 2))
+	else if (((tmp[0][0] == 'W' && !tmp[0][1]) || !ft_strncmp("WE", tmp[0], 2)) && tmp[1])
 	{
 		if (data->identifiers.path_to_west_texture)
 		{
@@ -44,7 +53,7 @@ void	find_textures(const char *line, t_file_data *data)
 		}
 		data->identifiers.path_to_west_texture = ft_strdup(tmp[1]);
 	}
-	else if (tmp[0][0] == 'E' || !ft_strncmp("EA", tmp[0], 2))
+	else if (((tmp[0][0] == 'E' && !tmp[0][1]) || !ft_strncmp("EA", tmp[0], 2)) && tmp[1])
 	{
 		if (data->identifiers.path_to_east_texture)
 		{
@@ -53,8 +62,11 @@ void	find_textures(const char *line, t_file_data *data)
 		}
 		data->identifiers.path_to_east_texture = ft_strdup(tmp[1]);
 	} 
-	else 
-		data->only_texture_id = true;
+	else if (!check_identifiers_values(tmp, data))
+	{
+		free_2d(tmp);
+		return ;
+	}
 	free_2d(tmp);
 
 }
