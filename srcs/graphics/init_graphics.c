@@ -53,10 +53,18 @@ bool	init_textures(t_general_data *data)
 
 bool	init_graphics(t_general_data *data)
 {
-	data->graphics.width = data->file_data.map_data.col * PIXELS;
-	data->graphics.height = (data->file_data.map_data.row * PIXELS) + PIXELS;
+	int	minimap_width;
+	int	minimap_height;
 
-	data->graphics.mlx = mlx_init(data->graphics.width * 2.5, data->graphics.height * 1.5, "cub3D", true);
+	minimap_width = data->file_data.map_data.col * PIXELS;
+	minimap_height = (data->file_data.map_data.row * PIXELS) + PIXELS;
+	// data->graphics.width = data->file_data.map_data.col * PIXELS;
+	// data->graphics.height = (data->file_data.map_data.row * PIXELS) + PIXELS;
+	data->graphics.width = 960; // ? testing
+	data->graphics.height = 720; // ? testing
+
+	// data->graphics.mlx = mlx_init(data->graphics.width * 2.5, data->graphics.height * 1.5, "cub3D", true);
+	data->graphics.mlx = mlx_init(data->graphics.width, data->graphics.height, "cub3D", false); // ? testing
 	// data->graphics.mlx = NULL; // ? testing
 	if (!data->graphics.mlx)
 		return (error_msg("mlx_init"));
@@ -69,7 +77,6 @@ bool	init_graphics(t_general_data *data)
 		return (error_msg("mlx_new_image"));
 	}
 
-	// data->graphics.img_3d = mlx_new_image(data->graphics.mlx, 500, 500);
 	data->graphics.img_3d = mlx_new_image(data->graphics.mlx, data->graphics.width, data->graphics.height);
 	// graphics.img_3d = NULL; // ? testing
 	if (!data->graphics.img_3d)

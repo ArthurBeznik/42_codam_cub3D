@@ -60,7 +60,6 @@ bool dda(t_general_data *data)
 	// fprintf(stderr, "pos_x | pos_y : %f | %f\n", data->graphics.dda.pos_x, data->graphics.dda.pos_y); // ? testing
 	// fprintf(stderr, "w | h : %d | %d\n", w, h); // ? testing
 
-	
 	height = data->graphics.img->height;
 	switch_height = height / 2;
 	width = data->graphics.img->width;

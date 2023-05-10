@@ -2,17 +2,17 @@ N ./textures/diamond.png
 
 
 
-S ./textures/diamond.png
+S ./textures/gold.png
 
 
 
-W ./textures/diamond.png
+W ./textures/stone.png
 
 
-E ./textures/diamond.png
+E ./textures/wood.png
 
-F 220,100,0
-C 225,30,0
+F 0,0,255
+C 255,0,0
 
 111111
 1S0101
