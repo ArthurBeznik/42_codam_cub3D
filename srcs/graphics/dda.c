@@ -25,6 +25,7 @@ void	put_multi_pixels(mlx_image_t *img, unsigned int color, \
 	int			i;
 
 	px = (uint32_t *)img->pixels;
+	i = 0;
 	while (i < pixels)
 	{
 		px[offset + i] = color;
