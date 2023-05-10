@@ -79,6 +79,20 @@ typedef struct s_wall_collision
 	int		ipy_sub_yo;
 }	t_wall_collision;
 
+typedef struct s_calc
+{
+	int 	line_height;
+	int		pitch;
+	int		draw_start;
+	int		draw_end;
+	int		hit;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	tex_pos;
+	double	step;
+}	t_calc;
+
 /**
  * . dda:
  * 		always jumps exactly one square on each loop, either in the x-direction or the y-direction
@@ -159,6 +173,7 @@ typedef struct s_graphics
 	// t_ray			**ray;
 	t_textures		textures;
 	t_dda			dda;
+	t_calc			calc;
 }	t_graphics;
 
 // bool	run_graphics(t_general_data	*data);

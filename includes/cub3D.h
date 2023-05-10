@@ -32,6 +32,7 @@ bool	init_graphics(t_general_data *data);
 // bool	init_rays(t_general_data *data);
 bool	init_textures(t_general_data *data);
 bool	init_dda(t_general_data *data);
+bool	init_calc(t_general_data *data);
 
 /**
  * Draw functions
@@ -56,5 +57,9 @@ bool	dda(t_general_data *data);
 */
 bool	fill_map(t_general_data	*data);
 void	log_val(t_general_data *data, char *function, char values);
+
+void    put_multi_pixels(mlx_image_t *img, unsigned color, int pixels, int offset);
+unsigned int reverseBits(unsigned int num);
+
 
 #endif
