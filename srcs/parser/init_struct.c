@@ -1,67 +1,58 @@
 #include <parser.h>
+#include <cub3D.h>
 
 static bool	st_init_player_data(t_file_data *file_data)
 {
-	t_player	*player;
-
-	player = (t_player *)malloc(sizeof(t_player));
-	if (!player)
-		return (false);
-	player->facing = 'X';
-	player->x = 999;
-	player->y = 999;
-	file_data->player = player;
+	file_data->player.facing = 'X';
+	file_data->player.x = NA;
+	file_data->player.y = NA;
+	file_data->player.angle = NA;
+	file_data->player.dir_x = NA;
+	file_data->player.dir_y = NA;
 	return (true);
 }
 
 static bool	st_init_identifiers_data(t_file_data *file_data)
 {
-	t_identifiers_data	*identifiers_data;
+	// t_identifiers_data	*identifiers_data;
 
-	identifiers_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
-	if (!identifiers_data)
-		return (false);
-	identifiers_data->path_to_north_texture = NULL;
-	identifiers_data->path_to_south_texture = NULL;
-	identifiers_data->path_to_west_texture = NULL;
-	identifiers_data->path_to_east_texture = NULL;
-	file_data->identifiers = identifiers_data;
+	// identifiers_data = (t_identifiers_data *)malloc(sizeof(t_identifiers_data));
+	// if (!identifiers_data)
+	// 	return (false);
+	file_data->identifiers.path_to_north_texture = NULL;
+	file_data->identifiers.path_to_south_texture = NULL;
+	file_data->identifiers.path_to_west_texture = NULL;
+	file_data->identifiers.path_to_east_texture = NULL;
+	// file_data->identifiers = identifiers_data;
 	return (true);
 }
 
 static bool	st_init_map_data(t_file_data *file_data)
 {
-	t_map_data	*map_data;
-
-	map_data = (t_map_data *)malloc(sizeof(t_map_data));
-	if (!map_data)
-		return (false);
-	map_data->copy = NULL;
-	map_data->map = NULL;
-	map_data->rows_count = 999;
-	map_data->max_line_len = 999;
-	file_data->map_data = map_data;
+	file_data->map_data.copy = NULL;
+	file_data->map_data.map = NULL;
+	file_data->map_data.row = NA;
+	file_data->map_data.col = NA;
 	return (true);
 }
 
 bool	init_file_data(t_general_data *data)
 {
-	t_file_data *file_data;
-
-	file_data = (t_file_data *)malloc(sizeof(t_file_data));
-	if (!file_data)
-		return (error_msg("Malloc file_data struct"));
-	file_data->buflen = 999;
-	file_data->fd = 999;
-	file_data->file_extension = ".cub";
-	file_data->line = NULL;
-	file_data->scene = NULL;
-	if (!st_init_map_data(file_data))
+	data->file_data.buflen = NA;
+	data->file_data.fd = NA;
+	data->file_data.file_extension = ".cub";
+	data->file_data.line = NULL;
+	data->file_data.scene = NULL;
+	data->file_data.ceiling_found = false;
+	data->file_data.floor_found = false;
+	data->file_data.duplicate_identifier = false;
+	data->file_data.duplicate_color = false;
+	data->file_data.only_texture_id = false;
+	if (!st_init_map_data(&data->file_data))
 		return (error_msg("Initializing map data struct"));
-	if (!st_init_identifiers_data(file_data))
+	if (!st_init_identifiers_data(&data->file_data))
 		return (error_msg("Initializing identifiers data struct"));
-	if (!st_init_player_data(file_data))
+	if (!st_init_player_data(&data->file_data))
 		return (error_msg("Initializing player data struct"));
-	data->file_data = file_data;
 	return (true);
 }

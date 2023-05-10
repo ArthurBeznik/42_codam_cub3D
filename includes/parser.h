@@ -6,19 +6,34 @@
 # endif
 
 # define ERROR -1
+# define NA 999
 
-# define Y 888
-# define X 777
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <libft.h>
+# include <MLX42.h>
+# include <utils.h>
 
-# include <cub3D.h>
-
-typedef struct s_general_data	t_general_data;
-
+/**
+ * x, y : 
+ * 	in parser: grid values
+ * 	in graphics: pixel values
+*/
 typedef struct s_player
 {
-	int64_t		x;
-	int64_t		y;
+	float		x;
+	float		y;
+	float		dx;
+	float		dy;
+	float		angle;	// in radian
 	char		facing;
+	double		dir_x;
+	double		dir_y;
+	double		px;
+	double		py;
 }	t_player;
 
 typedef union s_rgb
@@ -34,13 +49,6 @@ typedef union s_rgb
 
 }	t_rgb;
 
-// typedef struct s_rgb
-// {
-// 	int	red;
-// 	int	green;
-// 	int	blue;
-// }	t_rgb;
-
 typedef struct s_identifiers_data
 {
 	char	*path_to_north_texture;
@@ -54,8 +62,8 @@ typedef struct s_identifiers_data
 
 typedef struct map_data
 {
-	int64_t		rows_count;
-	int64_t		max_line_len;
+	int64_t		row;
+	int64_t		col;
 	char		**map;
 	char		**copy;
 }	t_map_data;
@@ -67,13 +75,16 @@ typedef struct s_file_data
 	char				*line;
 	int					fd;
 	int					buflen;
-	t_map_data			*map_data;
-	t_identifiers_data	*identifiers;
-	t_player			*player;
+	bool				ceiling_found;
+	bool				floor_found;
+	bool				duplicate_identifier;
+	bool				duplicate_color;
+	bool				only_texture_id;
+	t_map_data			map_data;
+	t_identifiers_data	identifiers;
+	t_player			player;
 }	t_file_data;
 
-bool	parser(int argc, char *argv[], t_general_data *data);
-bool	init_file_data(t_general_data *data);
 bool	check_ext(const char *file_name, const char *file_extension);
 bool	check_map(const char *file_name, t_file_data *file_data);
 char	*read_scene_file(t_file_data *data);
@@ -86,7 +97,6 @@ bool	check_scene_file_order(t_file_data *data, const int nb_rows);
 bool	check_map_content(const char **map);
 bool	check_walls(t_file_data *data);
 void	flood_fill(const int y, const int x, t_map_data *map_data, bool *is_enclosed);
-void	free_data(t_general_data *data, bool free_map);
 void	free_2d(char **array);
 
 #endif

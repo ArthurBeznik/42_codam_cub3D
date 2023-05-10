@@ -8,7 +8,7 @@ YEL 		:=	\033[0;33m
 DEF 		:=	\033[0m
 
 CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
-# CFLAGS		:= -g3 
+# CFLAGS		:= -g3
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
 MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
@@ -28,9 +28,12 @@ SRC_DIR		:= srcs
 SRCS		:= $(shell find srcs -iname "*.c")
 OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-# DB_MAP		:= scenes/moore.cub
-DB_MAP		:= scenes/minimalist.cub
-TEST_MAP	:= scenes/minimalist.cub
+SCENE_DIR	:= scenes
+SUBJ_MAP	:= $(SCENE_DIR)/valid/minimalist.cub
+SIMPLE_MAP	:= $(SCENE_DIR)/valid/simple_valid.cub
+SQUARE_MAP	:= $(SCENE_DIR)/valid/square_8.cub
+DB_MAP		:= $(SCENE_DIR)/valid/square_8.cub
+INVAL_MAP	:= $(SCENE_DIR)/invalid/invalid_colors.cub
 
 all: libmlx libft $(NAME)
 
@@ -49,7 +52,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(NAME): $(OBJS)
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
-	$(CC) $(OBJS) $(LIBS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJ_DIR)
@@ -72,11 +75,27 @@ debug:
 db: $(NAME)
 	lldb cub3D -- $(DB_MAP)
 
-run: re
-	./cub3D $(TEST_MAP)
+subject: all
+	./$(NAME) $(SUBJ_MAP)
 
-r:	all
-	./$(NAME) $(TEST_MAP)
+simple: all
+	./$(NAME) $(SIMPLE_MAP)
+
+square:	re
+	./$(NAME) $(SQUARE_MAP)
+
+run: re
+	./$(NAME) $(SQUARE_MAP)
+
+g:
+	@rm -rf $(OBJ_DIR)
+	$(MAKE) -C $(LIBMLX)/build clean
+	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	$(MAKE) $(NAME)
+	./$(NAME) $(SQUARE_MAP)
+
+invalid: all
+	./$(NAME) $(INVAL_MAP)
 
 rebug: fclean
 	$(MAKE) debug

@@ -41,15 +41,22 @@ static bool	st_find_identifiers(t_file_data *data, const int nb_rows)
 	i = 0;
 	while (i < nb_rows)
 	{
+		if ((data->identifiers.ceiling.rgba != 0 || data->identifiers.floor.rgba != 0) && (!data->identifiers.path_to_east_texture || !data->identifiers.path_to_north_texture || !data->identifiers.path_to_south_texture || !data->identifiers.path_to_west_texture))
+			return (error_msg("Colors are defined but not textures"));
 		find_textures(data->scene[i], data);
 		find_colors(data->scene[i], data);
 		i++;
 	}
+	if (data->duplicate_identifier == true)
+		return (error_msg("Duplicate texture identifier"));
+	if (data->only_texture_id == true)
+		return (error_msg("Missing textures"));
+	if (data->duplicate_color == true)
+		return (error_msg("Duplicate color identifier"));
+	if (data->ceiling_found == false || data->floor_found == false)
+		return (error_msg("Missing ceiling or floor identifier"));
 	if (!check_scene_file_order(data, nb_rows))
-	{
-		free_2d(data->scene);
 		return (error_msg("Invalid scene file order"));
-	}
 	return (true);
 }
 
@@ -63,20 +70,18 @@ bool	read_scene_data(t_file_data *data)
 	nb_rows = ft_count_rows((const char **)data->scene);
 	// nb_rows == -1; // ? testing
 	if (nb_rows == ERROR)
-	{
-		free_2d(data->scene);
 		return (error_msg("Counting rows of scene file"));
-	}
 	if (!st_find_identifiers(data, nb_rows))
 		return (false);
-	data->map_data->map = st_create_map(data, nb_rows);
+	data->map_data.map = st_create_map(data, nb_rows);
 	// data->map_content = NULL; // ? testing
-	if (!data->map_data->map)
+	if (!data->map_data.map)
+		return (error_msg("Invalid map"));
+	if (data->scene != NULL)
 	{
 		free_2d(data->scene);
-		return (error_msg("Invalid map"));
+		data->scene = NULL;
 	}
-	free_2d(data->scene);
 	// system("leaks cub3D"); // ? testing
 	return (true);
 }

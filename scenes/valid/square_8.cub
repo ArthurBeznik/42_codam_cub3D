@@ -1,0 +1,24 @@
+N ./textures/diamond.png
+
+
+
+S ./textures/wood.png
+
+
+
+W ./textures/stone.png
+
+
+E ./textures/gold.png
+
+F 255,0,0
+C 0,255,0
+
+11111111
+10100001
+10100W01
+10100001
+10000001
+10000101
+10000001
+11111111
