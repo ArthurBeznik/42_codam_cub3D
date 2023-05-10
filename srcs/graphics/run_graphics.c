@@ -37,8 +37,8 @@ bool	fill_dda_data(t_general_data *data)
 	init_dir_plane(data);
 	data->graphics.dda.w = data->graphics.width;
 	data->graphics.dda.h = data->graphics.height;
-	data->graphics.dda.pos_x = data->file_data.player.x;
-	data->graphics.dda.pos_y = data->file_data.player.y;
+	data->graphics.dda.pos_x = data->file_data.player.x + 0.5;
+	data->graphics.dda.pos_y = data->file_data.player.y + 0.5;
 	return (true);
 }
 
@@ -66,11 +66,12 @@ bool	run_graphics(t_general_data	*data)
 	if (!draw_2d_map(data))
 		return (error_msg("Drawing 2D map"));
 
-	if ((mlx_image_to_window(data->graphics.mlx, data->graphics.img, 0, 0) < 0))
-		return (error_msg("mlx_image_to_window"));
-
-	if ((mlx_image_to_window(data->graphics.mlx, data->graphics.img_3d, data->graphics.width + 30, 0) < 0))
+	if ((mlx_image_to_window(data->graphics.mlx, data->graphics.img_3d, 0, 0) < 0))
 		return (error_msg("mlx_image_to_window 3D"));
+
+	/* Uncomment this to only display 3D */
+	if ((mlx_image_to_window(data->graphics.mlx, data->graphics.img, 0, data->graphics.height - data->graphics.height / 2.25) < 0))
+		return (error_msg("mlx_image_to_window"));
 
 	mlx_loop_hook(data->graphics.mlx, &captain, data);
 

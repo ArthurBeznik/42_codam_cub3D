@@ -29,11 +29,11 @@ SRCS		:= $(shell find srcs -iname "*.c")
 OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 SCENE_DIR	:= scenes
-SUBJ_MAP	:= $(SCENE_DIR)/minimalist.cub
-SIMPLE_MAP	:= $(SCENE_DIR)/simple_valid.cub
-DB_MAP		:= $(SCENE_DIR)/square_8.cub
-INVAL_MAP	:= $(SCENE_DIR)/invalid_colors.cub
-SQUARE_MAP	:= $(SCENE_DIR)/square_8.cub
+SUBJ_MAP	:= $(SCENE_DIR)/valid/minimalist.cub
+SIMPLE_MAP	:= $(SCENE_DIR)/valid/simple_valid.cub
+SQUARE_MAP	:= $(SCENE_DIR)/valid/square_8.cub
+DB_MAP		:= $(SCENE_DIR)/valid/square_8.cub
+INVAL_MAP	:= $(SCENE_DIR)/invalid/invalid_colors.cub
 
 all: libmlx libft $(NAME)
 
@@ -75,10 +75,13 @@ debug:
 db: $(NAME)
 	lldb cub3D -- $(DB_MAP)
 
-s: all
+subject: all
+	./$(NAME) $(SUBJ_MAP)
+
+simple: all
 	./$(NAME) $(SIMPLE_MAP)
 
-r:	all
+square:	re
 	./$(NAME) $(SQUARE_MAP)
 
 run: re
@@ -91,7 +94,7 @@ g:
 	$(MAKE) $(NAME)
 	./$(NAME) $(SQUARE_MAP)
 
-i:	all
+invalid: all
 	./$(NAME) $(INVAL_MAP)
 
 rebug: fclean
