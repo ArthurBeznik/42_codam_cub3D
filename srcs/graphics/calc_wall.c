@@ -37,7 +37,6 @@ static void	get_perp_wall_dist(t_general_data *data)
 			- data->graphics.dda.delta_dist_y);
 	data->graphics.calc.line_height = (int)(data->graphics.height \
 		/ data->graphics.dda.perp_wall_dist);
-	data->graphics.calc.pitch = 100;
 	data->graphics.calc.draw_start = -data->graphics.calc.line_height \
 		/ 2 + data->graphics.height / 2 + data->graphics.calc.pitch;
 	if (data->graphics.calc.draw_start < 0)

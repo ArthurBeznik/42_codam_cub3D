@@ -3,7 +3,7 @@
 bool	init_calc(t_general_data *data)
 {
 	data->graphics.calc.line_height = NA;
-	data->graphics.calc.pitch = NA;
+	data->graphics.calc.pitch = 100;
 	data->graphics.calc.draw_start = NA;
 	data->graphics.calc.draw_end = NA;
 	data->graphics.calc.hit = NA;
