@@ -1,5 +1,20 @@
 #include <cub3D.h>
 
+bool	init_calc(t_general_data *data)
+{
+	data->graphics.calc.line_height = NA;
+	data->graphics.calc.pitch = NA;
+	data->graphics.calc.draw_start = NA;
+	data->graphics.calc.draw_end = NA;
+	data->graphics.calc.hit = NA;
+	data->graphics.calc.wall_x = NA;
+	data->graphics.calc.tex_x = NA;
+	data->graphics.calc.tex_y = NA;
+	data->graphics.calc.tex_pos = NA;
+	data->graphics.calc.step = NA;
+	return (true);
+}
+
 bool	init_dda(t_general_data *data)
 {
 	data->graphics.dda.camera_x = NA;
@@ -53,10 +68,12 @@ bool	init_textures(t_general_data *data)
 
 bool	init_graphics(t_general_data *data)
 {
-	data->graphics.width = data->file_data.map_data.col * PIXELS;
-	data->graphics.height = (data->file_data.map_data.row * PIXELS) + PIXELS;
+	// data->graphics.width = data->file_data.map_data.col * PIXELS;
+	// data->graphics.height = (data->file_data.map_data.row * PIXELS) + PIXELS;
+	data->graphics.width = 960;
+	data->graphics.height = 720;
 
-	data->graphics.mlx = mlx_init(data->graphics.width * 2.5, data->graphics.height * 1.5, "cub3D", true);
+	data->graphics.mlx = mlx_init(data->graphics.width, data->graphics.height, "cub3D", false);
 	// data->graphics.mlx = NULL; // ? testing
 	if (!data->graphics.mlx)
 		return (error_msg("mlx_init"));
@@ -69,7 +86,6 @@ bool	init_graphics(t_general_data *data)
 		return (error_msg("mlx_new_image"));
 	}
 
-	// data->graphics.img_3d = mlx_new_image(data->graphics.mlx, 500, 500);
 	data->graphics.img_3d = mlx_new_image(data->graphics.mlx, data->graphics.width, data->graphics.height);
 	// graphics.img_3d = NULL; // ? testing
 	if (!data->graphics.img_3d)

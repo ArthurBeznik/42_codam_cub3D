@@ -44,9 +44,6 @@ bool	fill_dda_data(t_general_data *data)
 
 bool	run_graphics(t_general_data	*data)
 {
-	// t_graphics	graphics;
-
-	// data->graphics = &graphics;
 	if (!init_graphics(data))
 		return (error_msg("init_graphics"));
 
@@ -55,6 +52,9 @@ bool	run_graphics(t_general_data	*data)
 
 	if (!init_dda(data))
 		return (error_msg("init_dda"));
+
+	if (!init_calc(data))
+		return (error_msg("init_calc"));
 
 	if (!fill_map(data))
 		return (error_msg("Filling map"));

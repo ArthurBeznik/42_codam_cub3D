@@ -81,10 +81,10 @@ subject: all
 simple: all
 	./$(NAME) $(SIMPLE_MAP)
 
-square:	re
+square:	all
 	./$(NAME) $(SQUARE_MAP)
 
-run: re
+run: all
 	./$(NAME) $(SQUARE_MAP)
 
 g:
