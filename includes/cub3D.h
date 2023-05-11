@@ -38,7 +38,7 @@ bool	draw_player(t_general_data *data, mlx_image_t *img);
 bool	draw_2d_map(t_general_data *data);
 bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y);
 bool	draw_line(t_general_data *data, int x, int y, t_axis axis);
-bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player);
+bool	draw_square(t_general_data *data, int x, int y, uint32_t color);
 int		get_rgba(mlx_texture_t *texture, int x, int y);
 
 /**

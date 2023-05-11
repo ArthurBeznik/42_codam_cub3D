@@ -54,14 +54,14 @@ static bool	select_draw(char value, t_general_data *data, int x, int y)
 
 	ret = false;
 	if (value == '1')
-		ret = draw_square(data, x * PIXELS, y * PIXELS, BLACK, false);
+		ret = draw_square(data, x * PIXELS, y * PIXELS, BLACK);
 	else if (value == '0')
-		ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE, false);
+		ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE);
 	else if (value == 'X')
-		ret = draw_square(data, x * PIXELS, y * PIXELS, GREY, false);
+		ret = draw_square(data, x * PIXELS, y * PIXELS, GREY);
 	else if (is_player((const char)value))
 	{
-		ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE, false);
+		ret = draw_square(data, x * PIXELS, y * PIXELS, WHITE);
 		if (data->graphics.init_dir == false)
 			init_direction(data, x, y);
 	}
