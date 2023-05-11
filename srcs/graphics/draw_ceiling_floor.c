@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-unsigned int	reverse_bits(unsigned int num)
+static unsigned int	reverse_bits(unsigned int num)
 {
 	unsigned int	nb_bits;
 	unsigned int	rev_num;
@@ -18,7 +18,7 @@ unsigned int	reverse_bits(unsigned int num)
 	return (rev_num);
 }
 
-void	put_multi_pixels(mlx_image_t *img, unsigned int color, \
+static void	put_multi_pixels(mlx_image_t *img, unsigned int color, \
 	int pixels, int offset)
 {
 	uint32_t	*px;
@@ -33,7 +33,7 @@ void	put_multi_pixels(mlx_image_t *img, unsigned int color, \
 	}
 }
 
-void	draw_background(t_general_data *data)
+void	draw_ceiling_floor(t_general_data *data)
 {
 	put_multi_pixels(data->graphics.img_3d, \
 		reverse_bits(data->file_data.identifiers.ceiling.rgba), \

@@ -1,32 +1,6 @@
 #include <cub3D.h>
 
 /**
- * Initialise ray position and direction.
- * Based on the ray direction, calculate the length of the ray from one x 
- * 	or y-side to next x or y-side.
- */
-void	init_ray_vars(t_general_data *data, int x)
-{
-	data->graphics.dda.camera_x = 2 * x / (double)data->graphics.dda.w - 1;
-	data->graphics.dda.ray_dir_x = data->graphics.dda.dir_x \
-		+ data->graphics.dda.plane_x * data->graphics.dda.camera_x;
-	data->graphics.dda.ray_dir_y = data->graphics.dda.dir_y \
-		+ data->graphics.dda.plane_y * data->graphics.dda.camera_x;
-	data->graphics.dda.map_x = (int)data->graphics.dda.pos_x;
-	data->graphics.dda.map_y = (int)data->graphics.dda.pos_y;
-	if (data->graphics.dda.ray_dir_x == 0)
-		data->graphics.dda.delta_dist_x = 1e30;
-	else
-		data->graphics.dda.delta_dist_x = \
-			fabs(1 / data->graphics.dda.ray_dir_x);
-	if (data->graphics.dda.ray_dir_y == 0)
-		data->graphics.dda.delta_dist_y = 1e30;
-	else
-		data->graphics.dda.delta_dist_y = \
-			fabs(1 / data->graphics.dda.ray_dir_y);
-}
-
-/**
  * Calculate the exact value where the wall was hit, required to know which
  * 	x-coord of the texture we have to use.
  */
@@ -74,7 +48,7 @@ void	get_perp_wall_dist(t_general_data *data)
 		data->graphics.calc.draw_end = data->graphics.dda.h - 1;
 }
 
-void	calc_walls(t_general_data *data)
+void	calc_wall(t_general_data *data)
 {
 	get_perp_wall_dist(data);
 	get_hit_wall_value(data);

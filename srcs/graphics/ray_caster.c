@@ -5,7 +5,7 @@
  * 	closest and jump there.
  * Store which side (NSWE) has been hit for texturing.
  */
-void	dda_loop(t_general_data *data)
+static void	dda_loop(t_general_data *data)
 {
 	data->graphics.calc.hit = 0;
 	while (data->graphics.calc.hit == 0)
@@ -35,53 +35,19 @@ void	dda_loop(t_general_data *data)
 }
 
 /**
- * Check ray x direction (left/right) and ray y direction (up/down) 
- * 	and set step x and y accordingly.
- * Step is the direction to step in x or y-direction (= 1 or -1).
-*/
-void	check_ray_dir(t_general_data *data)
-{
-	if (data->graphics.dda.ray_dir_x < 0)
-	{
-		data->graphics.dda.step_x = -1;
-		data->graphics.dda.side_dist_x = (data->graphics.dda.pos_x \
-			- data->graphics.dda.map_x) * data->graphics.dda.delta_dist_x;
-	}
-	else
-	{
-		data->graphics.dda.step_x = 1;
-		data->graphics.dda.side_dist_x = (data->graphics.dda.map_x + 1.0 \
-			- data->graphics.dda.pos_x) * data->graphics.dda.delta_dist_x;
-	}
-	if (data->graphics.dda.ray_dir_y < 0)
-	{
-		data->graphics.dda.step_y = -1;
-		data->graphics.dda.side_dist_y = (data->graphics.dda.pos_y \
-			- data->graphics.dda.map_y) * data->graphics.dda.delta_dist_y;
-	}
-	else
-	{
-		data->graphics.dda.step_y = 1;
-		data->graphics.dda.side_dist_y = (data->graphics.dda.map_y + 1.0 \
-			- data->graphics.dda.pos_y) * data->graphics.dda.delta_dist_y;
-	}
-}
-
-/**
  * raycasting loop: goes through every x until reaching map width
  */
 bool	cast_ray(t_general_data *data)
 {
 	int	x;
 
-	draw_background(data);
+	draw_ceiling_floor(data);
 	x = 0;
 	while (x < data->graphics.dda.w)
 	{
-		init_ray_vars(data, x);
-		check_ray_dir(data);
+		calc_ray(data, x);
 		dda_loop(data);
-		calc_walls(data);
+		calc_wall(data);
 		draw_3d(data, x);
 		x++;
 	}
