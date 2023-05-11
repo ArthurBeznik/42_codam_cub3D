@@ -40,7 +40,7 @@ static void	check_ray_dir(t_general_data *data)
  */
 static void	init_ray_vars(t_general_data *data, int x)
 {
-	data->graphics.dda.camera_x = 2 * x / (double)data->graphics.dda.w - 1;
+	data->graphics.dda.camera_x = 2 * x / (double)data->graphics.width - 1;
 	data->graphics.dda.ray_dir_x = data->graphics.dda.dir_x \
 		+ data->graphics.dda.plane_x * data->graphics.dda.camera_x;
 	data->graphics.dda.ray_dir_y = data->graphics.dda.dir_y \

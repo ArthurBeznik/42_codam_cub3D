@@ -49,8 +49,6 @@ static void	init_dir_plane(t_general_data *data)
 static void	fill_dda_data(t_general_data *data)
 {
 	init_dir_plane(data);
-	data->graphics.dda.w = data->graphics.width;
-	data->graphics.dda.h = data->graphics.height;
 	data->graphics.dda.pos_x = data->file_data.player.x + 0.5;
 	data->graphics.dda.pos_y = data->file_data.player.y + 0.5;
 }
@@ -62,15 +60,12 @@ void	init_dda(t_general_data *data)
 	data->graphics.dda.delta_dist_y = NA;
 	data->graphics.dda.dir_x = NA;
 	data->graphics.dda.dir_y = NA;
-	data->graphics.dda.h = NA;
 	data->graphics.dda.hit = NA;
 	data->graphics.dda.map_x = NA;
 	data->graphics.dda.map_y = NA;
 	data->graphics.dda.perp_wall_dist = NA;
 	data->graphics.dda.plane_x = NA;
 	data->graphics.dda.plane_y = NA;
-	data->graphics.dda.player_x = NA;
-	data->graphics.dda.player_y = NA;
 	data->graphics.dda.pos_x = NA;
 	data->graphics.dda.pos_y = NA;
 	data->graphics.dda.ray_dir_x = NA;
@@ -80,6 +75,5 @@ void	init_dda(t_general_data *data)
 	data->graphics.dda.side_dist_y = NA;
 	data->graphics.dda.step_x = NA;
 	data->graphics.dda.step_y = NA;
-	data->graphics.dda.w = NA;
 	fill_dda_data(data);
 }

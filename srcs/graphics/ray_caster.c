@@ -43,7 +43,7 @@ bool	cast_ray(t_general_data *data)
 
 	draw_ceiling_floor(data);
 	x = 0;
-	while (x < data->graphics.dda.w)
+	while (x < data->graphics.width)
 	{
 		calc_ray(data, x);
 		dda_loop(data);

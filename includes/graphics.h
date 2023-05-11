@@ -95,16 +95,12 @@ typedef struct s_draw
 
 typedef struct s_dda
 {
-	double	player_x;
-	double	player_y;
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	int		w;
-	int		h;
 	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;

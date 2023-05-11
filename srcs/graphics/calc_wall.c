@@ -35,17 +35,17 @@ static void	get_perp_wall_dist(t_general_data *data)
 	else
 		data->graphics.dda.perp_wall_dist = (data->graphics.dda.side_dist_y \
 			- data->graphics.dda.delta_dist_y);
-	data->graphics.calc.line_height = (int)(data->graphics.dda.h \
+	data->graphics.calc.line_height = (int)(data->graphics.height \
 		/ data->graphics.dda.perp_wall_dist);
 	data->graphics.calc.pitch = 100;
 	data->graphics.calc.draw_start = -data->graphics.calc.line_height \
-		/ 2 + data->graphics.dda.h / 2 + data->graphics.calc.pitch;
+		/ 2 + data->graphics.height / 2 + data->graphics.calc.pitch;
 	if (data->graphics.calc.draw_start < 0)
 		data->graphics.calc.draw_start = 0;
 	data->graphics.calc.draw_end = data->graphics.calc.line_height \
-		/ 2 + data->graphics.dda.h / 2 + data->graphics.calc.pitch;
-	if (data->graphics.calc.draw_end >= data->graphics.dda.h)
-		data->graphics.calc.draw_end = data->graphics.dda.h - 1;
+		/ 2 + data->graphics.height / 2 + data->graphics.calc.pitch;
+	if (data->graphics.calc.draw_end >= data->graphics.height)
+		data->graphics.calc.draw_end = data->graphics.height - 1;
 }
 
 void	calc_wall(t_general_data *data)
