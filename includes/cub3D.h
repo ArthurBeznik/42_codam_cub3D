@@ -28,7 +28,7 @@ bool	run_graphics(t_general_data	*data);
 bool	init_file_data(t_general_data *data);
 bool	init_graphics(t_general_data *data);
 bool	init_textures(t_general_data *data);
-bool	init_dda(t_general_data *data);
+void	init_dda(t_general_data *data);
 bool	init_calc(t_general_data *data);
 
 /**
@@ -55,6 +55,6 @@ void	draw_3d(t_general_data *data, int x);
 */
 bool	fill_map(t_general_data	*data);
 void	free_data(t_general_data *data);
-int		check_texture_paths(t_identifiers_data *id);
+bool	check_texture_paths(t_identifiers_data *id);
 
 #endif

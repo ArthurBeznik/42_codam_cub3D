@@ -5,7 +5,7 @@
  * 	and set step x and y accordingly.
  * Step is the direction to step in x or y-direction (= 1 or -1).
 */
-void	check_ray_dir(t_general_data *data)
+static void	check_ray_dir(t_general_data *data)
 {
 	if (data->graphics.dda.ray_dir_x < 0)
 	{
@@ -38,7 +38,7 @@ void	check_ray_dir(t_general_data *data)
  * Based on the ray direction, calculate the length of the ray from one x 
  * 	or y-side to next x or y-side.
  */
-void	init_ray_vars(t_general_data *data, int x)
+static void	init_ray_vars(t_general_data *data, int x)
 {
 	data->graphics.dda.camera_x = 2 * x / (double)data->graphics.dda.w - 1;
 	data->graphics.dda.ray_dir_x = data->graphics.dda.dir_x \

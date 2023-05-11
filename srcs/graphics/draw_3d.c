@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-void	set_wall_textures(t_general_data *data)
+static void	set_wall_textures(t_general_data *data)
 {
 	if (data->graphics.dda.side == NORTH)
 		data->graphics.textures.rgba = \

@@ -66,18 +66,6 @@ typedef struct s_textures
 	unsigned int	rgba;
 }	t_textures;
 
-typedef struct s_wall_collision
-{
-	int		xo;
-	int		yo;
-	int		ipx;
-	int		ipx_add_xo;
-	int		ipx_sub_xo;
-	int		ipy;
-	int		ipy_add_yo;
-	int		ipy_sub_yo;
-}	t_wall_collision;
-
 typedef struct s_calc
 {
 	int 	line_height;

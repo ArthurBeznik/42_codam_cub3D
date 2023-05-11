@@ -8,6 +8,9 @@ void	terminate(t_graphics *graphics)
 	exit(0);
 }
 
+/**
+ * do you still need this?
+*/
 void	free_close_window(t_graphics *graphics, void *var, char *str)
 {
 	ft_putendl_fd("Error\n", STDOUT_FILENO);
@@ -53,7 +56,7 @@ bool	fill_map(t_general_data	*data)
 	return (true);
 }
 
-int	check_texture_paths(t_identifiers_data *id)
+bool	check_texture_paths(t_identifiers_data *id)
 {
 	int	fd;
 

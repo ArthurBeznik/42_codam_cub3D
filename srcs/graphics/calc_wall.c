@@ -4,7 +4,7 @@
  * Calculate the exact value where the wall was hit, required to know which
  * 	x-coord of the texture we have to use.
  */
-void	get_hit_wall_value(t_general_data *data)
+static void	get_hit_wall_value(t_general_data *data)
 {
 	if (data->graphics.dda.side == WEST || data->graphics.dda.side == EAST)
 		data->graphics.calc.wall_x = data->graphics.dda.pos_y \
@@ -27,7 +27,7 @@ void	get_hit_wall_value(t_general_data *data)
  *  we draw from the center of the screen (i.e. / 2), if the other points 
  * 	are outside of the screen, they are capped to 0 to h-1.
  */
-void	get_perp_wall_dist(t_general_data *data)
+static void	get_perp_wall_dist(t_general_data *data)
 {
 	if (data->graphics.dda.side == WEST || data->graphics.dda.side == EAST)
 		data->graphics.dda.perp_wall_dist = (data->graphics.dda.side_dist_x \

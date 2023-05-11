@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-void	detect_key(t_general_data *data)
+static void	detect_key(t_general_data *data)
 {
 	ft_memset(data->graphics.img->pixels, 0, data->graphics.img->width * \
 				data->graphics.img->height * sizeof(int));
@@ -28,8 +28,23 @@ void	captain(void *param)
 	if (mlx_is_key_down(data2->graphics.mlx, MLX_KEY_ESCAPE))
 		terminate(&data2->graphics);
 	detect_key(data2);
-	if (!draw_2d_map(data2))
-		terminate(&data2->graphics);
 	if (!cast_ray(data2))
 		terminate(&data2->graphics);
 }
+
+/**
+ * ? Display 2D map
+*/
+// void	captain(void *param)
+// {
+// 	t_general_data		*data2;
+
+// 	data2 = (t_general_data *)param;
+// 	if (mlx_is_key_down(data2->graphics.mlx, MLX_KEY_ESCAPE))
+// 		terminate(&data2->graphics);
+// 	detect_key(data2);
+// 	if (!draw_2d_map(data2))
+// 		terminate(&data2->graphics);
+// 	if (!cast_ray(data2))
+// 		terminate(&data2->graphics);
+// }
