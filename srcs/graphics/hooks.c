@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-void	dda_movement(t_general_data *data)
+void	movement(t_general_data *data)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -76,10 +76,10 @@ void	captain(void *param)
 	// log_val(data2, "captain", 'P'); // ? testing
 	if (mlx_is_key_down(data2->graphics.mlx, MLX_KEY_ESCAPE))
 		terminate(&data2->graphics);
-	dda_movement(data2);
+	movement(data2);
 	if (!draw_2d_map(data2))
 		terminate(&data2->graphics);
-	if (!dda(data2))
+	if (!cast_ray(data2))
 		terminate(&data2->graphics);
 	// log_val(data2, "captain", 'P'); // ? testing
 }

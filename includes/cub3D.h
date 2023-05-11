@@ -61,5 +61,11 @@ void	log_val(t_general_data *data, char *function, char values);
 void    put_multi_pixels(mlx_image_t *img, unsigned color, int pixels, int offset);
 unsigned int reverseBits(unsigned int num);
 
+int	get_rgba(mlx_texture_t *texture, int x, int y);
+void	draw_background(t_general_data *data);
+void	init_ray_vars(t_general_data *data, int x);
+void	calc_walls(t_general_data *data);
+void	draw_3d(t_general_data *data, int x);
+bool	cast_ray(t_general_data *data);
 
 #endif

@@ -48,3 +48,17 @@ bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player
 	}
 	return (true);
 }
+
+int	get_rgba(mlx_texture_t *texture, int x, int y)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+
+	r = texture->pixels[y * texture->width * 4 + (x * 4)];
+	g = texture->pixels[y * texture->width * 4 + (x * 4) + 1];
+	b = texture->pixels[y * texture->width * 4 + (x * 4) + 2];
+	a = texture->pixels[y * texture->width * 4 + (x * 4) + 3];
+	return (r << 24 | g << 16 | b << 8 | a);
+}
