@@ -6,8 +6,6 @@ static bool	init_graphic_structs(t_general_data *data)
 		return (error_msg("init_graphics"));
 	if (!init_textures(data))
 		return (error_msg("init_textures"));
-	// if (!init_dda(data))
-	// 	return (error_msg("init_dda"));
 	init_dda(data);
 	if (!init_calc(data))
 		return (error_msg("init_calc"));
