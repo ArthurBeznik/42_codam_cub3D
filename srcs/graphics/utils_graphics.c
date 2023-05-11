@@ -2,6 +2,7 @@
 
 void	terminate(t_graphics *graphics)
 {
+	mlx_delete_image(graphics->mlx, graphics->img);
 	mlx_close_window(graphics->mlx);
 	mlx_terminate(graphics->mlx);
 	exit(0);
