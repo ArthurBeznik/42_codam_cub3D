@@ -15,6 +15,28 @@ bool	init_calc(t_general_data *data)
 	return (true);
 }
 
+int	load_textures(t_textures *textures, t_identifiers_data *id)
+{
+	textures->north_tex = mlx_load_png(id->path_to_north_texture);
+	textures->west_tex = mlx_load_png(id->path_to_west_texture);
+	textures->south_tex = mlx_load_png(id->path_to_south_texture);
+	textures->east_tex = mlx_load_png(id->path_to_east_texture);
+	if (!textures->north_tex || !textures->west_tex || \
+		!textures->south_tex || !textures->east_tex)
+	{
+		if (textures->north_tex != NULL)
+			mlx_delete_texture(textures->north_tex);
+		if (textures->south_tex != NULL)
+			mlx_delete_texture(textures->south_tex);
+		if (textures->west_tex != NULL)
+			mlx_delete_texture(textures->west_tex);
+		if (textures->east_tex != NULL)
+			mlx_delete_texture(textures->east_tex);
+		return (error_msg("Can't load textures"));
+	}
+	return (true);
+}
+
 bool	init_dda(t_general_data *data)
 {
 	data->graphics.dda.camera_x = NA;
@@ -46,51 +68,53 @@ bool	init_dda(t_general_data *data)
 
 bool	init_textures(t_general_data *data)
 {
-	data->graphics.textures.north_tex = NULL;
-	data->graphics.textures.west_tex = NULL;
-	data->graphics.textures.south_tex = NULL;
-	data->graphics.textures.east_tex = NULL;
-	data->graphics.textures.rgba = NA;
-	data->graphics.textures.north_tex = mlx_load_png(data->file_data.identifiers.path_to_north_texture);
-	data->graphics.textures.west_tex = mlx_load_png(data->file_data.identifiers.path_to_west_texture);
-	data->graphics.textures.south_tex = mlx_load_png(data->file_data.identifiers.path_to_south_texture);
-	data->graphics.textures.east_tex = mlx_load_png(data->file_data.identifiers.path_to_east_texture);
-	if (!data->graphics.textures.north_tex || !data->graphics.textures.west_tex || \
-		!data->graphics.textures.south_tex || !data->graphics.textures.east_tex)
+	t_textures			*textures;
+	t_identifiers_data	*id;
+
+	textures = &data->graphics.textures;
+	id = &data->file_data.identifiers;
+	textures->north_tex = NULL;
+	textures->west_tex = NULL;
+	textures->south_tex = NULL;
+	textures->east_tex = NULL;
+	textures->rgba = NA;
+	if (check_texture_paths(id) == false)
 	{
-		fprintf(stderr, "mlx_load_png failed\n");
 		free_data(data);
 		terminate(&data->graphics);
-		return (error_msg("mlx_load_png"));
+		return (false);
+	}
+	if (load_textures(textures, id) == false)
+	{
+		free_data(data);
+		terminate(&data->graphics);
+		return (false);
 	}
 	return (true);
 }
 
 bool	init_graphics(t_general_data *data)
 {
-	// data->graphics.width = data->file_data.map_data.col * PIXELS;
-	// data->graphics.height = (data->file_data.map_data.row * PIXELS) + PIXELS;
-	data->graphics.width = 960;
-	data->graphics.height = 720;
+	t_graphics	*graph;
+	t_file_data	*file;
 
-	data->graphics.mlx = mlx_init(data->graphics.width, data->graphics.height, "cub3D", false);
-	// data->graphics.mlx = NULL; // ? testing
-	if (!data->graphics.mlx)
+	graph = &data->graphics;
+	file = &data->file_data;
+	graph->width = 960;
+	graph->height = 720;
+	graph->mlx = mlx_init(graph->width, graph->height, "cub3D", true);
+	if (!graph->mlx)
 		return (error_msg("mlx_init"));
-
-	data->graphics.img = mlx_new_image(data->graphics.mlx, data->graphics.width, data->graphics.height);
-	// data->graphics.img = NULL; // ? testing
-	if (!data->graphics.img)
+	graph->img = mlx_new_image(graph->mlx, graph->width, graph->height);
+	if (!graph->img)
 	{
-		mlx_terminate(data->graphics.mlx);
+		mlx_terminate(graph->mlx);
 		return (error_msg("mlx_new_image"));
 	}
-
-	data->graphics.img_3d = mlx_new_image(data->graphics.mlx, data->graphics.width, data->graphics.height);
-	// graphics.img_3d = NULL; // ? testing
-	if (!data->graphics.img_3d)
+	graph->img_3d = mlx_new_image(graph->mlx, graph->width, graph->height);
+	if (!graph->img_3d)
 	{
-		mlx_terminate(data->graphics.mlx);
+		mlx_terminate(graph->mlx);
 		return (error_msg("mlx_new_image 3D"));
 	}
 	return (true);

@@ -2,6 +2,7 @@
 
 void	terminate(t_graphics *graphics)
 {
+	mlx_delete_image(graphics->mlx, graphics->img);
 	mlx_close_window(graphics->mlx);
 	mlx_terminate(graphics->mlx);
 	exit(0);
@@ -49,5 +50,28 @@ bool	fill_map(t_general_data	*data)
 		}
 		y++;
 	}
+	return (true);
+}
+
+int	check_texture_paths(t_identifiers_data *id)
+{
+	int	fd;
+
+	fd = open(id->path_to_north_texture, O_RDONLY);
+	if (fd == -1 || access(id->path_to_north_texture, F_OK) == -1)
+		return (error_msg("Can't read North texture path"));
+	close(fd);
+	fd = open(id->path_to_south_texture, O_RDONLY);
+	if (fd == -1 || access(id->path_to_south_texture, F_OK) == -1)
+		return (error_msg("Can't read South texture path"));
+	close(fd);
+	fd = open(id->path_to_west_texture, O_RDONLY);
+	if (fd == -1 || access(id->path_to_west_texture, F_OK) == -1)
+		return (error_msg("Can't read West texture path"));
+	close(fd);
+	fd = open(id->path_to_east_texture, O_RDONLY);
+	if (fd == -1 || access(id->path_to_east_texture, F_OK) == -1)
+		return (error_msg("Can't read East texture path"));
+	close(fd);
 	return (true);
 }

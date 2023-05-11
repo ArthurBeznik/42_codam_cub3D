@@ -55,5 +55,6 @@ void	draw_3d(t_general_data *data, int x);
 */
 bool	fill_map(t_general_data	*data);
 void	free_data(t_general_data *data);
+int		check_texture_paths(t_identifiers_data *id);
 
 #endif
