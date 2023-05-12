@@ -37,10 +37,6 @@ void	free_data(t_general_data *data)
 	free(data->file_data.identifiers.path_to_south_texture);
 	free(data->file_data.identifiers.path_to_west_texture);
 	free(data->file_data.identifiers.path_to_east_texture);
-	free(data->graphics.textures.north_tex);
-	free(data->graphics.textures.west_tex);
-	free(data->graphics.textures.south_tex);
-	free(data->graphics.textures.east_tex);
 	if (data->file_data.scene != NULL)
 		free_2d(data->file_data.scene);
 	if (data->file_data.map_data.map != NULL)
