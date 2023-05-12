@@ -11,7 +11,8 @@ CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
 # CFLAGS		:= -g3
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
-MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+# MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+MLXFLAGS	:= -Iinclude -lglfw -L"/Users/abeznik/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit # arthur
 
 LIBMLX		:= ./libs/MLX42
 LIBFT		:= ./libs/libft
@@ -81,10 +82,10 @@ subject: all
 simple: all
 	./$(NAME) $(SIMPLE_MAP)
 
-square:	re
+square:	all
 	./$(NAME) $(SQUARE_MAP)
 
-run: re
+run: all
 	./$(NAME) $(SQUARE_MAP)
 
 g:

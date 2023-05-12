@@ -1,4 +1,3 @@
-
 #include <utils.h>
 
 bool	error_msg(const char *message)

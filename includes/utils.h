@@ -1,7 +1,6 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-// # include <cub3D.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <libft.h>
