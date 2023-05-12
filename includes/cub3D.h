@@ -25,7 +25,7 @@ bool	run_graphics(t_general_data	*data);
 /**
  * Init. structs functions
 */
-bool	init_file_data(t_general_data *data);
+void	init_file_data(t_general_data *data);
 bool	init_graphics(t_general_data *data);
 bool	init_textures(t_general_data *data);
 void	init_dda(t_general_data *data);
