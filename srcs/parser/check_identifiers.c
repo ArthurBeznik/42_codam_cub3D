@@ -16,7 +16,7 @@ bool	check_identifiers(t_identifiers_data *id_data, \
 	return (true);
 }
 
-bool	check_identifiers_values(char **tmp, t_file_data *data)
+bool	check_identifiers_values(t_file_data *data, const char **tmp)
 {
 	if ((tmp[0][0] == 'N' || tmp[0][0] == 'S' || \
 		tmp[0][0] == 'W' || tmp[0][0] == 'E') && !tmp[1])
