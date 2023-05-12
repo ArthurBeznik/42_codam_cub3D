@@ -17,21 +17,14 @@
 # include <MLX42.h>
 # include <utils.h>
 
-/**
- * x, y : 
- * 	in parser: grid values
- * 	in graphics: pixel values
-*/
 typedef struct s_player
 {
 	float		x;
 	float		y;
 	float		dx;
 	float		dy;
-	float		angle;	// in radian
+	float		angle;
 	char		facing;
-	double		dir_x;
-	double		dir_y;
 	double		px;
 	double		py;
 }	t_player;
@@ -46,7 +39,6 @@ typedef union s_rgb
 		uint8_t	g;
 		uint8_t	r;
 	};
-
 }	t_rgb;
 
 typedef struct s_identifiers_data
@@ -87,16 +79,20 @@ typedef struct s_file_data
 
 bool	check_ext(const char *file_name, const char *file_extension);
 bool	check_map(const char *file_name, t_file_data *file_data);
-char	*read_scene_file(t_file_data *data);
 bool	read_scene_data(t_file_data *data);
-void	find_textures(const char *line, t_file_data *data);
-bool	find_colors(const char *line, t_file_data *data);
-bool	st_check_color_range(const int r, const int g, const int b);
 bool	check_identifiers(t_identifiers_data *id_data, const char *extension);
-bool	check_scene_file_order(t_file_data *data, const int nb_rows);
 bool	check_map_content(const char **map);
 bool	check_walls(t_file_data *data);
-void	flood_fill(const int y, const int x, t_map_data *map_data, bool *is_enclosed);
+char	*read_scene_file(t_file_data *data);
+void	find_textures(const char *line, t_file_data *data);
+bool	check_identifiers(t_identifiers_data *id_data, const char *extension);
+bool	check_identifiers_values(char **tmp, t_file_data *data);
+bool	find_colors(const char *line, t_file_data *data);
+bool	check_color_range(const int r, const int g, const int b);
+bool	check_rgb_values(const char **rgb_values);
+bool	check_scene_file_order(t_file_data *data, const int nb_rows);
+void	flood_fill(const int y, const int x, t_map_data *map_data, \
+	bool *is_enclosed);
 void	free_2d(char **array);
 
 #endif

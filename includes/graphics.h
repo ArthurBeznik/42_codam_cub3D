@@ -20,7 +20,6 @@
 
 # define ROT_SPEED 0.025
 # define MOV_SPEED 0.05
-# define RESET_ANGLE 2 * M_PI
 
 # define RED 0xFF0000FF
 # define GREEN 0x00FF00FF
@@ -68,7 +67,7 @@ typedef struct s_textures
 
 typedef struct s_calc
 {
-	int 	line_height;
+	int		line_height;
 	int		pitch;
 	int		draw_start;
 	int		draw_end;
