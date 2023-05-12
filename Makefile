@@ -55,6 +55,9 @@ $(NAME): $(OBJS)
 	@echo "\n$(GRN)================ CUB3D ================$(DEF)"
 	$(CC) $(OBJS) $(LIBS) $(CFLAGS) $(MLXFLAGS) $(HEADERS) -o $(NAME)
 
+#
+# Subject rules
+#
 clean:
 	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBMLX)/build clean
@@ -64,6 +67,19 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBFT)/libft.a
 
+re: clean all
+
+.PHONY: all clean fclean re libmlx libft
+
+#
+# Norm rule
+#
+norm:
+	norminette srcs includes
+
+#
+# Debug rules
+#
 fsan:
 	$(MAKE) FSAN=1
 
@@ -73,9 +89,15 @@ resan: fclean
 debug:
 	$(MAKE) DEBUG=1
 
+rebug: fclean
+	$(MAKE) debug
+
 db: $(NAME)
 	lldb cub3D -- $(DB_MAP)
 
+#
+# Testing rules
+#
 subject: all
 	./$(NAME) $(SUBJ_MAP)
 
@@ -85,22 +107,5 @@ simple: all
 square:	all
 	./$(NAME) $(SQUARE_MAP)
 
-run: all
-	./$(NAME) $(SQUARE_MAP)
-
-g:
-	@rm -rf $(OBJ_DIR)
-	$(MAKE) -C $(LIBMLX)/build clean
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-	$(MAKE) $(NAME)
-	./$(NAME) $(SQUARE_MAP)
-
-invalid: all
-	./$(NAME) $(INVAL_MAP)
-
-rebug: fclean
-	$(MAKE) debug
-
-re: clean all
-
-.PHONY: all clean fclean re libmlx libft
+test:
+	./testing.sh

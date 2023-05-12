@@ -86,7 +86,7 @@ bool	check_walls(t_file_data *data);
 char	*read_scene_file(t_file_data *data);
 void	find_textures(const char *line, t_file_data *data);
 bool	check_identifiers(t_identifiers_data *id_data, const char *extension);
-bool	check_identifiers_values(char **tmp, t_file_data *data);
+bool	check_identifiers_values(t_file_data *data, const char **tmp);
 bool	find_colors(const char *line, t_file_data *data);
 bool	check_color_range(const int r, const int g, const int b);
 bool	check_rgb_values(const char **rgb_values);

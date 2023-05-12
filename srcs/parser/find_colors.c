@@ -1,9 +1,39 @@
 #include <parser.h>
 
-/**
- * TODO norm
-*/
-bool	save_values(t_file_data *data, const char **rgb_values, const char c)
+static bool	mark_found_colors(t_file_data *data, const char *line, \
+	bool is_valid)
+{
+	if (line[0] == 'F' && is_valid && !data->floor_found)
+		data->floor_found = true;
+	else if (line[0] == 'C' && is_valid && !data->ceiling_found)
+		data->ceiling_found = true;
+	else
+	{
+		data->duplicate_color = true;
+		is_valid = false;
+	}
+	return (is_valid);
+}
+
+static void	save_ceiling(t_file_data *data, const int r, const int g, \
+	const int b)
+{
+	data->identifiers.ceiling.r = r;
+	data->identifiers.ceiling.g = g;
+	data->identifiers.ceiling.b = b;
+	data->identifiers.ceiling.a = 255;
+}
+
+static void	save_floor(t_file_data *data, const int r, const int g, const int b)
+{
+	data->identifiers.floor.r = r;
+	data->identifiers.floor.g = g;
+	data->identifiers.floor.b = b;
+	data->identifiers.floor.a = 255;
+}
+
+static bool	save_values(t_file_data *data, const char **rgb_values, \
+	const char c)
 {
 	int	r;
 	int	g;
@@ -17,24 +47,12 @@ bool	save_values(t_file_data *data, const char **rgb_values, const char c)
 	if (rgb_values[3])
 		return (error_msg("Invalid color value"));
 	if (c == 'F')
-	{
-		data->identifiers.floor.r = r;
-		data->identifiers.floor.g = g;
-		data->identifiers.floor.b = b;
-		data->identifiers.floor.a = 255;
-	}
+		save_floor(data, r, g, b);
 	else if (c == 'C')
-	{
-		data->identifiers.ceiling.r = r;
-		data->identifiers.ceiling.g = g;
-		data->identifiers.ceiling.b = b;
-		data->identifiers.ceiling.a = 255;
-	}
+		save_ceiling(data, r, g, b);
 	return (check_color_range(r, g, b));
 }
-/**
- * TODO norm
-*/
+
 bool	find_colors(const char *line, t_file_data *data)
 {
 	char	*line_without_id;
@@ -54,15 +72,7 @@ bool	find_colors(const char *line, t_file_data *data)
 			return (false);
 		}
 		is_valid = save_values(data, (const char **)rgb_values, line[0]);
-		if (line[0] == 'F' && is_valid && !data->floor_found)
-			data->floor_found = true;
-		else if (line[0] == 'C' && is_valid && !data->ceiling_found)
-			data->ceiling_found = true;
-		else
-		{
-			data->duplicate_color = true;
-			is_valid = false;
-		}
+		is_valid = mark_found_colors(data, line, is_valid);
 		free(line_without_id);
 		free_2d(rgb_values);
 	}
