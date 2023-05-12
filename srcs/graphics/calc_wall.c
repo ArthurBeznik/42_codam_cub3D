@@ -4,7 +4,7 @@
  * Calculate the exact value where the wall was hit, required to know which
  * 	x-coord of the texture we have to use.
  */
-void	get_hit_wall_value(t_general_data *data)
+static void	get_hit_wall_value(t_general_data *data)
 {
 	if (data->graphics.dda.side == WEST || data->graphics.dda.side == EAST)
 		data->graphics.calc.wall_x = data->graphics.dda.pos_y \
@@ -27,7 +27,7 @@ void	get_hit_wall_value(t_general_data *data)
  *  we draw from the center of the screen (i.e. / 2), if the other points 
  * 	are outside of the screen, they are capped to 0 to h-1.
  */
-void	get_perp_wall_dist(t_general_data *data)
+static void	get_perp_wall_dist(t_general_data *data)
 {
 	if (data->graphics.dda.side == WEST || data->graphics.dda.side == EAST)
 		data->graphics.dda.perp_wall_dist = (data->graphics.dda.side_dist_x \
@@ -35,17 +35,16 @@ void	get_perp_wall_dist(t_general_data *data)
 	else
 		data->graphics.dda.perp_wall_dist = (data->graphics.dda.side_dist_y \
 			- data->graphics.dda.delta_dist_y);
-	data->graphics.calc.line_height = (int)(data->graphics.dda.h \
+	data->graphics.calc.line_height = (int)(data->graphics.height \
 		/ data->graphics.dda.perp_wall_dist);
-	data->graphics.calc.pitch = 100;
 	data->graphics.calc.draw_start = -data->graphics.calc.line_height \
-		/ 2 + data->graphics.dda.h / 2 + data->graphics.calc.pitch;
+		/ 2 + data->graphics.height / 2 + data->graphics.calc.pitch;
 	if (data->graphics.calc.draw_start < 0)
 		data->graphics.calc.draw_start = 0;
 	data->graphics.calc.draw_end = data->graphics.calc.line_height \
-		/ 2 + data->graphics.dda.h / 2 + data->graphics.calc.pitch;
-	if (data->graphics.calc.draw_end >= data->graphics.dda.h)
-		data->graphics.calc.draw_end = data->graphics.dda.h - 1;
+		/ 2 + data->graphics.height / 2 + data->graphics.calc.pitch;
+	if (data->graphics.calc.draw_end >= data->graphics.height)
+		data->graphics.calc.draw_end = data->graphics.height - 1;
 }
 
 void	calc_wall(t_general_data *data)

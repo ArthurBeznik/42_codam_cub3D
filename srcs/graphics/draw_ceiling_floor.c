@@ -37,9 +37,9 @@ void	draw_ceiling_floor(t_general_data *data)
 {
 	put_multi_pixels(data->graphics.img_3d, \
 		reverse_bits(data->file_data.identifiers.ceiling.rgba), \
-		((data->graphics.dda.h / 3 * 2) * data->graphics.dda.w), 0);
+		((data->graphics.height / 3 * 2) * data->graphics.width), 0);
 	put_multi_pixels(data->graphics.img_3d, \
 		reverse_bits(data->file_data.identifiers.floor.rgba), \
-		(data->graphics.dda.h / 3 * data->graphics.dda.w), \
-		((data->graphics.dda.h / 3 * 2) * data->graphics.dda.w));
+		(data->graphics.height / 3 * data->graphics.width), \
+		((data->graphics.height / 3 * 2) * data->graphics.width));
 }

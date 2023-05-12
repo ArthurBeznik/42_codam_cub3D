@@ -24,7 +24,7 @@ bool	draw_line(t_general_data *data, int x, int y, t_axis axis)
 	return (true);
 }
 
-bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player)
+bool	draw_square(t_general_data *data, int x, int y, uint32_t color)
 {
 	int	i;
 	int	j;
@@ -32,8 +32,6 @@ bool	draw_square(t_general_data *data, int x, int y, uint32_t color, bool player
 
 	i = 0;
 	size = PIXELS;
-	if (player)
-		size = 16;
 	while (i < size)
 	{
 		j = 0;

@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-void	set_wall_textures(t_general_data *data)
+static void	set_wall_textures(t_general_data *data)
 {
 	if (data->graphics.dda.side == NORTH)
 		data->graphics.textures.rgba = \
@@ -30,7 +30,7 @@ void	draw_3d(t_general_data *data, int x)
 
 	data->graphics.calc.step = 1.0 * PIXELS / data->graphics.calc.line_height;
 	data->graphics.calc.tex_pos = (data->graphics.calc.draw_start \
-		- data->graphics.calc.pitch - data->graphics.dda.h / 2 \
+		- data->graphics.calc.pitch - data->graphics.height / 2 \
 		+ data->graphics.calc.line_height / 2) * data->graphics.calc.step;
 	y = data->graphics.calc.draw_start;
 	while (y < data->graphics.calc.draw_end)
