@@ -59,13 +59,13 @@ bool	init_textures(t_general_data *data)
 	textures->rgba = NA;
 	if (!check_texture_paths(id))
 	{
-		free_data(data);
+		free_data(data); // ! this is causing one of the malloc errors
 		terminate(&data->graphics);
 		return (false);
 	}
 	if (!load_textures(textures, id))
 	{
-		free_data(data);
+		free_data(data); // ! this is causing one of the malloc errors
 		terminate(&data->graphics);
 		return (false);
 	}
