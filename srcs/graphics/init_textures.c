@@ -27,20 +27,20 @@ static bool	check_texture_paths(t_identifiers_data *id)
 	int	fd;
 
 	fd = open(id->path_to_north_texture, O_RDONLY);
-	if (fd == -1 || access(id->path_to_north_texture, F_OK) == -1)
-		return (error_msg("Can't read North texture path"));
+	if (fd == -1)
+		return (error_msg("Reading north texture path"));
 	close(fd);
 	fd = open(id->path_to_south_texture, O_RDONLY);
-	if (fd == -1 || access(id->path_to_south_texture, F_OK) == -1)
-		return (error_msg("Can't read South texture path"));
+	if (fd == -1)
+		return (error_msg("Reading south texture path"));
 	close(fd);
 	fd = open(id->path_to_west_texture, O_RDONLY);
-	if (fd == -1 || access(id->path_to_west_texture, F_OK) == -1)
-		return (error_msg("Can't read West texture path"));
+	if (fd == -1)
+		return (error_msg("Reading west texture path"));
 	close(fd);
 	fd = open(id->path_to_east_texture, O_RDONLY);
-	if (fd == -1 || access(id->path_to_east_texture, F_OK) == -1)
-		return (error_msg("Can't read East texture path"));
+	if (fd == -1)
+		return (error_msg("Reading east texture path"));
 	close(fd);
 	return (true);
 }
