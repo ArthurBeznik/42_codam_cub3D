@@ -2,10 +2,6 @@
 
 static void	detect_key(t_general_data *data)
 {
-	ft_memset(data->graphics.img->pixels, 0, data->graphics.img->width * \
-				data->graphics.img->height * sizeof(int));
-	ft_memset(data->graphics.img_3d->pixels, 0, data->graphics.img->width * \
-				data->graphics.img->height * sizeof(int));
 	if (mlx_is_key_down(data->graphics.mlx, MLX_KEY_UP) || \
 		mlx_is_key_down(data->graphics.mlx, MLX_KEY_W))
 		move_forward(data);
