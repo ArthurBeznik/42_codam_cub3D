@@ -3,9 +3,11 @@
 
 This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever. It will enable you to explore ray-casting. Your goal will be to make a dynamic view inside a maze, in which you’ll have to find your way.
 
-## Collaborator
+## Collaborators
 
 **[@Zangetsu89](https://github.com/Zangetsu89)**
+
+**[@ArthurBeznik](https://github.com/ArthurBeznik)**
 
 ## Usage
 
@@ -13,8 +15,9 @@ This project is inspired by the world-famous Wolfenstein 3D game, which was the 
 ```bash
 git clone git@github.com:ArthurBeznik/42_codam_cub3D.git
 ```
+
 #### Install MLX42 Submodule
-Since we are using MLX42 as a submodule, you will have to run the following commands:
+Since we are using the [MLX42](https://github.com/codam-coding-college/MLX42) library as a submodule, you will have to run the following commands in order to install it:
 ```bash
 cd libs/MLX42
 git submodule init
@@ -24,19 +27,19 @@ You should now have the MLX42 lib installed, you can now go back to the main fol
 ```bash
 cd ../..
 ```
-### Create the binary
+
+### Compile
 ```bash
 make
 ```
 
-### Run the binary
+### Execute
 ```bash
 ./cub3D <path/to/map/file>
 ```
 By default, a few maps can be found in the `scenes/` folder.
 
 ## Controls
-
 - `W/S` or `ARROW UP/DOWN`: Move
 - `A/D` or `ARROW LEFT/RIGHT`: Rotate
 
@@ -72,3 +75,6 @@ This is a simple valid map:
     - East texture: `EA ./path_to_texture`
     - Floor color: `F 255,0,0` (R,G,B colors in range [0,255])
     - Ceiling color: `C 0,0,255` (R,G,B colors in range [0,255])
+
+#### Textures
+Textures have to be of **.png** format, and should be of **64x64** pixels size.
