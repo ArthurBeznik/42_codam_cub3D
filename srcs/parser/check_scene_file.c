@@ -1,6 +1,6 @@
 #include <parser.h>
 
-bool	check_scene_file_order(t_file_data *data, const int nb_rows)
+bool	check_scene_file_order(t_file_data *data)
 {
 	int	i;
 
@@ -11,7 +11,5 @@ bool	check_scene_file_order(t_file_data *data, const int nb_rows)
 			return (error_msg("Scene file starts with map content"));
 		i++;
 	}
-	if (data->scene[nb_rows - 1][0] != '1')
-		return (error_msg("Scene file does not end with map content"));
 	return (true);
 }

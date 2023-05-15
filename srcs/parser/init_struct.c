@@ -32,6 +32,9 @@ void	init_file_data(t_general_data *data)
 	data->file_data.file_extension = ".cub";
 	data->file_data.line = NULL;
 	data->file_data.scene = NULL;
+	data->file_data.red = NULL;
+	data->file_data.green = NULL;
+	data->file_data.blue = NULL;
 	data->file_data.ceiling_found = false;
 	data->file_data.floor_found = false;
 	data->file_data.duplicate_identifier = false;
