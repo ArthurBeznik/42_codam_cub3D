@@ -11,9 +11,15 @@ CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
 # CFLAGS		:= -g3
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
+USERNAME	:= $(shell whoami)
+MLXFLAGS	:= 
+ifeq ($(USERNAME), "abeznik")
+	MLXFLAGS := -Iinclude -lglfw -L"/Users/abeznik/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit
+else
+	MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+endif
+# if [ $(USER) = "abeznik" ]; then MLXFLAGS	:= -Iinclude -lglfw -L"/Users/abeznik/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit; fi
 # MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
-MLXFLAGS	:= -Iinclude -lglfw -L"/Users/abeznik/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit # arthur
-
 LIBMLX		:= ./libs/MLX42
 LIBFT		:= ./libs/libft
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a
@@ -36,7 +42,7 @@ SQUARE_MAP	:= $(SCENE_DIR)/valid/square_8.cub
 DB_MAP		:= $(SCENE_DIR)/valid/square_8.cub
 INVAL_MAP	:= $(SCENE_DIR)/invalid/invalid_colors.cub
 
-all: libmlx libft $(NAME)
+all: libmlx libft $(NAME) $(print)
 
 libmlx:
 	@echo "$(GRN)================ MLX42 ================$(DEF)"

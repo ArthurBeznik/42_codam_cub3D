@@ -20,5 +20,6 @@ int	main(int argc, char *argv[])
 	if (!run_graphics(&data))
 		free_data(&data);
 	free_data(&data);
+	terminate_textures(&data);
 	return (0);
 }

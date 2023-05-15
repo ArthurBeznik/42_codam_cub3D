@@ -26,10 +26,10 @@ void	captain(void *param)
 
 	data2 = (t_general_data *)param;
 	if (mlx_is_key_down(data2->graphics.mlx, MLX_KEY_ESCAPE))
-		terminate(&data2->graphics);
+		terminate(&data2->graphics, EXIT_SUCCESS);
 	detect_key(data2);
 	if (!cast_ray(data2))
-		terminate(&data2->graphics);
+		terminate(&data2->graphics, EXIT_FAILURE);
 }
 
 /**
