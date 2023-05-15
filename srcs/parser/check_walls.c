@@ -55,7 +55,10 @@ bool	check_walls(t_file_data *file_data)
 		return (error_msg("Copying map"));
 	flood_fill(player_y, player_x, &file_data->map_data, &is_enclosed);
 	if (file_data->map_data.copy)
+	{
 		free_2d(file_data->map_data.copy);
+		file_data->map_data.copy = NULL;
+	}
 	if (!is_enclosed)
 		return (false);
 	return (true);
