@@ -18,8 +18,7 @@ ifeq ($(USERNAME), "abeznik")
 else
 	MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
 endif
-# if [ $(USER) = "abeznik" ]; then MLXFLAGS	:= -Iinclude -lglfw -L"/Users/abeznik/.brew/opt/glfw/lib/" -framework Cocoa -framework OpenGL -framework IOKit; fi
-# MLXFLAGS	:= -lglfw3 -framework Cocoa -framework OpenGL -framework IOKit
+
 LIBMLX		:= ./libs/MLX42
 LIBFT		:= ./libs/libft
 LIBS		:= $(LIBFT)/libft.a $(LIBMLX)/build/libmlx42.a
@@ -42,7 +41,7 @@ SQUARE_MAP	:= $(SCENE_DIR)/valid/square_8.cub
 DB_MAP		:= $(SCENE_DIR)/valid/square_8.cub
 INVAL_MAP	:= $(SCENE_DIR)/invalid/invalid_colors.cub
 
-all: libmlx libft $(NAME) $(print)
+all: libmlx libft $(NAME)
 
 libmlx:
 	@echo "$(GRN)================ MLX42 ================$(DEF)"
