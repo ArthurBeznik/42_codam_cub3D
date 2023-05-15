@@ -14,11 +14,12 @@ int	main(int argc, char *argv[])
 	atexit(&check);
 	if (!parser(argc, argv, &data))
 	{
-		free_data(&data);
+		free_data(&data); // ! this is causing one of the malloc errors
 		return (1);
 	}
 	if (!run_graphics(&data))
 		free_data(&data);
 	free_data(&data);
+	terminate_textures(&data);
 	return (0);
 }

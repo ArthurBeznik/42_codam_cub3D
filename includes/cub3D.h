@@ -54,5 +54,6 @@ void	draw_3d(t_general_data *data, int x);
  * Misc. functions
 */
 void	free_data(t_general_data *data);
+void	terminate_textures(t_general_data *data);
 
 #endif

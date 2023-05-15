@@ -137,7 +137,7 @@ typedef struct s_graphics
 */
 void	captain(void *param);
 void	free_close_window(t_graphics *graphics, void *var, char *str);
-void	terminate(t_graphics *graphics);
+void	terminate(t_graphics *graphics, int code);
 void	move_forward(t_general_data *data);
 void	move_backward(t_general_data *data);
 void	rotate_left(t_general_data *data);

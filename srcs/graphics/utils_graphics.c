@@ -1,22 +1,19 @@
 #include <cub3D.h>
 
-void	terminate(t_graphics *graphics)
+void	terminate_textures(t_general_data *data)
+{
+	mlx_delete_texture(data->graphics.textures.north_tex);
+	mlx_delete_texture(data->graphics.textures.south_tex);
+	mlx_delete_texture(data->graphics.textures.west_tex);
+	mlx_delete_texture(data->graphics.textures.east_tex);
+}
+
+void	terminate(t_graphics *graphics, int code)
 {
 	mlx_delete_image(graphics->mlx, graphics->img);
 	mlx_close_window(graphics->mlx);
 	mlx_terminate(graphics->mlx);
-	exit(0);
-}
-
-/**
- * do you still need this?
-*/
-void	free_close_window(t_graphics *graphics, void *var, char *str)
-{
-	ft_putendl_fd("Error\n", STDOUT_FILENO);
-	ft_putendl_fd(str, STDOUT_FILENO);
-	free(var);
-	terminate(graphics);
+	exit(code);
 }
 
 bool	check_put_pixel(t_general_data *data, uint32_t x, uint32_t y)

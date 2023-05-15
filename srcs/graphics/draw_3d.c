@@ -33,7 +33,7 @@ void	draw_3d(t_general_data *data, int x)
 		- data->graphics.calc.pitch - data->graphics.height / 2 \
 		+ data->graphics.calc.line_height / 2) * data->graphics.calc.step;
 	y = data->graphics.calc.draw_start;
-	while (y < data->graphics.calc.draw_end)
+	while (y < data->graphics.calc.draw_end + 1)
 	{
 		data->graphics.calc.tex_y = (int)data->graphics.calc.tex_pos \
 			& (PIXELS - 1);

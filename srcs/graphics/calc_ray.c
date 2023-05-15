@@ -10,26 +10,26 @@ static void	check_ray_dir(t_general_data *data)
 	if (data->graphics.dda.ray_dir_x < 0)
 	{
 		data->graphics.dda.step_x = -1;
-		data->graphics.dda.side_dist_x = (data->graphics.dda.pos_x \
-			- data->graphics.dda.map_x) * data->graphics.dda.delta_dist_x;
+		data->graphics.dda.side_dist_x = (data->graphics.dda.pos_x - \
+			data->graphics.dda.map_x) * data->graphics.dda.delta_dist_x;
 	}
 	else
 	{
 		data->graphics.dda.step_x = 1;
-		data->graphics.dda.side_dist_x = (data->graphics.dda.map_x + 1.0 \
-			- data->graphics.dda.pos_x) * data->graphics.dda.delta_dist_x;
+		data->graphics.dda.side_dist_x = (data->graphics.dda.map_x + 1.0 - \
+			data->graphics.dda.pos_x) * data->graphics.dda.delta_dist_x;
 	}
 	if (data->graphics.dda.ray_dir_y < 0)
 	{
 		data->graphics.dda.step_y = -1;
-		data->graphics.dda.side_dist_y = (data->graphics.dda.pos_y \
-			- data->graphics.dda.map_y) * data->graphics.dda.delta_dist_y;
+		data->graphics.dda.side_dist_y = (data->graphics.dda.pos_y - \
+			data->graphics.dda.map_y) * data->graphics.dda.delta_dist_y;
 	}
 	else
 	{
 		data->graphics.dda.step_y = 1;
-		data->graphics.dda.side_dist_y = (data->graphics.dda.map_y + 1.0 \
-			- data->graphics.dda.pos_y) * data->graphics.dda.delta_dist_y;
+		data->graphics.dda.side_dist_y = (data->graphics.dda.map_y + 1.0 - \
+			data->graphics.dda.pos_y) * data->graphics.dda.delta_dist_y;
 	}
 }
 

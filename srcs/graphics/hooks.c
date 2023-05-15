@@ -2,10 +2,6 @@
 
 static void	detect_key(t_general_data *data)
 {
-	ft_memset(data->graphics.img->pixels, 0, data->graphics.img->width * \
-				data->graphics.img->height * sizeof(int));
-	ft_memset(data->graphics.img_3d->pixels, 0, data->graphics.img->width * \
-				data->graphics.img->height * sizeof(int));
 	if (mlx_is_key_down(data->graphics.mlx, MLX_KEY_UP) || \
 		mlx_is_key_down(data->graphics.mlx, MLX_KEY_W))
 		move_forward(data);
@@ -26,10 +22,10 @@ void	captain(void *param)
 
 	data2 = (t_general_data *)param;
 	if (mlx_is_key_down(data2->graphics.mlx, MLX_KEY_ESCAPE))
-		terminate(&data2->graphics);
+		terminate(&data2->graphics, EXIT_SUCCESS);
 	detect_key(data2);
 	if (!cast_ray(data2))
-		terminate(&data2->graphics);
+		terminate(&data2->graphics, EXIT_FAILURE);
 }
 
 /**

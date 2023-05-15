@@ -4,14 +4,14 @@ static void	init_west_east(t_general_data *data)
 {
 	if (data->file_data.player.facing == 'W')
 	{
-		data->graphics.dda.dir_x = -1;
+		data->graphics.dda.dir_x = -1.00001;
 		data->graphics.dda.dir_y = 0;
 		data->graphics.dda.plane_x = 0;
 		data->graphics.dda.plane_y = -0.66;
 	}
 	else if (data->file_data.player.facing == 'E')
 	{
-		data->graphics.dda.dir_x = 1;
+		data->graphics.dda.dir_x = 1.00001;
 		data->graphics.dda.dir_y = 0;
 		data->graphics.dda.plane_x = 0;
 		data->graphics.dda.plane_y = 0.66;
@@ -23,14 +23,14 @@ static void	init_north_south(t_general_data *data)
 	if (data->file_data.player.facing == 'N')
 	{
 		data->graphics.dda.dir_x = 0;
-		data->graphics.dda.dir_y = -1;
+		data->graphics.dda.dir_y = -1.00001;
 		data->graphics.dda.plane_x = 0.66;
 		data->graphics.dda.plane_y = 0;
 	}
 	else if (data->file_data.player.facing == 'S')
 	{
 		data->graphics.dda.dir_x = 0;
-		data->graphics.dda.dir_y = 1;
+		data->graphics.dda.dir_y = 1.00001;
 		data->graphics.dda.plane_x = -0.66;
 		data->graphics.dda.plane_y = 0;
 	}

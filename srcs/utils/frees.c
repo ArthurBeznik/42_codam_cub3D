@@ -6,10 +6,6 @@ void	set_all_null(t_general_data *data)
 	data->file_data.identifiers.path_to_south_texture = NULL;
 	data->file_data.identifiers.path_to_west_texture = NULL;
 	data->file_data.identifiers.path_to_east_texture = NULL;
-	data->graphics.textures.north_tex = NULL;
-	data->graphics.textures.south_tex = NULL;
-	data->graphics.textures.west_tex = NULL;
-	data->graphics.textures.east_tex = NULL;
 	data->file_data.scene = NULL;
 	data->file_data.map_data.map = NULL;
 	data->file_data.map_data.copy = NULL;
@@ -33,10 +29,14 @@ void	free_2d(char **array)
 
 void	free_data(t_general_data *data)
 {
-	free(data->file_data.identifiers.path_to_north_texture);
-	free(data->file_data.identifiers.path_to_south_texture);
-	free(data->file_data.identifiers.path_to_west_texture);
-	free(data->file_data.identifiers.path_to_east_texture);
+	if (data->file_data.identifiers.path_to_north_texture != NULL)
+		free(data->file_data.identifiers.path_to_north_texture);
+	if (data->file_data.identifiers.path_to_south_texture != NULL)
+		free(data->file_data.identifiers.path_to_south_texture);
+	if (data->file_data.identifiers.path_to_west_texture != NULL)
+		free(data->file_data.identifiers.path_to_west_texture);
+	if (data->file_data.identifiers.path_to_east_texture != NULL)
+		free(data->file_data.identifiers.path_to_east_texture);
 	if (data->file_data.scene != NULL)
 		free_2d(data->file_data.scene);
 	if (data->file_data.map_data.map != NULL)
