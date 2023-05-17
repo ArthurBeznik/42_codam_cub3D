@@ -80,7 +80,7 @@ re: clean all
 # Norm rule
 #
 norm:
-	norminette srcs includes
+	norminette srcs includes libs/libft
 
 #
 # Debug rules

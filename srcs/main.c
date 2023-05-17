@@ -10,7 +10,7 @@ int	main(int argc, char *argv[])
 {
 	t_general_data	data;
 
-	// atexit(&check);
+	atexit(&check);
 	if (!parser(argc, argv, &data))
 	{
 		free_data(&data);
@@ -19,7 +19,6 @@ int	main(int argc, char *argv[])
 	if (!run_graphics(&data))
 	{
 		free_data(&data);
-		terminate_textures(&data);
 		return (1);
 	}
 	free_data(&data);

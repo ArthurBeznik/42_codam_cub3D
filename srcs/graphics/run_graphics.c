@@ -30,7 +30,7 @@ static bool	fill_map(t_general_data	*data)
 
 static bool	init_graphic_structs(t_general_data *data)
 {
-	if (!init_graphics(data)) // ! segfault on failure
+	if (!init_graphics(data))
 		return (error_msg("init_graphics"));
 	if (!init_textures(data))
 		return (error_msg("init_textures"));
@@ -41,12 +41,12 @@ static bool	init_graphic_structs(t_general_data *data)
 
 bool	run_graphics(t_general_data *data)
 {
-	if (!init_graphic_structs(data)) // TODO check
+	if (!init_graphic_structs(data))
 		return (error_msg("init_graphic_structs"));
 	if (!fill_map(data))
 		return (error_msg("Filling map"));
 	if ((mlx_image_to_window(data->graphics.mlx, \
-		data->graphics.img_3d, 0, 0) < 0)) // ! segfault on failure
+		data->graphics.img_3d, 0, 0) < 0))
 		return (error_msg("mlx_image_to_window 3D"));
 	mlx_loop_hook(data->graphics.mlx, &captain, data);
 	mlx_loop(data->graphics.mlx);
