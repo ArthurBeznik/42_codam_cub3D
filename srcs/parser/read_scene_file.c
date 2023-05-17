@@ -47,7 +47,10 @@ char	*read_scene_file(t_file_data *data)
 			return (NULL);
 		}
 		if (!join_save_line(data, buf))
+		{
+			free(buf);
 			return (NULL);
+		}
 	}
 	free(buf);
 	close(data->fd);

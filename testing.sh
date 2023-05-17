@@ -56,5 +56,3 @@ for file in ./scenes/invalid/*; do
 	check_exit
 	wait_key
 done
-
-rm -rf out

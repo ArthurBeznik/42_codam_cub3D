@@ -23,7 +23,6 @@ char	*ft_strjoin(char *str1, char const *str2)
 	str1len = ft_strlen(str1);
 	str2len = ft_strlen(str2);
 	out = ft_calloc((str1len + str2len + 1), sizeof(char));
-	// out = NULL; // ? testing
 	if (!out)
 		return (0);
 	ft_strlcpy(out, str1, str1len + 1);
