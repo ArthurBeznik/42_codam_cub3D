@@ -35,8 +35,6 @@ static bool	valid_identifiers(t_file_data *data)
 		return (error_msg("Duplicate texture identifier"));
 	if (data->only_texture_id == true)
 		return (error_msg("Missing textures"));
-	if (data->duplicate_color == true)
-		return (error_msg("Duplicate color identifier"));
 	if (data->ceiling_found == false || data->floor_found == false)
 		return (error_msg("Missing ceiling or floor identifier"));
 	return (true);
@@ -57,12 +55,13 @@ static bool	find_identifiers(t_file_data *data, const int nb_rows)
 			!data->identifiers.path_to_west_texture))
 			return (error_msg("Colors are defined but not textures"));
 		find_textures(data->scene[i], data);
-		find_colors(data->scene[i], data);
+		if (find_colors(data->scene[i], data) == false)
+			return (false);
 		i++;
 	}
 	if (!valid_identifiers(data))
 		return (false);
-	if (!check_scene_file_order(data, nb_rows))
+	if (!check_scene_file_order(data))
 		return (error_msg("Invalid scene file order"));
 	return (true);
 }

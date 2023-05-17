@@ -65,6 +65,9 @@ typedef struct s_file_data
 	char				*file_extension;
 	char				**scene;
 	char				*line;
+	char				*red;
+	char				*green;
+	char				*blue;
 	int					fd;
 	int					buflen;
 	bool				ceiling_found;
@@ -90,9 +93,10 @@ bool	check_identifiers_values(t_file_data *data, const char **tmp);
 bool	find_colors(const char *line, t_file_data *data);
 bool	check_color_range(const int r, const int g, const int b);
 bool	check_rgb_values(const char **rgb_values);
-bool	check_scene_file_order(t_file_data *data, const int nb_rows);
+bool	check_scene_file_order(t_file_data *data);
 void	flood_fill(const int y, const int x, t_map_data *map_data, \
 	bool *is_enclosed);
 void	free_2d(char **array);
+void	free_colors_helpers(char *red, char *green, char *blue);
 
 #endif

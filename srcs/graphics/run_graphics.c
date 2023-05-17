@@ -35,20 +35,29 @@ static bool	init_graphic_structs(t_general_data *data)
 	if (!init_textures(data))
 		return (error_msg("init_textures"));
 	init_dda(data);
-	if (!init_calc(data))
-		return (error_msg("init_calc"));
+	init_calc(data);
 	return (true);
 }
 
 bool	run_graphics(t_general_data *data)
 {
 	if (!init_graphic_structs(data))
-		return (error_msg("init_graphics"));
+		return (error_msg("init_graphic_structs"));
 	if (!fill_map(data))
+	{
+		terminate_textures(data);
+		mlx_delete_image(data->graphics.mlx, data->graphics.img_3d);
+		mlx_terminate(data->graphics.mlx);
 		return (error_msg("Filling map"));
+	}
 	if ((mlx_image_to_window(data->graphics.mlx, \
 		data->graphics.img_3d, 0, 0) < 0))
+	{
+		terminate_textures(data);
+		mlx_delete_image(data->graphics.mlx, data->graphics.img_3d);
+		mlx_terminate(data->graphics.mlx);
 		return (error_msg("mlx_image_to_window 3D"));
+	}
 	mlx_loop_hook(data->graphics.mlx, &captain, data);
 	mlx_loop(data->graphics.mlx);
 	mlx_terminate(data->graphics.mlx);

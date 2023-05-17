@@ -65,7 +65,7 @@ int	ft_atoi(const char *str)
 	}
 	result = int_converter(str);
 	if (result == -1)
-		return(-1);
+		return (-1);
 	else
 		return (int_converter(str) * min);
 }

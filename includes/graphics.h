@@ -119,7 +119,6 @@ typedef struct s_dda
 typedef struct s_graphics
 {
 	mlx_t			*mlx;
-	mlx_t			*mlx_3d;
 	void			*win;
 	int64_t			width;
 	int64_t			height;
@@ -136,7 +135,6 @@ typedef struct s_graphics
  * Hook functions
 */
 void	captain(void *param);
-void	free_close_window(t_graphics *graphics, void *var, char *str);
 void	terminate(t_graphics *graphics, int code);
 void	move_forward(t_general_data *data);
 void	move_backward(t_general_data *data);

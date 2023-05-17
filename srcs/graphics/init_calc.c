@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-bool	init_calc(t_general_data *data)
+void	init_calc(t_general_data *data)
 {
 	data->graphics.calc.line_height = NA;
 	data->graphics.calc.pitch = 100;
@@ -12,5 +12,4 @@ bool	init_calc(t_general_data *data)
 	data->graphics.calc.tex_y = NA;
 	data->graphics.calc.tex_pos = NA;
 	data->graphics.calc.step = NA;
-	return (true);
 }

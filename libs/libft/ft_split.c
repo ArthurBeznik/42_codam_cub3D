@@ -97,7 +97,6 @@ char	**ft_split(char const *s, char c)
 		if (*s == 0)
 			break ;
 		temp = ft_calloc((len(0, s, c) + 1), sizeof(char));
-		// temp = NULL; // ? testing
 		if (!temp)
 			return (NULL);
 		ft_memcpy(temp, (void *)s, len(0, s, c));

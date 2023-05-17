@@ -1,5 +1,12 @@
 #include <cub3D.h>
 
+void	free_colors_helpers(char *red, char *green, char *blue)
+{
+	free(red);
+	free(green);
+	free(blue);
+}
+
 void	set_all_null(t_general_data *data)
 {
 	data->file_data.identifiers.path_to_north_texture = NULL;

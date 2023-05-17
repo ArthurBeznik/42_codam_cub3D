@@ -2,15 +2,19 @@
 
 void	terminate_textures(t_general_data *data)
 {
-	mlx_delete_texture(data->graphics.textures.north_tex);
-	mlx_delete_texture(data->graphics.textures.south_tex);
-	mlx_delete_texture(data->graphics.textures.west_tex);
-	mlx_delete_texture(data->graphics.textures.east_tex);
+	if (data->graphics.textures.north_tex != NULL)
+		mlx_delete_texture(data->graphics.textures.north_tex);
+	if (data->graphics.textures.south_tex != NULL)
+		mlx_delete_texture(data->graphics.textures.south_tex);
+	if (data->graphics.textures.west_tex != NULL)
+		mlx_delete_texture(data->graphics.textures.west_tex);
+	if (data->graphics.textures.east_tex != NULL)
+		mlx_delete_texture(data->graphics.textures.east_tex);
 }
 
 void	terminate(t_graphics *graphics, int code)
 {
-	mlx_delete_image(graphics->mlx, graphics->img);
+	mlx_delete_image(graphics->mlx, graphics->img_3d);
 	mlx_close_window(graphics->mlx);
 	mlx_terminate(graphics->mlx);
 	exit(code);

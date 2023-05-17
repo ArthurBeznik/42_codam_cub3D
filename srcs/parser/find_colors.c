@@ -7,11 +7,12 @@ static bool	mark_found_colors(t_file_data *data, const char *line, \
 		data->floor_found = true;
 	else if (line[0] == 'C' && is_valid && !data->ceiling_found)
 		data->ceiling_found = true;
+	else if (line[0] == 'C' && data->ceiling_found == true)
+		return (error_msg("Duplicate color identifier"));
+	else if (line[0] == 'F' && data->floor_found == true)
+		return (error_msg("Duplicate color identifier"));
 	else
-	{
-		data->duplicate_color = true;
 		is_valid = false;
-	}
 	return (is_valid);
 }
 
@@ -35,15 +36,22 @@ static void	save_floor(t_file_data *data, const int r, const int g, const int b)
 static bool	save_values(t_file_data *data, const char **rgb_values, \
 	const char c)
 {
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
 
+	data->red = ft_strtrim(rgb_values[0], " ");
+	data->green = ft_strtrim(rgb_values[1], " ");
+	data->blue = ft_strtrim(rgb_values[2], " ");
 	if (!check_rgb_values(rgb_values))
+	{
+		free_colors_helpers(data->red, data->green, data->blue);
 		return (false);
-	r = ft_atoi(rgb_values[0]);
-	g = ft_atoi(rgb_values[1]);
-	b = ft_atoi(rgb_values[2]);
+	}
+	r = ft_atoi(data->red);
+	g = ft_atoi(data->green);
+	b = ft_atoi(data->blue);
+	free_colors_helpers(data->red, data->green, data->blue);
 	if (rgb_values[3])
 		return (error_msg("Invalid color value"));
 	if (c == 'F')

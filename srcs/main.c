@@ -11,7 +11,10 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	if (!run_graphics(&data))
+	{
 		free_data(&data);
+		return (1);
+	}
 	free_data(&data);
 	terminate_textures(&data);
 	return (0);

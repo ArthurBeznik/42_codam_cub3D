@@ -29,7 +29,7 @@ void	init_file_data(t_general_data *data);
 bool	init_graphics(t_general_data *data);
 bool	init_textures(t_general_data *data);
 void	init_dda(t_general_data *data);
-bool	init_calc(t_general_data *data);
+void	init_calc(t_general_data *data);
 
 /**
  * Draw functions
