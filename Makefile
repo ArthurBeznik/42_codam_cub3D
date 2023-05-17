@@ -1,4 +1,3 @@
-
 NAME		:= cub3D
 
 RED 		:=	\033[1;31m
@@ -7,8 +6,7 @@ BLUE		:=	\033[1;36m
 YEL 		:=	\033[0;33m
 DEF 		:=	\033[0m
 
-CFLAGS		:= -Wextra -Wall -Werror -g3 -Wunreachable-code -Ofast
-# CFLAGS		:= -g3
+CFLAGS		:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 CFLAGS		+= $(if $(FSAN) , -fsanitize=address -g)
 CFLAGS		+= $(if $(DEBUG) , -g)
 USERNAME	:= $(shell whoami)

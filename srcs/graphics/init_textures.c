@@ -60,13 +60,13 @@ bool	init_textures(t_general_data *data)
 	if (!check_texture_paths(id))
 	{
 		free_data(data);
-		terminate(&data->graphics, EXIT_FAILURE); // in this func, we close the window => no window yet
+		terminate(&data->graphics, EXIT_FAILURE);
 		return (false);
 	}
 	if (!load_textures(textures, id))
 	{
 		free_data(data);
-		terminate(&data->graphics, EXIT_FAILURE); // in this func, we close the window => no window yet
+		terminate(&data->graphics, EXIT_FAILURE);
 		return (false);
 	}
 	return (true);
