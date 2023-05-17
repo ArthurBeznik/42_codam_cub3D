@@ -10,7 +10,7 @@ void	terminate_textures(t_general_data *data)
 
 void	terminate(t_graphics *graphics, int code)
 {
-	mlx_delete_image(graphics->mlx, graphics->img);
+	mlx_delete_image(graphics->mlx, graphics->img_3d);
 	mlx_close_window(graphics->mlx);
 	mlx_terminate(graphics->mlx);
 	exit(code);
